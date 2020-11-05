@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 9167338044672554212}
   - component: {fileID: 1503514091563632504}
   - component: {fileID: 1670872364892051694}
+  - component: {fileID: -1816402212586383437}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Player
@@ -155,7 +156,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.032258, y: 2.064516}
+    oldSize: {x: 1, y: 2}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -181,7 +182,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.032258, y: 2.064516}
+    oldSize: {x: 1, y: 2}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -203,10 +204,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 400
-  maxSpeed: 15
+  maxSpeed: 25
   jumpPower: 1500
   groundTag: Ground
   groundCollider: {fileID: 654144884}
+  animator: {fileID: 0}
 --- !u!114 &1670872364892051694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,3 +224,22 @@ MonoBehaviour:
   maxHealth: 100
   actualHealth: 100
   healtBarOffset: {x: 0, y: 1.5, z: 0}
+--- !u!95 &-1816402212586383437
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503514091563632501}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 28dbdf4a76962ed42a3cd5062fa85cbb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

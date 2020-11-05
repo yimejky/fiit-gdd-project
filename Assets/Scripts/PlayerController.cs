@@ -9,11 +9,13 @@ public class PlayerController : MonoBehaviour
 	public float jumpPower;
 	public string groundTag = "Ground";
 	public Transform groundCollider;
+	public Animator animator;
 
 	private Vector3 groundColliderOffset;
 	private Rigidbody2D rb2D;
 	private bool isGrounded = true;
 	private Vector2 movement = Vector2.zero;
+	private float hitboxSize = 0.70f;
 
 	private float xInput = 0f;
 	private bool jumpInput = false;
@@ -21,11 +23,12 @@ public class PlayerController : MonoBehaviour
 	void Start()
 	{
 		rb2D = GetComponent<Rigidbody2D>();
+		animator = GetComponent<Animator>();
 	}
 
 	void Update()
 	{
-		groundColliderOffset = new Vector3(transform.localScale.x / 2f - 0.01f, 0, 0);
+		groundColliderOffset = new Vector3(hitboxSize / 2f - 0.01f, 0, 0);
 
 		if (Input.GetButtonDown("Jump"))
 		{
@@ -54,7 +57,10 @@ public class PlayerController : MonoBehaviour
 	void FixedUpdate()
 	{
 		xInput = Input.GetAxis("Horizontal");
-		if (rb2D.velocity.magnitude < maxSpeed && Math.Abs(xInput) > 0)
+		float xInputAbs = Math.Abs(xInput);
+		animator.SetFloat("Speed", xInputAbs);
+
+		if (rb2D.velocity.magnitude < maxSpeed && xInputAbs > 0)
 		{
 			float horizontalVelocity = xInput * Time.fixedDeltaTime * speed;
 			movement = new Vector2(horizontalVelocity, rb2D.velocity.y);
@@ -80,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-		float boxSize = 0.5f;
+		float boxSize = 0.05f;
 		Vector3 boxSizeVec = new Vector3(boxSize, boxSize, boxSize);
 		Gizmos.DrawWireCube(groundCollider.position - groundColliderOffset, boxSizeVec);
 		Gizmos.DrawWireCube(groundCollider.position + groundColliderOffset, boxSizeVec);
