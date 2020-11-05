@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 // inspired by https://github.com/Brackeys/2D-Character-Controller
 public class PlayerMovement : MonoBehaviour
