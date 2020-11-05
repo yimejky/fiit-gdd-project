@@ -4,6 +4,7 @@ public class CameraMovement : MonoBehaviour
 {
     GameObject player;
     public Vector3 offset;
+    public bool isFollowing = false;
     public float smoothTime = 0.3f;
     public float minYCameraPos = 0;
     private Vector3 velocity = Vector3.zero;
@@ -13,14 +14,17 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag(PlayerTag);
+        isFollowing = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 playerPosition = player.transform.position + offset;
-        playerPosition.y = Mathf.Max(minYCameraPos, playerPosition.y);
-
-        transform.position = Vector3.SmoothDamp(transform.position, playerPosition, ref velocity, smoothTime);
+        if (isFollowing)
+        {
+            Vector3 playerPosition = player.transform.position + offset;
+            playerPosition.y = Mathf.Max(minYCameraPos, playerPosition.y);
+            transform.position = Vector3.SmoothDamp(transform.position, playerPosition, ref velocity, smoothTime);
+        }
     }
 }
