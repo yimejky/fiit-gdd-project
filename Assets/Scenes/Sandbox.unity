@@ -1775,16 +1775,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero
       objectReference: {fileID: 0}
-    - target: {fileID: 1503514091563632501, guid: 0b37b0ebe5fee8142a0cb79ebd02f06b,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1503514091563632504, guid: 0b37b0ebe5fee8142a0cb79ebd02f06b,
-        type: 3}
-      propertyPath: speed
-      value: 400
-      objectReference: {fileID: 0}
     - target: {fileID: 1503514091563632505, guid: 0b37b0ebe5fee8142a0cb79ebd02f06b,
         type: 3}
       propertyPath: m_LocalPosition.x

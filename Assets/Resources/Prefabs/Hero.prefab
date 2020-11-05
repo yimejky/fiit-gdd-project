@@ -41,12 +41,13 @@ GameObject:
   - component: {fileID: 1503514091563632505}
   - component: {fileID: 1503514091563632502}
   - component: {fileID: 1503514091563632503}
-  - component: {fileID: 1503514091563632504}
   - component: {fileID: 4223576445264498194}
   - component: {fileID: 9167338044672554212}
+  - component: {fileID: 1503514091563632504}
+  - component: {fileID: 1670872364892051694}
   m_Layer: 0
   m_Name: Hero
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +64,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 654144884}
-  - {fileID: 6114171218251690696}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -106,7 +106,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7ec2b5d01151554488bc3b2f9fd11d75, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 040f0c01da50d0d499c2457b0c602471, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -138,23 +138,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1503514091563632504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1503514091563632501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39fb56f07d36ff44c9966db4fa82c469, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 150
-  maxSpeed: 15
-  jumpPower: 1500
-  groundTag: Ground
-  groundCollider: {fileID: 654144884}
 --- !u!61 &4223576445264498194
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -168,18 +151,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.025}
+  m_Offset: {x: 0, y: 0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    oldSize: {x: 1.032258, y: 2.064516}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.95}
+  m_Size: {x: 0.8, y: 1.9}
   m_EdgeRadius: 0
 --- !u!61 &9167338044672554212
 BoxCollider2D:
@@ -194,101 +177,48 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    oldSize: {x: 1.032258, y: 2.064516}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.99, y: 2}
+  m_Size: {x: 0.79, y: 1.5}
   m_EdgeRadius: 0
---- !u!1001 &3218743255776608587
-PrefabInstance:
+--- !u!114 &1503514091563632504
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1503514091563632505}
-    m_Modifications:
-    - target: {fileID: 7196389343346192975, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_Name
-      value: HealthBar
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.1214294
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8de02311f23d2ce46857b9fa828c7326, type: 3}
---- !u!4 &6114171218251690696 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8679179459081859971, guid: 8de02311f23d2ce46857b9fa828c7326,
-    type: 3}
-  m_PrefabInstance: {fileID: 3218743255776608587}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503514091563632501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fb56f07d36ff44c9966db4fa82c469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 400
+  maxSpeed: 15
+  jumpPower: 1500
+  groundTag: Ground
+  groundCollider: {fileID: 654144884}
+--- !u!114 &1670872364892051694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503514091563632501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89b7f7f212491843938ec603a38ba8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  actualHealth: 100
+  healtBarOffset: {x: 0, y: 1.5, z: 0}

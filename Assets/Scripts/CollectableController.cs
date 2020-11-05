@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Collectable : MonoBehaviour
+public class CollectableController : MonoBehaviour
 {
     private string CollideTag = "Player";
 

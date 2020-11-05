@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     GameObject player;
     public Vector3 offset;

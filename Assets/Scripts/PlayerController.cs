@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // inspired by https://github.com/Brackeys/2D-Character-Controller
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
 	public float speed;
 	public float maxSpeed;
@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 	public string groundTag = "Ground";
 	public Transform groundCollider;
 
-	private float groundRadius = 0.05f;
+	private Vector3 groundColliderOffset;
 	private Rigidbody2D rb2D;
 	private bool isGrounded = true;
 	private Vector2 movement = Vector2.zero;
@@ -25,13 +25,15 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
 	{
+		groundColliderOffset = new Vector3(transform.localScale.x / 2f - 0.01f, 0, 0);
+
 		if (Input.GetButtonDown("Jump"))
 		{
 			jumpInput = true;
 		}
 
 		isGrounded = false;
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCollider.position, groundRadius);
+		Collider2D[] colliders = Physics2D.OverlapAreaAll(groundCollider.position - groundColliderOffset, groundCollider.position + groundColliderOffset);
 		for (int i = 0; i < colliders.Length; i++)
 		{
 			GameObject col = colliders[i].gameObject;
@@ -39,6 +41,13 @@ public class PlayerMovement : MonoBehaviour
 			{
 				isGrounded = true;
 			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.P))
+        {
+			HealthController health = gameObject.GetComponent<HealthController>();
+			Debug.Log("DMG hero");
+			health.DealDamage(10);
 		}
 	}
 
@@ -49,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
 		{
 			float horizontalVelocity = xInput * Time.fixedDeltaTime * speed;
 			movement = new Vector2(horizontalVelocity, rb2D.velocity.y);
+
+			gameObject.GetComponent<SpriteRenderer>().flipX = movement.x < 0;
 			rb2D.velocity = movement;
 			// Debug.Log($"Movement {movement}");
 		}
@@ -65,4 +76,13 @@ public class PlayerMovement : MonoBehaviour
 
 		// Debug.Log($"Rigid {rb2D.velocity}, {Physics2D.gravity.y}");
 	}
+
+
+    private void OnDrawGizmosSelected()
+    {
+		float boxSize = 0.5f;
+		Vector3 boxSizeVec = new Vector3(boxSize, boxSize, boxSize);
+		Gizmos.DrawWireCube(groundCollider.position - groundColliderOffset, boxSizeVec);
+		Gizmos.DrawWireCube(groundCollider.position + groundColliderOffset, boxSizeVec);
+    }
 }
