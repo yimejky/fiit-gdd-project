@@ -7,11 +7,12 @@ public class CameraMovement : MonoBehaviour
     public float smoothTime = 0.3f;
     public float minYCameraPos = 0;
     private Vector3 velocity = Vector3.zero;
+    private string PlayerTag = "Player";
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag(PlayerTag);
     }
 
     // Update is called once per frame
