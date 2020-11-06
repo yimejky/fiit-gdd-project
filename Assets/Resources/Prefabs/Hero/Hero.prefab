@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 654144884}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GroundCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,6 +30,36 @@ Transform:
   m_Father: {fileID: 1503514091563632505}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &720597055537586528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7189398994047959503}
+  m_Layer: 13
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7189398994047959503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720597055537586528}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4, y: -0.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1503514091563632505}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1503514091563632501
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,8 +75,9 @@ GameObject:
   - component: {fileID: 9167338044672554212}
   - component: {fileID: 1503514091563632504}
   - component: {fileID: 1670872364892051694}
+  - component: {fileID: 1390663753241126381}
   - component: {fileID: -1816402212586383437}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Hero
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -61,10 +92,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1503514091563632501}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.464839, y: -3.9849963, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 654144884}
+  - {fileID: 7189398994047959503}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -135,7 +167,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 3
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -152,7 +184,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.05}
+  m_Offset: {x: 0, y: -0.08151132}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -163,7 +195,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.9}
+  m_Size: {x: 0.8, y: 1.7630227}
   m_EdgeRadius: 0
 --- !u!61 &9167338044672554212
 BoxCollider2D:
@@ -178,7 +210,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.25}
+  m_Offset: {x: 0, y: -0.10400641}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -189,7 +221,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.79, y: 1.5}
+  m_Size: {x: 0.79, y: 1.7919872}
   m_EdgeRadius: 0
 --- !u!114 &1503514091563632504
 MonoBehaviour:
@@ -203,12 +235,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39fb56f07d36ff44c9966db4fa82c469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFlipped: 0
   speed: 400
-  maxSpeed: 25
   jumpPower: 1500
   groundTag: Ground
   groundCollider: {fileID: 654144884}
-  animator: {fileID: 0}
+  animator: {fileID: -1816402212586383437}
 --- !u!114 &1670872364892051694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +255,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   actualHealth: 100
+  color: {r: 0, g: 1, b: 0, a: 1}
   healtBarOffset: {x: 0, y: 1.5, z: 0}
+--- !u!114 &1390663753241126381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503514091563632501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbdd103f9ef45334588bf230217cdc78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 7189398994047959503}
+  attackRange: 0.65
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!95 &-1816402212586383437
 Animator:
   serializedVersion: 3
