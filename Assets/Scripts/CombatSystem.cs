@@ -6,13 +6,6 @@ public class CombatSystem : MonoBehaviour
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
-    private PlayerController playerController;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        playerController = gameObject.GetComponent<PlayerController>();
-    }
 
     // Update is called once per frame
     void Update()
@@ -26,8 +19,6 @@ public class CombatSystem : MonoBehaviour
     private void Attack()
     {
         Vector3 attackPosition = attackPoint.position;
-        if (playerController && playerController.isFlipped) attackPosition.x -= 2 * Mathf.Abs(attackPosition.x - gameObject.transform.position.x);
-
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayers);
         foreach (Collider2D enemy in hitEnemies)
         {
@@ -40,8 +31,6 @@ public class CombatSystem : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Vector3 attackPosition = attackPoint.position;
-        if (playerController && playerController.isFlipped) attackPosition.x -= 2 * Mathf.Abs(attackPosition.x - gameObject.transform.position.x);
-
         Gizmos.DrawWireSphere(attackPosition, attackRange);
     }
 }

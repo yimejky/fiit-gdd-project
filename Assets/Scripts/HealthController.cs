@@ -13,6 +13,11 @@ public class HealthController : MonoBehaviour
         SpawnHealthBar();
     }
 
+    private void FixedUpdate()
+    {
+        SetHeatlhBar(actualHealth);
+    }
+
     public void DealDamage(int damage)
     {
         Debug.Log(gameObject.name + ": deal dmg " + damage + ", heatlh: " + actualHealth);

@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
-		spriteRenderer.flipX = isFlipped;
+		transform.rotation = Quaternion.Euler(0, isFlipped ? 180 : 0, 0);
 		groundColliderOffset = new Vector3(hitboxSize / 2f - 0.01f, 0, 0);
 
 		if (Input.GetButtonDown("Jump"))
