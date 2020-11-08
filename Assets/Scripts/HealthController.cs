@@ -6,11 +6,14 @@ public class HealthController : MonoBehaviour
     public int actualHealth = 100;
     public Color color = Color.green;
     public Vector3 healtBarOffset = new Vector3(0, 1.5f);
-    private HealthBarController healthBar;
+    public HealthBarController healthBar;
 
     private void Start()
     {
-        SpawnHealthBar();
+        if (!healthBar)
+        {
+            SpawnHealthBar();
+        }
     }
 
     public void DealDamage(int damage)
