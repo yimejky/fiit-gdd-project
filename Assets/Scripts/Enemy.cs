@@ -7,13 +7,23 @@ public class Enemy : MonoBehaviour
     public Vector2 knockbackPower = new Vector2(150, 150);
     public float knockbackTime = 0.3f;
 
-    void OnTriggerEnter2D(Collider2D collider2D)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Enemy trigger " + collider2D.name);
+        Debug.Log("enemy trigger enter" + collision.name);
+        DetectHeroTouch(collision);
+    }
 
-        if (collider2D.CompareTag(hurtboxTag))
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("enemy trigger stay" + collision.name);
+        DetectHeroTouch(collision);
+    }
+
+    void DetectHeroTouch(Collider2D collision)
+    {
+        if (collision.CompareTag(hurtboxTag))
         {
-            GameObject hero = collider2D.transform.root.gameObject;
+            GameObject hero = collision.transform.root.gameObject;
             PlayerController playerController = hero.GetComponent<PlayerController>();
             HealthController playerHealth = hero.GetComponent<HealthController>();
 
