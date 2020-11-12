@@ -30,6 +30,63 @@ Transform:
   m_Father: {fileID: 1503514091563632505}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1239789736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1239789737}
+  - component: {fileID: 1239789738}
+  m_Layer: 15
+  m_Name: Hurtbox
+  m_TagString: Hurtbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1239789737
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239789736}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1503514091563632505}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1239789738
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239789736}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: ae3566d314c3e7f458c07d9471be45ce, type: 2}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0045440495, y: -0.16585791}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.75462145, y: 1.6861513}
+  m_EdgeRadius: 0
 --- !u!1 &720597055537586528
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,6 +155,7 @@ Transform:
   - {fileID: 654144884}
   - {fileID: 7189398994047959503}
   - {fileID: 5482095843491773125}
+  - {fileID: 1239789737}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -163,10 +221,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -222,7 +280,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.79, y: 1.7919872}
+  m_Size: {x: 0.775, y: 1.7919872}
   m_EdgeRadius: 0
 --- !u!114 &1503514091563632504
 MonoBehaviour:
@@ -237,8 +295,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFlipped: 0
-  speed: 400
-  jumpPower: 1500
+  speed: 500
+  maxSpeed: 50
+  jumpPower: 500
   groundTag: Ground
   groundCollider: {fileID: 654144884}
   animator: {fileID: -1816402212586383437}
@@ -258,6 +317,7 @@ MonoBehaviour:
   actualHealth: 100
   color: {r: 0, g: 1, b: 0, a: 1}
   healtBarOffset: {x: 0, y: 1.5, z: 0}
+  healthBar: {fileID: 0}
 --- !u!114 &1390663753241126381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,10 +331,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 7189398994047959503}
-  attackRange: 0.65
+  attackRange: 0.8
   enemyLayers:
     serializedVersion: 2
     m_Bits: 16384
+  knockbackPower: {x: 5, y: 5}
+  damage: 10
 --- !u!95 &-1816402212586383437
 Animator:
   serializedVersion: 3

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 // inspired by https://github.com/Brackeys/2D-Character-Controller
@@ -6,7 +7,8 @@ public class PlayerController : MonoBehaviour
 {
 	public bool isFlipped = false;
 	public float speed = 400f;
-	public float jumpPower = 1500f;
+	public float maxSpeed = 5f;
+	public float jumpPower = 500f;
 	public string groundTag = "Ground";
 	public Transform groundCollider;
 	public Animator animator;
@@ -15,28 +17,55 @@ public class PlayerController : MonoBehaviour
 	private float hitboxSize = 0.70f;
 	private Vector3 groundColliderOffset;
 	private Rigidbody2D rb2D;
-	private SpriteRenderer spriteRenderer;
 
 	private float xInput = 0f;
 	private bool jumpInput = false;
+	private bool canMove = true;
 
 	void Awake()
 	{
 		rb2D = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
-		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+	}
+	public void Knockback(Vector2 knockbackDir, Vector2 knockbackPower, float knockbackTime)
+    {
+		StartCoroutine(KnockbackCoroutine(knockbackDir, knockbackPower, knockbackTime));
 	}
 
+	public IEnumerator KnockbackCoroutine(Vector2 knockbackDir, Vector2 knockbackPower, float knockbackTime)
+    {
+		Vector3 knockbackForce = knockbackDir * knockbackPower;
+
+		canMove = false;
+		rb2D.velocity = Vector2.zero;
+		rb2D.AddForce(knockbackForce, ForceMode2D.Impulse);
+		Debug.Log("player knockback " + knockbackForce);
+		yield return new WaitForSeconds(knockbackTime);
+		canMove = true;
+	}
+	 
 	void Update()
 	{
 		transform.rotation = Quaternion.Euler(0, isFlipped ? 180 : 0, 0);
-		groundColliderOffset = new Vector3(hitboxSize / 2f - 0.01f, 0, 0);
 
 		if (Input.GetButtonDown("Jump"))
 		{
 			jumpInput = true;
 		}
 
+		CheckIfOnGround();
+	}
+
+	void FixedUpdate()
+	{
+		HandleXInput();
+		HandleJumpInput();
+		// Debug.Log($"Rigid {rb2D.velocity}, {rb2D.velocity.magnitude}, {Physics2D.gravity.y}");
+	}
+
+	private void CheckIfOnGround()
+	{
+		groundColliderOffset = new Vector3(hitboxSize / 2f - 0.01f, 0, 0);
 		isGrounded = false;
 		Collider2D[] colliders = Physics2D.OverlapAreaAll(groundCollider.position - groundColliderOffset, groundCollider.position + groundColliderOffset);
 		for (int i = 0; i < colliders.Length; i++)
@@ -49,21 +78,27 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void FixedUpdate()
-	{
-		xInput = Input.GetAxis("Horizontal");
-		float xInputAbs = Math.Abs(xInput);
-		animator.SetFloat("Speed", xInputAbs);
+	private void HandleXInput()
+    {
+		if (canMove)
+        {
+			xInput = Input.GetAxis("Horizontal");
+			float xInputAbs = Math.Abs(xInput);
+			animator.SetFloat("Speed", xInputAbs);
 
-		if (xInputAbs > 0)
-		{
-			float horizontalVelocity = xInput * Time.fixedDeltaTime * speed;
-			Vector2 movement = new Vector2(horizontalVelocity, rb2D.velocity.y);
-			isFlipped = movement.x < 0;
-			rb2D.velocity = movement;
-			// Debug.Log($"Movement {movement}");
+			if (xInputAbs > 0)
+			{
+				float horizontalSpeed = xInput * Time.fixedDeltaTime * speed;
+				Vector2 movement = new Vector2(horizontalSpeed, rb2D.velocity.y);
+				movement.x = Mathf.Clamp(movement.x, -maxSpeed, maxSpeed);
+				rb2D.velocity = movement;
+				isFlipped = rb2D.velocity.x < 0;
+				// Debug.Log($"Movement {movement}, velo {rb2D.velocity}, mag {rb2D.velocity.magnitude}");
+			}
 		}
-
+	}
+	private void HandleJumpInput()
+    {
 		if (isGrounded && jumpInput)
 		{
 			isGrounded = false;
@@ -72,12 +107,9 @@ public class PlayerController : MonoBehaviour
 			// Debug.Log($"Jump {movement}");
 		}
 		jumpInput = false;
-
-		Debug.Log($"Rigid {rb2D.velocity}, {rb2D.velocity.magnitude}, {Physics2D.gravity.y}");
 	}
 
-
-    private void OnDrawGizmosSelected()
+	private void OnDrawGizmosSelected()
     {
 		float boxSize = 0.05f;
 		Vector3 boxSizeVec = new Vector3(boxSize, boxSize, boxSize);

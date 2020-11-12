@@ -23,7 +23,7 @@ public class HealthController : MonoBehaviour
 
     public void DealDamage(int damage)
     {
-        Debug.Log(gameObject.name + ": deal dmg " + damage + ", heatlh: " + actualHealth);
+        // Debug.Log(gameObject.name + ": deal dmg " + damage + ", heatlh: " + actualHealth);
         if (actualHealth > 0)
         {
             actualHealth -= damage;
@@ -59,7 +59,6 @@ public class HealthController : MonoBehaviour
         {
             float barSize = Mathf.Max((float)newActualHealth / maxHealth, 0f);
             healthBar.SetSize(barSize);
-            Debug.Log("Bar size: " + barSize);
         }
     }
 }

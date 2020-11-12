@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Hurtbox
   layers:
   - Default
   - TransparentFX
@@ -18,11 +19,11 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Ground
   - Player
   - Enemies
-  - 
-  - 
+  - Hurtbox
+  - Collectable
   - 
   - 
   - 

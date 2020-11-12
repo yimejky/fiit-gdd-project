@@ -13,8 +13,8 @@ public class HealthBarController : MonoBehaviour
         bar = transform.Find("Bar");
         barSprite = bar.Find("BarSprite");
         barSpriteSprite = barSprite.GetComponent<SpriteRenderer>();
-        Debug.Log("debug1" + barSprite);
-        Debug.Log("debug2" + barSpriteSprite);
+        // Debug.Log("debug1" + barSprite);
+        // Debug.Log("debug2" + barSpriteSprite);
     }
 
 
