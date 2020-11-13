@@ -221,10 +221,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1.25
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -243,7 +243,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.08151132}
+  m_Offset: {x: 0, y: -0.09117907}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -254,7 +254,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.7630227}
+  m_Size: {x: 0.8, y: 1.7823582}
   m_EdgeRadius: 0
 --- !u!61 &9167338044672554212
 BoxCollider2D:
@@ -269,7 +269,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.10400641}
+  m_Offset: {x: 0, y: -0.09885025}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -280,7 +280,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.775, y: 1.7919872}
+  m_Size: {x: 0.775, y: 1.7816749}
   m_EdgeRadius: 0
 --- !u!114 &1503514091563632504
 MonoBehaviour:
@@ -295,9 +295,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFlipped: 0
-  speed: 500
-  maxSpeed: 50
-  jumpPower: 500
+  speed: 1000
+  maxSpeed: 10
+  jumpPower: 18
   groundTag: Ground
   groundCollider: {fileID: 654144884}
   animator: {fileID: -1816402212586383437}
@@ -335,7 +335,7 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 16384
-  knockbackPower: {x: 5, y: 5}
+  knockbackPower: {x: 5, y: 7.5}
   damage: 10
 --- !u!95 &-1816402212586383437
 Animator:

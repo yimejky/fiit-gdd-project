@@ -2,14 +2,18 @@
 
 public class HealthController : MonoBehaviour
 {
+    public Vector3 respawnPosition;
     public int maxHealth = 100;
     public int actualHealth = 100;
+
+    // healtbar settings
     public Color color = Color.green;
     public Vector3 healtBarOffset = new Vector3(0, 1.5f);
     public HealthBarController healthBar;
 
     private void Start()
     {
+        respawnPosition = transform.position;
         if (!healthBar)
         {
             SpawnHealthBar();
@@ -38,8 +42,27 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log(gameObject.name + ": Died");
-        Destroy(gameObject);
+       
+        if (gameObject.CompareTag(Constants.PLAYER_TAG))
+        {
+            // TODO: game over
+            Debug.Log($"{gameObject.name}: Game Over");
+            RespawnPlayer();
+        } else if (gameObject.CompareTag(Constants.ENEMY_TAG))
+        {
+            Debug.Log($"{gameObject.name}: Enemy Died");
+            Destroy(gameObject);
+        } else
+        {
+            Debug.Log($"{gameObject.name}: Something Died");
+            Destroy(gameObject);
+        }
+    }
+
+    private void RespawnPlayer()
+    {
+        transform.position = respawnPosition;
+        actualHealth = maxHealth;
     }
 
     private void SpawnHealthBar()

@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
 	public float speed = 400f;
 	public float maxSpeed = 5f;
 	public float jumpPower = 500f;
-	public string groundTag = "Ground";
 	public Transform groundCollider;
 	public Animator animator;
 
@@ -27,26 +26,12 @@ public class PlayerController : MonoBehaviour
 		rb2D = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 	}
-	public void Knockback(Vector2 knockbackDir, Vector2 knockbackPower, float knockbackTime)
-    {
-		StartCoroutine(KnockbackCoroutine(knockbackDir, knockbackPower, knockbackTime));
-	}
-
-	public IEnumerator KnockbackCoroutine(Vector2 knockbackDir, Vector2 knockbackPower, float knockbackTime)
-    {
-		Vector3 knockbackForce = knockbackDir * knockbackPower;
-
-		canMove = false;
-		rb2D.velocity = Vector2.zero;
-		rb2D.AddForce(knockbackForce, ForceMode2D.Impulse);
-		Debug.Log("player knockback " + knockbackForce);
-		yield return new WaitForSeconds(knockbackTime);
-		canMove = true;
-	}
 	 
 	void Update()
 	{
-		transform.rotation = Quaternion.Euler(0, isFlipped ? 180 : 0, 0);
+		// syncing isFlipped with transform rotation
+		if (isFlipped && transform.rotation.eulerAngles.y != 180) transform.rotation = Quaternion.Euler(0, 180, 0);
+		if (!isFlipped && transform.rotation.eulerAngles.y == 180) transform.rotation = Quaternion.Euler(0, 0, 0);
 
 		if (Input.GetButtonDown("Jump"))
 		{
@@ -63,6 +48,23 @@ public class PlayerController : MonoBehaviour
 		// Debug.Log($"Rigid {rb2D.velocity}, {rb2D.velocity.magnitude}, {Physics2D.gravity.y}");
 	}
 
+	public void Knockback(Vector2 knockbackDir, Vector2 knockbackPower, float knockbackTime)
+	{
+		StartCoroutine(KnockbackCoroutine(knockbackDir, knockbackPower, knockbackTime));
+	}
+
+	public IEnumerator KnockbackCoroutine(Vector2 knockbackDir, Vector2 knockbackPower, float knockbackTime)
+	{
+		Vector3 knockbackForce = knockbackDir * knockbackPower;
+
+		canMove = false;
+		rb2D.velocity = Vector2.zero;
+		rb2D.AddForce(knockbackForce, ForceMode2D.Impulse);
+		Debug.Log("player knockback " + knockbackForce);
+		yield return new WaitForSeconds(knockbackTime);
+		canMove = true;
+	}
+
 	private void CheckIfOnGround()
 	{
 		groundColliderOffset = new Vector3(hitboxSize / 2f - 0.01f, 0, 0);
@@ -71,11 +73,13 @@ public class PlayerController : MonoBehaviour
 		for (int i = 0; i < colliders.Length; i++)
 		{
 			GameObject col = colliders[i].gameObject;
-			if (col != gameObject && col.CompareTag(groundTag))
+			if (col != gameObject && col.CompareTag(Constants.GROUND_TAG))
 			{
 				isGrounded = true;
 			}
 		}
+
+		if (animator.GetBool("IsOnGround") != isGrounded) animator.SetBool("IsOnGround", isGrounded); ;
 	}
 
 	private void HandleXInput()
@@ -103,7 +107,7 @@ public class PlayerController : MonoBehaviour
 		{
 			isGrounded = false;
 			Vector2 movement = new Vector2(0, jumpPower);
-			rb2D.AddForce(movement);
+			rb2D.AddForce(movement, ForceMode2D.Impulse);
 			// Debug.Log($"Jump {movement}");
 		}
 		jumpInput = false;

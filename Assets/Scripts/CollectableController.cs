@@ -2,8 +2,6 @@
 
 public class CollectableController : MonoBehaviour
 {
-    private string CollideTag = "Player";
-
     void Awake()
     {
         BoxCollider2D bc;
@@ -14,7 +12,7 @@ public class CollectableController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag(CollideTag))
+        if (col.gameObject.CompareTag(Constants.PLAYER_TAG))
         {
             Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + Time.time);
             Destroy(this.gameObject, 0.1f);

@@ -2,7 +2,6 @@
 
 public class Enemy : MonoBehaviour
 {
-    public string hurtboxTag = "Hurtbox";
     public int damage = 10;
     public Vector2 knockbackPower = new Vector2(150, 150);
     public float knockbackTime = 0.3f;
@@ -21,7 +20,7 @@ public class Enemy : MonoBehaviour
 
     void DetectHeroTouch(Collider2D collision)
     {
-        if (collision.CompareTag(hurtboxTag))
+        if (collision.CompareTag(Constants.HURTBOX_TAG))
         {
             GameObject hero = collision.transform.root.gameObject;
             PlayerController playerController = hero.GetComponent<PlayerController>();
