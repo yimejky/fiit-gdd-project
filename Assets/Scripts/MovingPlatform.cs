@@ -10,7 +10,7 @@ public class MovingPlatform : MonoBehaviour
     public GameObject body;
     public bool circularMovement;
     private List<Transform> points = new List<Transform>();
-    private int indexStep = -1;
+    private int indexStep = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +20,11 @@ public class MovingPlatform : MonoBehaviour
         for (int i = 1; i < mp.Length; i++)
         {
             points.Add(mp[i]);
+        }
+
+        if (activePointIndex == 0)
+        {
+            indexStep = -1;
         }
     }
 
