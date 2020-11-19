@@ -95,11 +95,13 @@ public class PlayerController : MonoBehaviour
 				float horizontalSpeed = xInput * Time.fixedDeltaTime * speed;
 				Vector2 movement = new Vector2(horizontalSpeed, rb2D.velocity.y);
 				movement.x = Mathf.Clamp(movement.x, -maxSpeed, maxSpeed);
+
 				rb2D.velocity = movement;
 				isFlipped = rb2D.velocity.x < 0;
 				// Debug.Log($"Movement {movement}, velo {rb2D.velocity}, mag {rb2D.velocity.magnitude}");
 			}
 		}
+		Debug.Log($"Movement velo {rb2D.velocity}, mag {rb2D.velocity.magnitude}");
 	}
 	private void HandleJumpInput()
     {

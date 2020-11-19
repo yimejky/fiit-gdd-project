@@ -7,7 +7,7 @@ public class MovingPlatform : MonoBehaviour
     public float speed;
     public int activePointIndex;
     public GameObject movingPoints;
-    public GameObject body;
+    public GameObject platform;
     public bool circularMovement;
     private List<Transform> points = new List<Transform>();
     private int indexStep = 1;
@@ -31,7 +31,7 @@ public class MovingPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(body.transform.position, points[activePointIndex].position) < 0.1)
+        if (Vector3.Distance(platform.transform.position, points[activePointIndex].position) < 0.1)
         {
             if (circularMovement)
             {
@@ -47,6 +47,6 @@ public class MovingPlatform : MonoBehaviour
             }
         }
 
-        body.transform.position = Vector3.MoveTowards(body.transform.position, points[activePointIndex].position, speed * Time.deltaTime);
+        platform.transform.position = Vector3.MoveTowards(platform.transform.position, points[activePointIndex].position, speed * Time.deltaTime);
     }
 }
