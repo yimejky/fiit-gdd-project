@@ -12,11 +12,9 @@ public class MovingPlatform : MonoBehaviour
     private List<Transform> points = new List<Transform>();
     private int indexStep = 1;
 
-    // Start is called before the first frame update
     void Start()
     {
         Transform[] mp = movingPoints.transform.GetComponentsInChildren<Transform>();
-
         for (int i = 1; i < mp.Length; i++)
         {
             points.Add(mp[i]);
@@ -28,8 +26,7 @@ public class MovingPlatform : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Vector3.Distance(platform.transform.position, points[activePointIndex].position) < 0.1)
         {
@@ -46,7 +43,10 @@ public class MovingPlatform : MonoBehaviour
                 activePointIndex += indexStep;
             }
         }
+    }
 
-        platform.transform.position = Vector3.MoveTowards(platform.transform.position, points[activePointIndex].position, speed * Time.deltaTime);
+    void FixedUpdate()
+    {
+        platform.transform.position = Vector3.MoveTowards(platform.transform.position, points[activePointIndex].position, speed * Time.fixedDeltaTime);
     }
 }
