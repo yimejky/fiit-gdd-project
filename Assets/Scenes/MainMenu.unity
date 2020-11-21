@@ -522,6 +522,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadingScreenCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6285260501142617517, guid: 6c8ff1b111912bf479308c080b91412c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6285260502543227999, guid: 6c8ff1b111912bf479308c080b91412c,
         type: 3}
       propertyPath: m_AnchorMax.x

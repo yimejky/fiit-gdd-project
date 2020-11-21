@@ -14,8 +14,7 @@ public class CombatSystem : MonoBehaviour
 
     void Update()
     {
-        // TODO: replace with button
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetButtonDown("Attack"))
         {
             attackInput = true;
         }
