@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 		canMove = false;
 		rb2D.velocity = Vector2.zero;
 		rb2D.AddForce(knockbackForce, ForceMode2D.Impulse);
-		Debug.Log("player knockback " + knockbackForce);
+		// Debug.Log("player knockback " + knockbackForce);
 		yield return new WaitForSeconds(knockbackTime);
 		canMove = true;
 	}
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
 				// Debug.Log($"Movement {movement}, velo {rb2D.velocity}, mag {rb2D.velocity.magnitude}");
 			}
 		}
-		Debug.Log($"Movement velo {rb2D.velocity}, mag {rb2D.velocity.magnitude}");
+		// Debug.Log($"Movement velo {rb2D.velocity}, mag {rb2D.velocity.magnitude}");
 	}
 	private void HandleJumpInput()
     {
