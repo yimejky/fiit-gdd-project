@@ -295,8 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFlipped: 0
-  speed: 1200
-  maxSpeed: 10
+  speed: 1000
+  maxSpeed: 7
   jumpPower: 18
   groundCollider: {fileID: 654144884}
   animator: {fileID: -1816402212586383437}
@@ -377,15 +377,20 @@ PrefabInstance:
       propertyPath: enemyLayer.m_Bits
       value: 16384
       objectReference: {fileID: 0}
+    - target: {fileID: 2882612491396985599, guid: a70e753f73e72484b9fc6dff2c0b7256,
+        type: 3}
+      propertyPath: attackRange
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.3
+      value: 0.365
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: -0.34
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
@@ -405,12 +410,12 @@ PrefabInstance:
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.3420201
+      value: -0.258819
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9396927
+      value: 0.9659259
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
@@ -430,7 +435,17 @@ PrefabInstance:
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -40
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899757, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}

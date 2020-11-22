@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 716430403397980566}
   - component: {fileID: 1896038043182623193}
   m_Layer: 31
-  m_Name: Dirt
+  m_Name: LevelElements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,6 +90,15 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 10
       m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
+  - first: {x: -2, y: -1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 9
+      m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -186,15 +195,15 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 65084180a0acb784185200dbc2394909, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 239e17692fd3bb04f89d1a3c3f96b594, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: ba7731c1d4f14e54fa94e3061f6649e6, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 6a42fee3d5b807f41bd9984fa47194b1, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 9b8c89c2b85d479498f7c9696d9b2ce4, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 818aa09915910b748a8c1c1ffe5ac736, type: 3}
   - m_RefCount: 1
@@ -214,7 +223,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: c4f4d6a8b37780c47bbb145aa9163616, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 6
+  - m_RefCount: 7
     m_Data:
       e00: 1
       e01: 0
@@ -233,7 +242,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 6
+  - m_RefCount: 7
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: -0.000000003533252, g: -0.000000003533252, b: -0.000000003533252,
