@@ -2,11 +2,12 @@
 
 public class Weapon : MonoBehaviour
 {
+    public LayerMask enemyLayer;
     public Transform attackPoint;
     public float attackRange = 0.8f;
-    public Vector2 knockbackPower = new Vector2(10, 10);
     public int damage = 10;
-    public LayerMask enemyLayer;
+    public Vector2 knockbackPower = new Vector2(150, 150);
+    public float knockbackTime = 0.3f;
 
     private Animator weaponAnimator;
 
@@ -24,15 +25,16 @@ public class Weapon : MonoBehaviour
         foreach (Collider2D enemyCol in hitEnemies)
         {
             Debug.Log("Hit " + enemyCol.name);
-            GameObject enemy = enemyCol.gameObject;
-            Rigidbody2D enemyRigid = enemy.GetComponent<Rigidbody2D>();
-            HealthController enemyHealth = enemy.GetComponent<HealthController>();
+            GameObject enemyGameObject = enemyCol.gameObject;
+            HealthController enemyHealth = enemyGameObject.GetComponent<HealthController>();
+            Enemy enemy = enemyGameObject.GetComponent<Enemy>();
+
+            int knockbackXDir = enemyGameObject.transform.position.x - attackPoint.transform.position.x < 0 ? -1 : 1;
+            Vector2 knockbackDir = new Vector2(knockbackXDir, 1);
 
             enemyHealth.DealDamage(damage);
-            int knockbackXDir = enemy.transform.position.x - attackPoint.transform.position.x < 0 ? -1 : 1;
-            Vector3 knockbackForce = new Vector3(knockbackXDir * knockbackPower.x, knockbackPower.y, 0);
-            // Debug.Log("attack knock " + knockbackForce);
-            enemyRigid.AddForce(knockbackForce, ForceMode2D.Impulse);
+            enemy.Knockback(knockbackDir, knockbackPower, knockbackTime);
+            break;
         }
     }
 
