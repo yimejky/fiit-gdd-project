@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 	public float jumpPower = 500f;
 	public Transform groundCollider;
 	public Animator animator;
+	public Transform attackPoint;
 
 	private bool isGrounded = true;
 	private float hitboxSize = 0.70f;
@@ -20,11 +21,14 @@ public class PlayerController : MonoBehaviour
 	private float xInput = 0f;
 	private bool jumpInput = false;
 	private bool canMove = true;
+	private Vector2 swordDirection;
+	private Vector2 defaultAttackPosition;
 
 	void Awake()
 	{
 		rb2D = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
+		defaultAttackPosition = attackPoint.localPosition;
 	}
 	 
 	void Update()
@@ -39,6 +43,8 @@ public class PlayerController : MonoBehaviour
 		}
 
 		CheckIfOnGround();
+		
+		attackPoint.localPosition = calculateAttackPoint(); 
 	}
 
 	void FixedUpdate()
@@ -63,6 +69,14 @@ public class PlayerController : MonoBehaviour
 		// Debug.Log("player knockback " + knockbackForce);
 		yield return new WaitForSeconds(knockbackTime);
 		canMove = true;
+	}
+
+	Vector2 calculateAttackPoint(float threshold = 0.1f)
+    {
+		int x = Math.Abs(rb2D.velocity.x) < threshold && Math.Abs(rb2D.velocity.y) > threshold ? 0 : 1;
+		int y = rb2D.velocity.y > threshold ? 1 : rb2D.velocity.y < -threshold ? -1 : 0;
+		
+		return new Vector2(defaultAttackPosition.x * x, defaultAttackPosition.y + 0.8f * y);
 	}
 
 	private void CheckIfOnGround()

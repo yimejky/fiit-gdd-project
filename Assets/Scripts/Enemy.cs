@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
                 Vector2 velocity = new Vector2(relativePos.x > 0 ? -1 : 1, 0) * speed * Time.fixedDeltaTime;
                 velocity.y = rb2D.velocity.y;
 
-                Debug.Log("Debug velocity: " + velocity);
+                // Debug.Log("Debug velocity: " + velocity);
                 // Debug.Log($"pos {transform.position}, {player.transform.position}, {transform.position - player.transform.position}");
                 rb2D.velocity = velocity;
             }
