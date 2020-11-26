@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
 	private float xInput = 0f;
 	private bool jumpInput = false;
 	private bool canMove = true;
-	private Vector2 swordDirection;
 	private Vector2 defaultAttackPosition;
 
 	void Awake()
@@ -71,12 +70,19 @@ public class PlayerController : MonoBehaviour
 		canMove = true;
 	}
 
-	Vector2 calculateAttackPoint(float threshold = 0.1f)
+	public Vector2 GetSwordDirection(float threshold = 0.1f)
     {
 		int x = Math.Abs(rb2D.velocity.x) < threshold && Math.Abs(rb2D.velocity.y) > threshold ? 0 : 1;
 		int y = rb2D.velocity.y > threshold ? 1 : rb2D.velocity.y < -threshold ? -1 : 0;
-		
-		return new Vector2(defaultAttackPosition.x * x, defaultAttackPosition.y + 0.8f * y);
+
+		return new Vector2(x, y);
+	}
+
+	private Vector2 calculateAttackPoint()
+    {
+		Vector2 swordDirection = GetSwordDirection();
+
+		return new Vector2(defaultAttackPosition.x * swordDirection.x, defaultAttackPosition.y + 0.8f * swordDirection.y);
 	}
 
 	private void CheckIfOnGround()
