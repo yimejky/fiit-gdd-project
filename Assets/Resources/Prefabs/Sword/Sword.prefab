@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 6747068590136899757}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0bdb1508ceb914b4587fdcf9384772f5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 40f52d4acdc9b3e42bc30c5beb861459, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -114,7 +114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dbd7e8d71393a44885e3dcf8dd41e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
   attackPoint: {fileID: 0}
   attackRange: 0.8
-  knockbackPower: {x: 150, y: 150}
   damage: 10
+  knockbackPower: {x: 150, y: 150}
+  knockbackTime: 0.3

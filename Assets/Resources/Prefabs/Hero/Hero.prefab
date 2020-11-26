@@ -300,6 +300,7 @@ MonoBehaviour:
   jumpPower: 18
   groundCollider: {fileID: 654144884}
   animator: {fileID: -1816402212586383437}
+  attackPoint: {fileID: 648010652}
 --- !u!114 &1670872364892051694
 MonoBehaviour:
   m_ObjectHideFlags: 0
