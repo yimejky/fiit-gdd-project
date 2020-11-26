@@ -60,9 +60,18 @@ public class Weapon : MonoBehaviour
 
     private void WeaponAnimation()
     {
-        Vector2 swordDirection = (GetComponentInParent<PlayerController>()).GetSwordDirection();
-        transform.localPosition = attackPoint.transform.localPosition;
-        float angle = 90 * swordDirection.y / (swordDirection.x + 1);
+        float angle;
+        try
+        {
+            Vector2 swordDirection = (GetComponentInParent<PlayerController>()).GetSwordDirection();
+            transform.localPosition = attackPoint.transform.localPosition;
+            angle = 90 * swordDirection.y / (swordDirection.x + 1);
+        }
+        catch
+        {
+            angle = 0;
+        }
+        
         transform.Rotate(new Vector3(0, 0, angle));
         weaponAnimator.Play("Attack");
         // TODO make this adjustable to different weapons

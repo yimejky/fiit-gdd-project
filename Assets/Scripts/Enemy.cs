@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public BotDifficulty botDifficulty = BotDifficulty.Medium;
     public float speed = 0f;
     public GameObject player;
+    public Weapon weapon;
 
     public int damage = 10;
     public Vector2 knockbackPower = new Vector2(150, 150);
@@ -36,19 +37,20 @@ public class Enemy : MonoBehaviour
                 // Debug.Log("Debug velocity: " + velocity);
                 // Debug.Log($"pos {transform.position}, {player.transform.position}, {transform.position - player.transform.position}");
                 rb2D.velocity = velocity;
+                transform.rotation = Quaternion.Euler(0, relativePos.x < 0.1 ? 0 : 180, 0);
             }
         }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("enemy trigger enter" + collision.name);
+        // Debug.Log("enemy trigger enter" + collision.name);
         DetectHeroTouch(collision);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("enemy trigger stay" + collision.name);
+        // Debug.Log("enemy trigger stay" + collision.name);
         DetectHeroTouch(collision);
     }
 
@@ -83,5 +85,10 @@ public class Enemy : MonoBehaviour
         // Debug.Log("player knockback " + knockbackForce);
         yield return new WaitForSeconds(knockbackTime);
         canMove = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        weapon.Attack();
     }
 }
