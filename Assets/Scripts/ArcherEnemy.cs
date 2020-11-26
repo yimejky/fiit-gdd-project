@@ -24,26 +24,26 @@ public class ArcherEnemy : Enemy
 
     private void ShootArrow()
     {
-        if (actualAttackCooldown <= 0)
-        {
-            GameObject arrowGameobject = Instantiate(Resources.Load("Prefabs/Arrow"), transform.position, Quaternion.identity) as GameObject;
-            Arrow arrow = arrowGameobject.GetComponent<Arrow>();
-            Vector3 force = CalculateArrowForceVector(player.transform.position, arrow.transform.position, arrowSpeed, arrowDirect);
+        if (actualAttackCooldown > 0)
+            return;
 
-            if (force.magnitude > 0)
-            {
-                arrow.Init(gameObject, force);
-                actualAttackCooldown = attackCooldown;
-            }
+        GameObject arrowGameobject = Instantiate(Resources.Load("Prefabs/Arrow"), transform.position, Quaternion.identity) as GameObject;
+        Arrow arrow = arrowGameobject.GetComponent<Arrow>();
+        Vector3 force = CalculateArrowForceVector(player.transform.position, arrow.transform.position, arrowSpeed, arrowDirect);
+
+        if (force.magnitude > 0)
+        {
+            arrow.Init(gameObject, force);
+            actualAttackCooldown = attackCooldown;
         }
     }
 
-    private Vector3 CalculateArrowForceVector(Vector3 target, Vector3 source, float speed, bool directFire)
+    private Vector3 CalculateArrowForceVector(Vector3 target, Vector3 source, float arrowSpeed, bool directFire)
     {
         float y = target.y - source.y;
         float x = (new Vector3(source.x - target.x, 0, 0)).magnitude;
         float g = -Physics2D.gravity.y;
-        float v = speed;
+        float v = arrowSpeed;
         float v2 = v * v;
         float v4 = v2 * v2;
         float x2 = x * x;

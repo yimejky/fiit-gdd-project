@@ -6,23 +6,59 @@ public class Weapon : MonoBehaviour
     public Transform attackPoint;
     public float attackRange = 0.8f;
     public int damage = 10;
-    public Vector2 knockbackPower = new Vector2(150, 150);
+    public Vector2 knockbackPower = new Vector2(10, 10);
     public float knockbackTime = 0.3f;
+    public float attackCooldown = 0.6f;
 
     private Animator weaponAnimator;
     private Vector3 defaultPosition;
     private Quaternion defaultRotation;
     private float animationCooldown;
+    private float actualAttackCooldown = 0;
 
     private void Start()
     {
         weaponAnimator = GetComponent<Animator>();
         defaultPosition = transform.localPosition;
         defaultRotation = transform.localRotation;
+        actualAttackCooldown = 0;
+    }
+    private void Update()
+    {
+        actualAttackCooldown -= Time.deltaTime;
+        animationCooldown -= Time.deltaTime;
+        if (animationCooldown < 0)
+        {
+            transform.localPosition = defaultPosition;
+            transform.localRotation = defaultRotation;
+        }
+    }
+
+    private void WeaponAnimation()
+    {
+        float angle;
+        try
+        {
+            Vector2 swordDirection = (GetComponentInParent<PlayerController>()).GetSwordDirection();
+            transform.localPosition = attackPoint.transform.localPosition;
+            angle = 90 * swordDirection.y / (swordDirection.x + 1);
+        }
+        catch
+        {
+            angle = 0;
+        }
+        
+        transform.Rotate(new Vector3(0, 0, angle));
+        weaponAnimator.Play("Attack");
+        // TODO make this adjustable to different weapons
+        animationCooldown = 0.42f;
     }
 
     public void Attack()
     {
+        if (actualAttackCooldown > 0)
+            return;
+
         WeaponAnimation();
 
         Vector3 attackPosition = attackPoint.position;
@@ -41,6 +77,8 @@ public class Weapon : MonoBehaviour
             enemy.Knockback(knockbackDir, knockbackPower, knockbackTime);
             break;
         }
+
+        actualAttackCooldown = attackCooldown;
     }
 
     private void OnDrawGizmos()
@@ -48,26 +86,5 @@ public class Weapon : MonoBehaviour
         Gizmos.color = Color.red;
         Vector3 attackPosition = attackPoint.position;
         Gizmos.DrawWireSphere(attackPosition, attackRange);
-    }
-
-    private void WeaponAnimation()
-    {
-        Vector2 swordDirection = (GetComponentInParent<PlayerController>()).GetSwordDirection();
-        transform.localPosition = attackPoint.transform.localPosition;
-        float angle = 90 * swordDirection.y / (swordDirection.x + 1);
-        transform.Rotate(new Vector3(0, 0, angle));
-        weaponAnimator.Play("Attack");
-        // TODO make this adjustable to different weapons
-        animationCooldown = 0.42f;
-    }
-
-    public void Update()
-    {
-        animationCooldown -= Time.deltaTime;
-        if (animationCooldown < 0)
-        {
-            transform.localPosition = defaultPosition;
-            transform.localRotation = defaultRotation;
-        }
     }
 }

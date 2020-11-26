@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
 			Vector3 force = (worldPosition - transform.position) * power;
 			force.z = 0;
 
-			Debug.Log("arrow force " + force);
+			// Debug.Log("arrow force " + force);
 			arrow.Init(gameObject, force);
 		}
 	}

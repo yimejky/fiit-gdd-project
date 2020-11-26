@@ -7,7 +7,6 @@ public class Enemy : MonoBehaviour
     public enum BotDifficulty { Easy, Medium, Hard }
     public BotDifficulty botDifficulty = BotDifficulty.Medium;
     public float speed = 100f;
-
     public int damage = 10;
     public Vector2 knockbackPower = new Vector2(10, 10);
     public float knockbackTime = 0.3f;
@@ -18,20 +17,20 @@ public class Enemy : MonoBehaviour
     protected float attackRange = 5f;
     protected float actualAttackCooldown = 0f;
     protected GameObject player;
+    protected Weapon weapon;
     protected Rigidbody2D rb2D;
 
     public virtual void Start()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
         player = GameObject.Find("Hero");
+        weapon = GameObject.Find("Weapon").GetComponent<Weapon>();
+        actualAttackCooldown = 0;
     }
 
     public virtual void Update()
     {
-        if (actualAttackCooldown > 0)
-        {
-            actualAttackCooldown -= Time.deltaTime;
-        }
+        actualAttackCooldown -= Time.deltaTime;
     }
 
     public virtual void FixedUpdate()
@@ -54,6 +53,7 @@ public class Enemy : MonoBehaviour
 
         // Debug.Log("Debug velocity: " + velocity);
         // Debug.Log($"pos {transform.position}, {player.transform.position}, {transform.position - player.transform.position}");
+        transform.rotation = Quaternion.Euler(0, relativePos.x < 0.1 ? 0 : 180, 0);
         rb2D.velocity = velocity;
     }
 
@@ -100,5 +100,10 @@ public class Enemy : MonoBehaviour
         // Debug.Log("player knockback " + knockbackForce);
         yield return new WaitForSeconds(knockbackTime);
         canMove = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        weapon.Attack();
     }
 }
