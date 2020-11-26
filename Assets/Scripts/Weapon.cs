@@ -2,13 +2,11 @@
 
 public class Weapon : MonoBehaviour
 {
-    public LayerMask enemyLayer;
+    public LayerMask hurtboxLayer;
     public Transform attackPoint;
     public float attackRange = 0.8f;
-    public int damage = 10;
-    public Vector2 knockbackPower = new Vector2(10, 10);
-    public float knockbackTime = 0.3f;
     public float attackCooldown = 0.6f;
+    public int damage = 10;
 
     private Animator weaponAnimator;
     private Vector3 defaultPosition;
@@ -62,19 +60,16 @@ public class Weapon : MonoBehaviour
         WeaponAnimation();
 
         Vector3 attackPosition = attackPoint.position;
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayer);
-        foreach (Collider2D enemyCol in hitEnemies)
+        Collider2D[] hurtboxes = Physics2D.OverlapCircleAll(attackPosition, attackRange, hurtboxLayer);
+        foreach (Collider2D hurtbox in hurtboxes)
         {
-            Debug.Log("Hit " + enemyCol.name);
-            GameObject enemyGameObject = enemyCol.gameObject;
-            HealthController enemyHealth = enemyGameObject.GetComponent<HealthController>();
-            Enemy enemy = enemyGameObject.GetComponent<Enemy>();
+            GameObject parent = hurtbox.transform.parent.gameObject;
+            if (parent == transform.parent.gameObject)
+                continue;
 
-            int knockbackXDir = enemyGameObject.transform.position.x - attackPoint.transform.position.x < 0 ? -1 : 1;
-            Vector2 knockbackDir = new Vector2(knockbackXDir, 1);
-
-            enemyHealth.DealDamage(damage);
-            enemy.Knockback(knockbackDir, knockbackPower, knockbackTime);
+            Debug.Log("Hit " + hurtbox.name);
+            parent.GetComponent<HealthController>().DealDamage(damage);
+            parent.GetComponent<KnockbackController>().Knock(gameObject, false);
             break;
         }
 

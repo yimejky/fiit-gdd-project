@@ -65,9 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dbd7e8d71393a44885e3dcf8dd41e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyLayer:
+  hurtboxLayer:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 32768
   attackPoint: {fileID: 1888994664}
   attackRange: 0.8
   damage: 10
@@ -184,6 +184,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 31058859}
+--- !u!1 &1692801300471617656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7336351064345961504}
+  - component: {fileID: 482396730121331763}
+  m_Layer: 15
+  m_Name: Hurtbox
+  m_TagString: Hurtbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7336351064345961504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692801300471617656}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2565707610158881399}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &482396730121331763
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692801300471617656}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.94032496, y: 1.9906197}
+  m_EdgeRadius: 0
 --- !u!1 &2565707610158881387
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,6 +255,7 @@ GameObject:
   - component: {fileID: 2565707610158881384}
   - component: {fileID: 2565707610158881396}
   - component: {fileID: 7744998258556161858}
+  - component: {fileID: 4512780321998046676}
   m_Layer: 14
   m_Name: Enemy
   m_TagString: Enemy
@@ -218,6 +276,7 @@ Transform:
   m_Children:
   - {fileID: 1888994664}
   - {fileID: 31058858}
+  - {fileID: 7336351064345961504}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -349,8 +408,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   botDifficulty: 1
-  speed: 100
-  damage: 10
+  movmentSpeed: 100
+  attackCooldown: 5
+--- !u!114 &4512780321998046676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565707610158881387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e5e26972c0a074ca1121853d6bda8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMove: 1
+  knockbackDamage: 10
   knockbackPower: {x: 10, y: 10}
   knockbackTime: 0.3
-  attackCooldown: 5

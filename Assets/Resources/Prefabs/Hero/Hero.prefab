@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 1670872364892051694}
   - component: {fileID: 1390663753241126381}
   - component: {fileID: -1816402212586383437}
+  - component: {fileID: 4176755112441362162}
   m_Layer: 13
   m_Name: Hero
   m_TagString: Player
@@ -372,8 +373,8 @@ MonoBehaviour:
   maxSpeed: 7
   jumpPower: 18
   groundCollider: {fileID: 654144884}
-  animator: {fileID: -1816402212586383437}
   attackPoint: {fileID: 648010652}
+  animator: {fileID: -1816402212586383437}
 --- !u!114 &1670872364892051694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +425,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4176755112441362162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503514091563632501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e5e26972c0a074ca1121853d6bda8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMove: 1
+  knockbackDamage: 10
+  knockbackPower: {x: 10, y: 10}
+  knockbackTime: 0.3
 --- !u!1001 &1155151035684333026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -455,6 +472,11 @@ PrefabInstance:
         type: 3}
       propertyPath: attackRange
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882612491396985599, guid: a70e753f73e72484b9fc6dff2c0b7256,
+        type: 3}
+      propertyPath: hurtboxLayer.m_Bits
+      value: 32768
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}

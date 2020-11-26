@@ -1,88 +1,65 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 // inspired by https://github.com/Brackeys/2D-Character-Controller
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController))]
 public class PlayerController : MonoBehaviour
 {
+	public bool isPaused;
 	public bool isFlipped = false;
 	public float speed = 400f;
 	public float maxSpeed = 5f;
 	public float jumpPower = 500f;
 	public Transform groundCollider;
-	public Animator animator;
 	public Transform attackPoint;
+	public Animator animator;
 
 	private bool isGrounded = true;
 	private float hitboxSize = 0.70f;
+	private float xInput = 0f;
+	private Weapon weapon;
+	private Vector3 defaultAttackPosition;
 	private Vector3 groundColliderOffset;
 	private Rigidbody2D rb2D;
+	private KnockbackController knockbackController;
 
-	private float xInput = 0f;
-	private bool jumpInput = false;
-	private bool canMove = true;
-	private Vector2 defaultAttackPosition;
-
-	void Awake()
+    void Awake()
 	{
-		rb2D = GetComponent<Rigidbody2D>();
+		weapon = transform.Find("Sword").GetComponent<Weapon>();
+		rb2D = gameObject.GetComponent<Rigidbody2D>();
+		knockbackController = gameObject.GetComponent<KnockbackController>();
 		animator = GetComponent<Animator>();
 		defaultAttackPosition = attackPoint.localPosition;
 	}
 	 
 	void Update()
 	{
+		isPaused = Time.timeScale <= 0;
+
 		// syncing isFlipped with transform rotation
 		if (isFlipped && transform.rotation.eulerAngles.y != 180) transform.rotation = Quaternion.Euler(0, 180, 0);
 		if (!isFlipped && transform.rotation.eulerAngles.y == 180) transform.rotation = Quaternion.Euler(0, 0, 0);
 
-		if (Input.GetButtonDown("Jump"))
+		if (!isPaused && Input.GetButtonDown("Jump"))
 		{
-			jumpInput = true;
+			HandleJumpInput();
+		}
+
+		if (!isPaused && Input.GetButtonDown("Attack"))
+		{
+			weapon.Attack();
 		}
 
 		CheckIfOnGround();
 		
 		attackPoint.localPosition = calculateAttackPoint();
-
-		if (Input.GetButtonDown("ArrowTest"))
-		{
-			GameObject arrowGameobject = Instantiate(Resources.Load("Prefabs/Arrow"), transform.position, Quaternion.identity) as GameObject;
-			Arrow arrow = arrowGameobject.GetComponent<Arrow>();
-			Vector3 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-			Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-			float power = 2f;
-			Vector3 force = (worldPosition - transform.position) * power;
-			force.z = 0;
-
-			// Debug.Log("arrow force " + force);
-			arrow.Init(gameObject, force);
-		}
+		HandleArrowInput();
 	}
 
 	void FixedUpdate()
 	{
 		HandleXInput();
-		HandleJumpInput();
 		// Debug.Log($"Rigid {rb2D.velocity}, {rb2D.velocity.magnitude}, {Physics2D.gravity.y}");
-	}
-
-	public void Knockback(Vector2 knockbackDir, Vector2 knockbackPower, float knockbackTime)
-	{
-		StartCoroutine(KnockbackCoroutine(knockbackDir, knockbackPower, knockbackTime));
-	}
-
-	public IEnumerator KnockbackCoroutine(Vector2 knockbackDir, Vector2 knockbackPower, float knockbackTime)
-	{
-		Vector3 knockbackForce = knockbackDir * knockbackPower;
-
-		canMove = false;
-		rb2D.velocity = Vector2.zero;
-		rb2D.AddForce(knockbackForce, ForceMode2D.Impulse);
-		// Debug.Log("player knockback " + knockbackForce);
-		yield return new WaitForSeconds(knockbackTime);
-		canMove = true;
 	}
 
 	public Vector2 GetSwordDirection(float threshold = 0.1f)
@@ -96,7 +73,6 @@ public class PlayerController : MonoBehaviour
 	private Vector2 calculateAttackPoint()
     {
 		Vector2 swordDirection = GetSwordDirection();
-
 		return new Vector2(defaultAttackPosition.x * swordDirection.x, defaultAttackPosition.y + 0.8f * swordDirection.y);
 	}
 
@@ -119,35 +95,44 @@ public class PlayerController : MonoBehaviour
 
 	private void HandleXInput()
     {
-		if (canMove)
+		xInput = Input.GetAxis("Horizontal");
+		float xInputAbs = Math.Abs(xInput);
+		animator.SetFloat("Speed", xInputAbs);
+		if (!isPaused && knockbackController.canMove && xInputAbs > 0)
         {
-			xInput = Input.GetAxis("Horizontal");
-			float xInputAbs = Math.Abs(xInput);
-			animator.SetFloat("Speed", xInputAbs);
+			float horizontalSpeed = xInput * Time.fixedDeltaTime * speed;
+			Vector2 movement = new Vector3(horizontalSpeed, rb2D.velocity.y, 0);
+			movement.x = Mathf.Clamp(movement.x, -maxSpeed, maxSpeed);
 
-			if (xInputAbs > 0)
-			{
-				float horizontalSpeed = xInput * Time.fixedDeltaTime * speed;
-				Vector2 movement = new Vector2(horizontalSpeed, rb2D.velocity.y);
-				movement.x = Mathf.Clamp(movement.x, -maxSpeed, maxSpeed);
-
-				rb2D.velocity = movement;
-				isFlipped = rb2D.velocity.x < 0;
-				// Debug.Log($"Movement {movement}, velo {rb2D.velocity}, mag {rb2D.velocity.magnitude}");
-			}
+			rb2D.velocity = movement;
+			isFlipped = rb2D.velocity.x < 0;
+			// Debug.Log($"Movement {movement}, velo {rb2D.velocity}, mag {rb2D.velocity.magnitude}");
 		}
 		// Debug.Log($"Movement velo {rb2D.velocity}, mag {rb2D.velocity.magnitude}");
 	}
 	private void HandleJumpInput()
     {
-		if (isGrounded && jumpInput)
+		if (!isPaused && isGrounded)
 		{
 			isGrounded = false;
 			Vector2 movement = new Vector2(0, jumpPower);
 			rb2D.AddForce(movement, ForceMode2D.Impulse);
 			// Debug.Log($"Jump {movement}");
 		}
-		jumpInput = false;
+	}
+
+	private void HandleArrowInput()
+	{
+		if (!isPaused && Input.GetButtonDown("ArrowTest"))
+		{
+			float arrowSpeed = 10f;
+			bool isArrowDirect = true;
+
+			GameObject arrowGameobject = Instantiate(Resources.Load("Prefabs/Arrow"), transform.position, Quaternion.identity) as GameObject;
+			Arrow arrow = arrowGameobject.GetComponent<Arrow>();
+			Vector3 force = arrow.CalculateArrowForceVector(Camera.main.ScreenToWorldPoint(Input.mousePosition), arrowSpeed, isArrowDirect);
+			arrow.Init(gameObject, force);
+		}
 	}
 
 	private void OnDrawGizmosSelected()
