@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 // inspired by https://github.com/Brackeys/2D-Character-Controller
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
 	public bool isFlipped = false;
@@ -43,7 +44,21 @@ public class PlayerController : MonoBehaviour
 
 		CheckIfOnGround();
 		
-		attackPoint.localPosition = calculateAttackPoint(); 
+		attackPoint.localPosition = calculateAttackPoint();
+
+		if (Input.GetButtonDown("ArrowTest"))
+		{
+			GameObject arrowGameobject = Instantiate(Resources.Load("Prefabs/Arrow"), transform.position, Quaternion.identity) as GameObject;
+			Arrow arrow = arrowGameobject.GetComponent<Arrow>();
+			Vector3 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+			Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+			float power = 2f;
+			Vector3 force = (worldPosition - transform.position) * power;
+			force.z = 0;
+
+			Debug.Log("arrow force " + force);
+			arrow.Init(gameObject, force);
+		}
 	}
 
 	void FixedUpdate()
