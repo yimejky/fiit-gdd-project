@@ -8,21 +8,27 @@ public class Weapon : MonoBehaviour
     public int damage = 10;
     public Vector2 knockbackPower = new Vector2(150, 150);
     public float knockbackTime = 0.3f;
+    public float attackCooldownSeconds = 0.6f;
 
     private Animator weaponAnimator;
     private Vector3 defaultPosition;
     private Quaternion defaultRotation;
     private float animationCooldown;
+    private float attackCooldown;
 
     private void Start()
     {
         weaponAnimator = GetComponent<Animator>();
         defaultPosition = transform.localPosition;
         defaultRotation = transform.localRotation;
+        attackCooldown = 0;
     }
 
     public void Attack()
     {
+        if (attackCooldown > 0)
+            return;
+
         WeaponAnimation();
 
         Vector3 attackPosition = attackPoint.position;
@@ -41,6 +47,8 @@ public class Weapon : MonoBehaviour
             enemy.Knockback(knockbackDir, knockbackPower, knockbackTime);
             break;
         }
+
+        attackCooldown = attackCooldownSeconds;
     }
 
     private void OnDrawGizmos()
@@ -63,6 +71,7 @@ public class Weapon : MonoBehaviour
 
     public void Update()
     {
+        attackCooldown -= Time.deltaTime;
         animationCooldown -= Time.deltaTime;
         if (animationCooldown < 0)
         {
