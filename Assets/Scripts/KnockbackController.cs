@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(HealthController))]
 public class KnockbackController : MonoBehaviour
 {
     public bool canMove = true;

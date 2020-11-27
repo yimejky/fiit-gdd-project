@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -131,7 +131,7 @@ PrefabInstance:
     - target: {fileID: 2565707610158881387, guid: 094e53a98a0f37e44b7b75d7b7c88af3,
         type: 3}
       propertyPath: m_Name
-      value: Enemy (2)
+      value: MeleeEnemy (2)
       objectReference: {fileID: 0}
     - target: {fileID: 2565707610158881399, guid: 094e53a98a0f37e44b7b75d7b7c88af3,
         type: 3}
@@ -104237,7 +104237,7 @@ PrefabInstance:
     - target: {fileID: 2565707610158881387, guid: 094e53a98a0f37e44b7b75d7b7c88af3,
         type: 3}
       propertyPath: m_Name
-      value: Enemy (1)
+      value: MeleeEnemy (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2565707610158881399, guid: 094e53a98a0f37e44b7b75d7b7c88af3,
         type: 3}
@@ -104378,7 +104378,7 @@ PrefabInstance:
     - target: {fileID: 2565707610158881387, guid: 094e53a98a0f37e44b7b75d7b7c88af3,
         type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: MeleeEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 2565707610158881399, guid: 094e53a98a0f37e44b7b75d7b7c88af3,
         type: 3}

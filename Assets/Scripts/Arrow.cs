@@ -1,39 +1,27 @@
 ﻿using UnityEngine;
 
+
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
-public class Arrow : MonoBehaviour
+public class Arrow : Projectile
 {
-    public int damage = 10;
-    private bool isFrozen = false;
-    private float aliveTime = 0f;
-    private readonly float angleOffset = 90;
-    private readonly float despawnTime = 10f;
-    private GameObject creator;
-    private Rigidbody2D rb2D;
+    protected bool isFrozen = false;
+    private float defaultGravityScale = 1f;
 
-    // Start is called before the first frame update
-    void Awake()
+    protected override void Awake()
     {
-        rb2D = GetComponent<Rigidbody2D>();
+        base.Awake();
+        rb2D.gravityScale = defaultGravityScale;
     }
 
-    public void Init(GameObject newCreator, Vector3 force)
+    protected override void Update()
     {
-        creator = newCreator;
-        rb2D.AddForce(force, ForceMode2D.Impulse);
+        base.Update();
     }
 
-    private void Update()
+    protected override void FixedUpdate()
     {
-        aliveTime += Time.deltaTime;
-        if (aliveTime > despawnTime)
-        {
-            Destroy(gameObject);
-        }
-    }
+        base.FixedUpdate();
 
-    void FixedUpdate()
-    {
         if (!isFrozen)
         {
             Vector2 velo = rb2D.velocity;
@@ -42,20 +30,18 @@ public class Arrow : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!isFrozen)
         {
+            if (IsHurtboxAndCreator(collision))
+                return;
+
             GameObject hitGameObject = collision.gameObject;
             Transform hitParentTrans = collision.transform.parent;
             GameObject hitParentGameObject = hitParentTrans.gameObject;
-            bool isHurtbox = hitGameObject.CompareTag(Constants.HURTBOX_TAG);
             bool isPlayer = hitParentGameObject.CompareTag(Constants.PLAYER_TAG);
             bool isEnemy = hitParentGameObject.CompareTag(Constants.ENEMY_TAG);
-
-            // skip if hurtbox parent == creator
-            if (isHurtbox && creator == hitParentGameObject)
-                return;
 
             // Debug.Log("freezing arrow trigger enter " + collision.name);
             isFrozen = true;
@@ -70,8 +56,8 @@ public class Arrow : MonoBehaviour
             }
             else if (hitGameObject.CompareTag(Constants.GROUND_TAG))
             {
+                // Debug.Log($"{gameObject.name}: arrow hit ground");
                 transform.parent = hitGameObject.transform;
-                Debug.Log($"{gameObject.name}: arrow hit ground");
             }
         }
     }

@@ -5,21 +5,24 @@ public class ArcherEnemy : Enemy
     public bool isArrowDirect = true;
     public float arrowSpeed = 10f;
 
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
     }
 
-    public override void FixedUpdate()
+    protected override void Update()
     {
-        if (knockbackController.canMove)
+        base.Update();
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if (knockbackController.canMove && playerDistance <= startAttackDistance)
         {
-            range = Vector2.Distance(transform.position, player.transform.position);
-            if (range <= attackRange)
-            {
-                // Debug.Log($"Range {range} {attackRange}, debug {actualAttackCooldown}");
-                ShootArrow();
-            }
+            // Debug.Log($"Range {range} {attackRange}, debug {actualAttackCooldown}");
+            ShootArrow();
         }
     }
 

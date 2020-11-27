@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
         float angle;
         try
         {
-            Vector2 swordDirection = (GetComponentInParent<PlayerController>()).GetSwordDirection();
+            Vector2 swordDirection = GetComponentInParent<PlayerController>().GetSwordDirection();
             transform.localPosition = attackPoint.transform.localPosition;
             angle = 90 * swordDirection.y / (swordDirection.x + 1);
         }

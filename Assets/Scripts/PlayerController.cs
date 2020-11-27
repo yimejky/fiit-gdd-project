@@ -125,10 +125,17 @@ public class PlayerController : MonoBehaviour
 	{
 		if (!isPaused && Input.GetButtonDown("ArrowTest"))
 		{
+			float projectileSpeed = 25f;
+
+			GameObject projectileGameobject = Instantiate(Resources.Load("Prefabs/Weapons/Projectile"), transform.position, Quaternion.identity) as GameObject;
+			Projectile projectile = projectileGameobject.GetComponent<Projectile>();
+			Vector3 dir = -(transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).normalized * projectileSpeed;
+			projectile.Init(gameObject, new Vector3(dir.x, dir.y, 0));
+
 			float arrowSpeed = 10f;
 			bool isArrowDirect = true;
 
-			GameObject arrowGameobject = Instantiate(Resources.Load("Prefabs/Arrow"), transform.position, Quaternion.identity) as GameObject;
+			GameObject arrowGameobject = Instantiate(Resources.Load("Prefabs/Weapons/Arrow"), transform.position, Quaternion.identity) as GameObject;
 			Arrow arrow = arrowGameobject.GetComponent<Arrow>();
 			Vector3 force = arrow.CalculateArrowForceVector(Camera.main.ScreenToWorldPoint(Input.mousePosition), arrowSpeed, isArrowDirect);
 			arrow.Init(gameObject, force);

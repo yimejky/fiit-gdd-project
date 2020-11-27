@@ -27,7 +27,8 @@ Transform:
   m_LocalRotation: {x: 0.002696099, y: -0.000053747495, z: -0.56954336, w: 0.8219568}
   m_LocalPosition: {x: 0.365, y: -0.049, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 6245350275909300035}
   m_Father: {fileID: 1439796873097616568}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.25, y: -0.18100001, z: -69.437004}
@@ -115,7 +116,6 @@ Transform:
   m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
   m_Children:
   - {fileID: 62385249}
-  - {fileID: 6245350275909300035}
   - {fileID: 9202169836911302727}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -250,7 +250,8 @@ MonoBehaviour:
   botDifficulty: 1
   movmentSpeed: 100
   attackCooldown: 5
-  arrowDirect: 1
+  weapon: {fileID: 0}
+  isArrowDirect: 1
   arrowSpeed: 10
 --- !u!114 &206553028
 MonoBehaviour:
@@ -292,12 +293,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3357435697661057278}
-  m_LocalRotation: {x: -0, y: -0, z: -0.9855801, w: 0.16920976}
-  m_LocalPosition: {x: 0.423, y: -0.207, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalRotation: {x: -0.0005091788, y: -0.0026481268, z: -0.713732, w: 0.7004137}
+  m_LocalPosition: {x: 0.16830426, y: -0.0011895075, z: 0.00050735916}
+  m_LocalScale: {x: 0.5000001, y: 0.50000006, z: 1}
   m_Children: []
-  m_Father: {fileID: 1439796873097616568}
-  m_RootOrder: 1
+  m_Father: {fileID: 62385249}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -160.516}
 --- !u!212 &8867442284139550257
 SpriteRenderer:
@@ -378,7 +379,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1439796873097616568}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2942964182955491846
 BoxCollider2D:
