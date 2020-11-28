@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - MovePoint
   - Projectile
+  - Weapon
   layers:
   - Default
   - TransparentFX

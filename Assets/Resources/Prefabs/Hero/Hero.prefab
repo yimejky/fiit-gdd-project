@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &648010651
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 648010652}
-  m_Layer: 13
-  m_Name: AttackPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &648010652
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 648010651}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.55, y: -0.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1503514091563632505}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &654144883
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +59,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1503514091563632505}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1041401862
 MonoBehaviour:
@@ -204,7 +174,6 @@ GameObject:
   - component: {fileID: 9167338044672554212}
   - component: {fileID: 1503514091563632504}
   - component: {fileID: 1670872364892051694}
-  - component: {fileID: 1390663753241126381}
   - component: {fileID: -1816402212586383437}
   - component: {fileID: 4176755112441362162}
   m_Layer: 13
@@ -228,7 +197,6 @@ Transform:
   - {fileID: 654144884}
   - {fileID: 1239789737}
   - {fileID: 5595032721130626378}
-  - {fileID: 648010652}
   - {fileID: 1041401863}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -368,12 +336,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39fb56f07d36ff44c9966db4fa82c469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPaused: 0
   isFlipped: 0
   speed: 1000
   maxSpeed: 7
   jumpPower: 18
   groundCollider: {fileID: 654144884}
-  attackPoint: {fileID: 648010652}
   animator: {fileID: -1816402212586383437}
 --- !u!114 &1670872364892051694
 MonoBehaviour:
@@ -393,19 +361,6 @@ MonoBehaviour:
   color: {r: 0, g: 1, b: 0, a: 1}
   healtBarOffset: {x: 0, y: 1.5, z: 0}
   healthBar: {fileID: 0}
---- !u!114 &1390663753241126381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1503514091563632501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbdd103f9ef45334588bf230217cdc78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: {fileID: 4037181807894042397}
 --- !u!95 &-1816402212586383437
 Animator:
   serializedVersion: 3
@@ -452,7 +407,7 @@ PrefabInstance:
         type: 3}
       propertyPath: attackPoint
       value: 
-      objectReference: {fileID: 648010652}
+      objectReference: {fileID: 6097089316527918576}
     - target: {fileID: 2882612491396985599, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: knockbackPower.x
@@ -481,12 +436,12 @@ PrefabInstance:
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.365
+      value: -1.857
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.34
+      value: -1.328
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
@@ -506,12 +461,12 @@ PrefabInstance:
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.258819
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9659259
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
@@ -531,7 +486,7 @@ PrefabInstance:
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
@@ -566,15 +521,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1155151035684333026}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4037181807894042397 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2882612491396985599, guid: a70e753f73e72484b9fc6dff2c0b7256,
+--- !u!4 &6097089316527918576 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4943507438706518034, guid: a70e753f73e72484b9fc6dff2c0b7256,
     type: 3}
   m_PrefabInstance: {fileID: 1155151035684333026}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dbd7e8d71393a44885e3dcf8dd41e58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

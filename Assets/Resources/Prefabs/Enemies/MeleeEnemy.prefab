@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1888994663
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1888994664}
-  m_Layer: 13
-  m_Name: AttackPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1888994664
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888994663}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.48, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2565707610158881399}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1692801300471617656
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2565707610158881399}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &482396730121331763
 BoxCollider2D:
@@ -120,7 +90,6 @@ Transform:
   m_LocalPosition: {x: 9.5, y: 1, z: 0}
   m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
   m_Children:
-  - {fileID: 1888994664}
   - {fileID: 3978910013381873901}
   - {fileID: 7336351064345961504}
   m_Father: {fileID: 0}
@@ -282,11 +251,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2882612491396985599, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
-      propertyPath: attackPoint
-      value: 
-      objectReference: {fileID: 1888994664}
-    - target: {fileID: 2882612491396985599, guid: a70e753f73e72484b9fc6dff2c0b7256,
-        type: 3}
       propertyPath: knockbackPower.x
       value: 10
       objectReference: {fileID: 0}
@@ -313,12 +277,12 @@ PrefabInstance:
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.406
+      value: -1.37
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.192
+      value: -1.02
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
@@ -328,27 +292,27 @@ PrefabInstance:
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.258819
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9659259
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
@@ -363,7 +327,7 @@ PrefabInstance:
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
@@ -407,6 +371,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dbd7e8d71393a44885e3dcf8dd41e58, type: 3}
+  m_Script: {fileID: 11500000, guid: b03b8aaa6b240ea46811c63660fd4fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

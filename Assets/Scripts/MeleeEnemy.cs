@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MeleeEnemy : Enemy
+public class MeleeEnemy : Enemy, MeeleeWeaponWielder
 {
     private float attackRange = 1.5f;
 
@@ -29,5 +29,10 @@ public class MeleeEnemy : Enemy
                 weapon.Attack();
             }
         }
+    }
+
+    public Vector2 GetAttackDirection()
+    {
+        return new Vector2(1, 0);
     }
 }
