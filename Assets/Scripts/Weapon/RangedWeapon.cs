@@ -22,7 +22,7 @@ public class RangedWeapon : Weapon
 		GameObject arrowGameobject = Instantiate(Resources.Load("Prefabs/Weapons/Arrow"), attackPoint.position, Quaternion.identity) as GameObject;
 		Arrow arrow = arrowGameobject.GetComponent<Arrow>();
 		Vector3 force = arrow.CalculateArrowForceVector(wielder.GetRangedAttackDirection(), arrowSpeed, isArrowDirect);
-		arrow.Init(gameObject, force);
+		arrow.Init(transform.parent.gameObject, force);
 
 		base.Attack();
     }
