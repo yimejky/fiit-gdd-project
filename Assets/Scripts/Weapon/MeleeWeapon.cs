@@ -16,7 +16,6 @@ public class MeleeWeapon : Weapon
     private MeeleeWeaponWielder wielder;
     private Transform body;
     
-
     private void Start()
     {
         body = transform.Find("Body");
@@ -72,7 +71,7 @@ public class MeleeWeapon : Weapon
         float angle;
         try
         {
-            Vector2 swordDirection = wielder.GetAttackDirection();
+            Vector2 swordDirection = wielder.GetMeeleAttackDirection();
             body.localPosition = attackPoint.transform.localPosition;
             angle = 90 * swordDirection.y / (swordDirection.x + 1);
         }
@@ -92,7 +91,7 @@ public class MeleeWeapon : Weapon
         float centerX = 0.7f;
         float centerY = 0.488f;
         float r = Math.Abs(defaultAttackPosition.x - centerX);
-        Vector2 swordDirection = wielder.GetAttackDirection();
+        Vector2 swordDirection = wielder.GetMeeleAttackDirection();
         
         return new Vector2(centerX + r * swordDirection.x, centerY + r * swordDirection.y);
     }
@@ -100,5 +99,5 @@ public class MeleeWeapon : Weapon
 
 public interface MeeleeWeaponWielder
 {
-    Vector2 GetAttackDirection();
+    Vector2 GetMeeleAttackDirection();
 }

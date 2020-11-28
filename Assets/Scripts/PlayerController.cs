@@ -3,7 +3,7 @@ using UnityEngine;
 
 // inspired by https://github.com/Brackeys/2D-Character-Controller
 [RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController))]
-public class PlayerController : MonoBehaviour, MeeleeWeaponWielder
+public class PlayerController : MonoBehaviour, MeeleeWeaponWielder, RangedWeaponWielder
 {
 	public bool isPaused;
 	public bool isFlipped = false;
@@ -56,8 +56,6 @@ public class PlayerController : MonoBehaviour, MeeleeWeaponWielder
 		}
 
 		CheckIfOnGround();
-		
-		HandleArrowInput();
 	}
 
 	void FixedUpdate()
@@ -111,27 +109,6 @@ public class PlayerController : MonoBehaviour, MeeleeWeaponWielder
 		}
 	}
 
-	private void HandleArrowInput()
-	{
-		if (!isPaused && Input.GetButtonDown("ArrowTest"))
-		{
-			float projectileSpeed = 25f;
-
-			GameObject projectileGameobject = Instantiate(Resources.Load("Prefabs/Weapons/Projectile"), transform.position, Quaternion.identity) as GameObject;
-			Projectile projectile = projectileGameobject.GetComponent<Projectile>();
-			Vector3 dir = -(transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).normalized * projectileSpeed;
-			projectile.Init(gameObject, new Vector3(dir.x, dir.y, 0));
-
-			float arrowSpeed = 10f;
-			bool isArrowDirect = true;
-
-			GameObject arrowGameobject = Instantiate(Resources.Load("Prefabs/Weapons/Arrow"), transform.position, Quaternion.identity) as GameObject;
-			Arrow arrow = arrowGameobject.GetComponent<Arrow>();
-			Vector3 force = arrow.CalculateArrowForceVector(Camera.main.ScreenToWorldPoint(Input.mousePosition), arrowSpeed, isArrowDirect);
-			arrow.Init(gameObject, force);
-		}
-	}
-
 	private void OnDrawGizmosSelected()
     {
 		float boxSize = 0.05f;
@@ -140,12 +117,17 @@ public class PlayerController : MonoBehaviour, MeeleeWeaponWielder
 		Gizmos.DrawWireCube(groundCollider.position + groundColliderOffset, boxSizeVec);
     }
 
-    public Vector2 GetAttackDirection()
+    public Vector2 GetMeeleAttackDirection()
     {
 		float threshold = 0.1f;
 		float xInput = Input.GetAxis("Horizontal");
 		float yInput = Input.GetAxis("Vertical");
 
 		return new Vector2(Math.Abs(xInput) >= threshold || Math.Abs(yInput) < threshold ? 1 : 0, Math.Abs(yInput) < threshold ? 0 : yInput > 0 ? 1 : -1);
+	}
+
+    public Vector2 GetRangedAttackDirection()
+    {
+		return Camera.main.ScreenToWorldPoint(Input.mousePosition);
 	}
 }

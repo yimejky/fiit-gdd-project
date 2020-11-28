@@ -31,7 +31,7 @@ public class MeleeEnemy : Enemy, MeeleeWeaponWielder
         }
     }
 
-    public Vector2 GetAttackDirection()
+    public Vector2 GetMeeleAttackDirection()
     {
         return new Vector2(1, 0);
     }
