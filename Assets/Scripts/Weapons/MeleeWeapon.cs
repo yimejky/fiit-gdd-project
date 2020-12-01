@@ -88,8 +88,8 @@ public class MeleeWeapon : Weapon
     private Vector2 calculateAttackPoint()
     {
         // Rotate around
-        float centerX = 0.7f;
-        float centerY = 0.488f;
+        float centerX = 0f;
+        float centerY = 0f;
         float r = Math.Abs(defaultAttackPosition.x - centerX);
         Vector2 swordDirection = wielder.GetMeeleAttackDirection();
         
