@@ -3,7 +3,7 @@ using UnityEngine;
 
 // inspired by https://github.com/Brackeys/2D-Character-Controller
 [RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController))]
-public class PlayerController : MonoBehaviour, MeeleeWeaponWielder, RangedWeaponWielder
+public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeaponWielder
 {
 	public bool isPaused;
 	public bool isFlipped = false;

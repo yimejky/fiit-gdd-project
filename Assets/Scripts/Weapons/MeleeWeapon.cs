@@ -13,7 +13,7 @@ public class MeleeWeapon : Weapon
     private Vector3 defaultPosition;
     private Quaternion defaultRotation;
     private float animationCooldown;
-    private MeeleeWeaponWielder wielder;
+    private IMeleeWeaponWielder wielder;
     private Transform body;
     
     private void Start()
@@ -23,7 +23,7 @@ public class MeleeWeapon : Weapon
         defaultPosition = body.transform.localPosition;
         defaultRotation = body.transform.localRotation;
         defaultAttackPosition = attackPoint.localPosition;
-        wielder = transform.parent.GetComponent<MeeleeWeaponWielder>();
+        wielder = transform.parent.GetComponent<IMeleeWeaponWielder>();
     }
     private new void Update()
     {
@@ -87,17 +87,9 @@ public class MeleeWeapon : Weapon
 
     private Vector2 calculateAttackPoint()
     {
-        // Rotate around
-        float centerX = 0f;
-        float centerY = 0f;
-        float r = Math.Abs(defaultAttackPosition.x - centerX);
+        float r = Math.Abs(defaultAttackPosition.x);
         Vector2 swordDirection = wielder.GetMeeleAttackDirection();
         
-        return new Vector2(centerX + r * swordDirection.x, centerY + r * swordDirection.y);
+        return new Vector2(r * swordDirection.x, r * swordDirection.y);
     }
-}
-
-public interface MeeleeWeaponWielder
-{
-    Vector2 GetMeeleAttackDirection();
 }

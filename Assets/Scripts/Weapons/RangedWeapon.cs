@@ -5,11 +5,11 @@ public class RangedWeapon : Weapon
 	public float arrowSpeed = 10f;
 	public Transform attackPoint;
 
-	private RangedWeaponWielder wielder;
+	private IRangedWeaponWielder wielder;
 
 	private void Start()
 	{
-		wielder = transform.parent.GetComponent<RangedWeaponWielder>();
+		wielder = transform.parent.GetComponent<IRangedWeaponWielder>();
 	}
 
     public override void Attack()
@@ -26,8 +26,4 @@ public class RangedWeapon : Weapon
 
 		base.Attack();
     }
-}
-public interface RangedWeaponWielder
-{
-	Vector2 GetRangedAttackDirection();
 }

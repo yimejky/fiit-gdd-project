@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MeleeEnemy : Enemy, MeeleeWeaponWielder
+public class MeleeEnemy : Enemy, IMeleeWeaponWielder
 {
     private float attackRange = 1.5f;
 

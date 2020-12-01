@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ArcherEnemy : Enemy, RangedWeaponWielder
+public class ArcherEnemy : Enemy, IRangedWeaponWielder
 {
     public bool isArrowDirect = true;
     public float arrowSpeed = 10f;
