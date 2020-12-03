@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     protected GameObject player;
     protected Rigidbody2D rb2D;
     protected KnockbackController knockbackController;
+    protected Patrol patrol;
 
     protected virtual void Start()
     {
@@ -22,6 +23,14 @@ public class Enemy : MonoBehaviour
         knockbackController = gameObject.GetComponent<KnockbackController>();
         player = GameObject.Find("Hero");
         actualAttackCooldown = 0;
+        foreach (Transform child in transform)
+        {
+            if (child.GetComponent<Patrol>() != null)
+            {
+                patrol = child.GetComponent<Patrol>();
+                break;
+            }
+        }
     }
 
     protected virtual void Update()
@@ -37,6 +46,12 @@ public class Enemy : MonoBehaviour
 
     protected void MoveToTarget(GameObject target)
     {
+        if (patrol && patrol.patrolEnabled)
+        {
+            Debug.Log("Moving on patrol cancelled");
+            return;
+        }
+
         Vector2 relativePos = transform.position - target.transform.position;
         float x = (relativePos.x > 0 ? -1 : 1) * movmentSpeed * Time.fixedDeltaTime;
         Vector2 velocity = new Vector2(x, rb2D.velocity.y);

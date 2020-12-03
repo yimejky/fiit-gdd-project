@@ -23,11 +23,17 @@ public class MeleeEnemy : Enemy, IMeleeWeaponWielder
             if (playerDistance > attackRange)
             {
                 // Debug.Log($"Debug distance {playerDistance}, {attackRange}");
+                patrol.setPatrolEnabled(false);
                 MoveToTarget(player);
             } else
             {
                 weapon.Attack();
             }
+        }
+
+        if (playerDistance > startAttackDistance && patrol != null)
+        {
+            patrol.setPatrolEnabled(true);
         }
     }
 
