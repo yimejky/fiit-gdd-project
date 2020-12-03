@@ -40,15 +40,14 @@ public class Arrow : Projectile
             GameObject hitGameObject = collision.gameObject;
             Transform hitParentTrans = collision.transform.parent;
             GameObject hitParentGameObject = hitParentTrans.gameObject;
-            bool isPlayer = hitParentGameObject.CompareTag(Constants.PLAYER_TAG);
-            bool isEnemy = hitParentGameObject.CompareTag(Constants.ENEMY_TAG);
+            bool hasHealthController = hitParentGameObject.GetComponent<HealthController>() != null;
 
             // Debug.Log("freezing arrow trigger enter " + collision.name);
             isFrozen = true;
             rb2D.isKinematic = true;
             rb2D.velocity = Vector3.zero;
 
-            if (isPlayer || isEnemy)
+            if (hasHealthController)
             {
                 // Debug.Log($"{hitGameObject.name}: arrow hit player or enemy");
                 hitParentGameObject.GetComponent<HealthController>().DealDamage(damage);

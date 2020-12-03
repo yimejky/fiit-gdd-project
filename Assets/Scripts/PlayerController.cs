@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
 	{
 		foreach (Transform child in transform)
 		{
-			if (child.tag == "Weapon")
+			if (child.tag == "Weapon" && child.gameObject.activeSelf)
             {
 				weapon = child.GetComponent<Weapon>();
 				break;

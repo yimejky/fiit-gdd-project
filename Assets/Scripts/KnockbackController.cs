@@ -8,9 +8,15 @@ public class KnockbackController : MonoBehaviour
     public int knockbackDamage = 10;
     public Vector2 knockbackPower = new Vector2(10, 10);
     public float knockbackTime = 0.3f;
+    public bool dummy = false;
 
     public void Knock(GameObject attacker, bool giveDamage=false)
     {
+        if (dummy)
+        {
+            return;
+        }
+
         Rigidbody2D rb2D = gameObject.GetComponent<Rigidbody2D>();
         int knockbackXDir = gameObject.transform.position.x - attacker.transform.position.x < 0 ? -1 : 1;
         Vector2 knockbackDir = new Vector2(knockbackXDir, 1);
