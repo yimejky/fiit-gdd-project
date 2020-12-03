@@ -23,7 +23,7 @@ public class MeleeEnemy : Enemy, IMeleeWeaponWielder
             if (playerDistance > attackRange)
             {
                 // Debug.Log($"Debug distance {playerDistance}, {attackRange}");
-                patrol.setPatrolEnabled(false);
+                if (patrol) patrol.setPatrolEnabled(false);
                 MoveToTarget(player);
             } else
             {
@@ -31,7 +31,7 @@ public class MeleeEnemy : Enemy, IMeleeWeaponWielder
             }
         }
 
-        if (playerDistance > startAttackDistance && patrol != null)
+        if (playerDistance > startAttackDistance && patrol)
         {
             patrol.setPatrolEnabled(true);
         }
