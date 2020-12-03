@@ -45,8 +45,9 @@ public class Arrow : Projectile
 
             // Debug.Log("freezing arrow trigger enter " + collision.name);
             isFrozen = true;
-            rb2D.isKinematic = true;
             rb2D.velocity = Vector3.zero;
+            rb2D.bodyType = RigidbodyType2D.Kinematic;
+            rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             if (isPlayer || isEnemy)
             {

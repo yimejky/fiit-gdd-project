@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7860319695340208208}
   - component: {fileID: 7860319695340208215}
   - component: {fileID: 7860319695340208210}
-  - component: {fileID: 7860319695340208209}
   - component: {fileID: 7860319695340208211}
   - component: {fileID: 9160915158260877488}
+  - component: {fileID: 1261919125511825932}
+  - component: {fileID: 7860319695340208209}
   m_Layer: 17
   m_Name: Arrow
   m_TagString: Projectile
@@ -106,19 +107,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7860319695340208209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860319695340208214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36a96bcd1dc61634fbfeef6a107aa050, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
 --- !u!61 &7860319695340208211
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -131,7 +119,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0.47}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,7 +145,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0.535}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,3 +159,66 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.093421906, y: 0.22757149}
   m_EdgeRadius: 0
+--- !u!66 &1261919125511825932
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860319695340208214}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 1
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 7860319695340208211}
+    m_ColliderPaths:
+    - - X: 1250003
+        Y: 4147229
+      - X: 1250003
+        Y: 5252770
+      - X: -1250294
+        Y: 5252477
+      - X: -1250001
+        Y: 4147230
+  - m_Collider: {fileID: 9160915158260877488}
+    m_ColliderPaths:
+    - - X: 466817
+        Y: 4212143
+      - X: 466817
+        Y: 6487857
+      - X: -467108
+        Y: 6487564
+      - X: -466815
+        Y: 4212143
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 0.124971, y: 0.41472292}
+      - {x: 0.124971, y: 0.525277}
+      - {x: 0.046681702, y: 0.5252972}
+      - {x: 0.0466524, y: 0.6487857}
+      - {x: -0.0467108, y: 0.6487271}
+      - {x: -0.0467243, y: 0.52525693}
+      - {x: -0.1250294, y: 0.5252184}
+      - {x: -0.1249708, y: 0.414723}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+--- !u!114 &7860319695340208209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860319695340208214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a96bcd1dc61634fbfeef6a107aa050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10

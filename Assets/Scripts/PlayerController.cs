@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController))]
 public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeaponWielder
 {
+	public LayerMask interactableLayer;
 	public bool isPaused;
 	public bool isFlipped = false;
 	public float speed = 400f;
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
 	public float jumpPower = 500f;
 	public Transform groundCollider;
 	public Animator animator;
+	public float interactRange = 1.0f;
 
 	private bool isGrounded = true;
 	private float hitboxSize = 0.70f;
@@ -54,6 +56,12 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
 		{
 			weapon.Attack();
 		}
+
+		if (!isPaused && Input.GetButtonDown("Interact"))
+        {
+			Debug.Log("Interact");
+			HandleObjectInteraction();
+        }
 
 		CheckIfOnGround();
 	}
@@ -109,13 +117,22 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
 		}
 	}
 
-	private void OnDrawGizmosSelected()
+	private void HandleObjectInteraction()
     {
-		float boxSize = 0.05f;
-		Vector3 boxSizeVec = new Vector3(boxSize, boxSize, boxSize);
-		Gizmos.DrawWireCube(groundCollider.position - groundColliderOffset, boxSizeVec);
-		Gizmos.DrawWireCube(groundCollider.position + groundColliderOffset, boxSizeVec);
-    }
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, interactRange, interactableLayer);
+		Debug.Log($"handle Interact {colliders.Length}");
+		foreach (Collider2D col in colliders)
+		{
+			Debug.Log($"Interact in {col.name}");
+			IInteractableObject interactable = col.transform.parent.GetComponent<IInteractableObject>();
+			if (interactable == null)
+				continue;
+
+			interactable.Interact();
+
+			break;
+		}
+	}
 
     public Vector2 GetMeeleAttackDirection()
     {
@@ -129,5 +146,18 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
     public Vector2 GetRangedAttackDirection()
     {
 		return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+	}
+
+	private void OnDrawGizmos()
+	{
+		Vector3 boxSizeVec = Vector3.one * 0.05f;
+		Gizmos.color = Color.blue;
+		// Ground checking visual helpers
+		Gizmos.DrawWireCube(groundCollider.position - groundColliderOffset, boxSizeVec);
+		Gizmos.DrawWireCube(groundCollider.position + groundColliderOffset, boxSizeVec);
+
+		// Interact range
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position, interactRange);
 	}
 }

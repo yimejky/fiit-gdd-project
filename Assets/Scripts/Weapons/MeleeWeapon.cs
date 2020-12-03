@@ -5,7 +5,7 @@ public class MeleeWeapon : Weapon
 {
     public LayerMask hurtboxLayer;
     public Transform attackPoint;
-    public float attackRange = 0.8f;
+    public float attackRange = 1.0f;
     public int damage = 10;
 
     private Animator weaponAnimator;
@@ -16,18 +16,19 @@ public class MeleeWeapon : Weapon
     private IMeleeWeaponWielder wielder;
     private Transform body;
     
-    private void Start()
+    private void Awake()
     {
         body = transform.Find("Body");
         weaponAnimator = body.GetComponent<Animator>();
         defaultPosition = body.transform.localPosition;
         defaultRotation = body.transform.localRotation;
         defaultAttackPosition = attackPoint.localPosition;
-        wielder = transform.parent.GetComponent<IMeleeWeaponWielder>();
     }
     private new void Update()
     {
         base.Update();
+        wielder = transform.parent.GetComponent<IMeleeWeaponWielder>();
+
         animationCooldown -= Time.deltaTime;
         if (animationCooldown < 0)
         {
@@ -49,7 +50,7 @@ public class MeleeWeapon : Weapon
             if (parent == transform.parent.gameObject)
                 continue;
 
-            Debug.Log("Hit " + hurtbox.name);
+            Debug.Log($"Hit {hurtbox.name}");
             parent.GetComponent<HealthController>().DealDamage(damage);
             parent.GetComponent<KnockbackController>().Knock(gameObject, false);
             break;
@@ -87,9 +88,15 @@ public class MeleeWeapon : Weapon
 
     private Vector2 calculateAttackPoint()
     {
-        float r = Math.Abs(defaultAttackPosition.x);
-        Vector2 swordDirection = wielder.GetMeeleAttackDirection();
-        
-        return new Vector2(r * swordDirection.x, r * swordDirection.y);
+        if (wielder != null)
+        {
+            float r = Math.Abs(defaultAttackPosition.x);
+            Vector2 swordDirection = wielder.GetMeeleAttackDirection();
+
+            return new Vector2(r * swordDirection.x, r * swordDirection.y);
+        }
+
+        Debug.Log("Melee Weapon: Wielder missing");
+        return Vector2.zero;
     }
 }
