@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.3
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 1d015c5400000000
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -196,8 +196,8 @@ Transform:
   m_Children:
   - {fileID: 654144884}
   - {fileID: 1239789737}
-  - {fileID: 8148583215446125872}
   - {fileID: 1320393515243958900}
+  - {fileID: 8148583215446125872}
   - {fileID: 1041401863}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -337,9 +337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39fb56f07d36ff44c9966db4fa82c469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  environmentLayer:
+  interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 262144
   isPaused: 0
   isFlipped: 0
   speed: 1000
@@ -363,6 +363,7 @@ MonoBehaviour:
   respawnPosition: {x: 0, y: 0, z: 0}
   maxHealth: 100
   actualHealth: 100
+  displayHealthBar: 1
   color: {r: 0, g: 1, b: 0, a: 1}
   healtBarOffset: {x: 0, y: 1.5, z: 0}
   healthBar: {fileID: 0}
@@ -401,6 +402,7 @@ MonoBehaviour:
   knockbackDamage: 10
   knockbackPower: {x: 10, y: 10}
   knockbackTime: 0.3
+  dummy: 0
 --- !u!1001 &3951406985380424200
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -446,7 +448,7 @@ PrefabInstance:
     - target: {fileID: 5171155971744499512, guid: 067d219443495be4ba64e6bb6935aba1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5171155971744499512, guid: 067d219443495be4ba64e6bb6935aba1,
         type: 3}
@@ -471,7 +473,7 @@ PrefabInstance:
     - target: {fileID: 7155138976539172944, guid: 067d219443495be4ba64e6bb6935aba1,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 067d219443495be4ba64e6bb6935aba1, type: 3}
@@ -536,7 +538,7 @@ PrefabInstance:
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
@@ -561,7 +563,7 @@ PrefabInstance:
     - target: {fileID: 6747068590136899757, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9176614124392312234, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}

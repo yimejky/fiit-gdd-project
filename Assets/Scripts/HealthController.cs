@@ -10,7 +10,7 @@ public class HealthController : MonoBehaviour
     // healtbar settings
     public Color color = Color.green;
     public Vector3 healtBarOffset = new Vector3(0, 1.5f);
-    public HealthBarController healthBar;
+    public GameObject healthBar;
 
     private void Start()
     {
@@ -46,7 +46,6 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
-       
         if (gameObject.CompareTag(Constants.PLAYER_TAG))
         {
             // TODO: game over
@@ -71,13 +70,12 @@ public class HealthController : MonoBehaviour
 
     private void SpawnHealthBar()
     {
-        Object healthPrefab = Resources.Load("Prefabs/HealthBar");
-        GameObject healthBarObject = Instantiate(healthPrefab, transform.position + healtBarOffset, Quaternion.identity) as GameObject;
+        Object healthPrefab = Resources.Load("Prefabs/HealthBarAbove");
+        healthBar = Instantiate(healthPrefab, transform.position + healtBarOffset, Quaternion.identity) as GameObject;
         // GameObject healthBarObject = transform.Find("HealthBar").gameObject;
 
-        healthBarObject.transform.parent = gameObject.transform;
-        healthBar = healthBarObject.GetComponent<HealthBarController>();
-        healthBar.SetColor(color);
+        healthBar.transform.parent = gameObject.transform;
+        healthBar.GetComponent<IHealthBarController>().SetColor(color);
     }
 
     private void SetHeatlhBar(int newActualHealth)
@@ -85,7 +83,7 @@ public class HealthController : MonoBehaviour
         if (healthBar)
         {
             float barSize = Mathf.Max((float)newActualHealth / maxHealth, 0f);
-            healthBar.SetSize(barSize);
+            healthBar.GetComponent<IHealthBarController>().SetSize(barSize);
         }
     }
 }

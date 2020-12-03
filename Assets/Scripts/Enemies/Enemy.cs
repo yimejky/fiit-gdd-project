@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     public float attackCooldown = 5f;
     public Weapon weapon;
 
-    protected float playerDistance;
+    protected float playerDistance = 999f;
     protected float startAttackDistance = 5f;
     protected float actualAttackCooldown = 0f;
     protected GameObject player;

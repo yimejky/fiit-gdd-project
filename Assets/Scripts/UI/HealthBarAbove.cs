@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class HealthBarController : MonoBehaviour
+public class HealthBarAbove : MonoBehaviour, IHealthBarController
 {
     public Color color;
     private Transform bar;
@@ -13,10 +12,8 @@ public class HealthBarController : MonoBehaviour
         bar = transform.Find("Bar");
         barSprite = bar.Find("BarSprite");
         barSpriteSprite = barSprite.GetComponent<SpriteRenderer>();
-        // Debug.Log("debug1" + barSprite);
-        // Debug.Log("debug2" + barSpriteSprite);
+        SetColor(color);
     }
-
 
     public void SetSize(float sizeNormalized)
     {

@@ -11,7 +11,7 @@ public class ArcherEnemy : Enemy, IRangedWeaponWielder
 
         if (knockbackController.canMove && playerDistance <= startAttackDistance)
         {
-            // Debug.Log($"Range {range} {attackRange}, debug {actualAttackCooldown}");
+            // Debug.Log($"Range {startAttackDistance} {playerDistance}, debug {actualAttackCooldown}");
             weapon.Attack();
         }
     }
