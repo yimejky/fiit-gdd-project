@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
     public BotDifficulty botDifficulty = BotDifficulty.Medium;
     public float movmentSpeed = 100f;
     public float attackCooldown = 5f;
+    public int touchDamage = 10;
+    public Vector2 touchKnockbackPower = new Vector2(10, 10);
+    public float touchKnockbackTime = 0.3f;
     public Weapon weapon;
 
     protected float playerDistance = 999f;
@@ -64,7 +67,8 @@ public class Enemy : MonoBehaviour
         GameObject parent = collision.transform.parent?.gameObject;
         if (collision.CompareTag(Constants.HURTBOX_TAG) && parent.CompareTag(Constants.PLAYER_TAG))
         {
-            parent.GetComponent<KnockbackController>().Knock(gameObject, true);
+            parent.GetComponent<HealthController>().DealDamage(touchDamage);
+            parent.GetComponent<KnockbackController>().Knock(gameObject, touchKnockbackPower, touchKnockbackTime);
         }
     }
 }

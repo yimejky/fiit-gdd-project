@@ -50,8 +50,9 @@ public class Arrow : Projectile
 
             if (hasHealthController)
             {
-                // Debug.Log($"{hitGameObject.name}: arrow hit player or enemy");
+                Debug.Log($"{hitGameObject.name}: arrow hit player or enemy {knockbackPower}");
                 hitParentGameObject.GetComponent<HealthController>().DealDamage(damage);
+                hitParentGameObject.GetComponent<KnockbackController>().Knock(gameObject, knockbackPower, knockbackTime);
                 transform.parent = hitParentTrans;
             }
             else if (hitGameObject.CompareTag(Constants.GROUND_TAG))

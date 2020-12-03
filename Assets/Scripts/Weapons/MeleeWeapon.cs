@@ -6,7 +6,6 @@ public class MeleeWeapon : Weapon
     public LayerMask hurtboxLayer;
     public Transform attackPoint;
     public float attackRange = 1.0f;
-    public int damage = 10;
 
     private Animator weaponAnimator;
 	private Vector3 defaultAttackPosition;
@@ -52,7 +51,7 @@ public class MeleeWeapon : Weapon
 
             Debug.Log($"Hit {hurtbox.name}");
             parent.GetComponent<HealthController>().DealDamage(damage);
-            parent.GetComponent<KnockbackController>().Knock(gameObject, false);
+            parent.GetComponent<KnockbackController>().Knock(gameObject, knockbackPower, knockbackTime);
             break;
         }
 

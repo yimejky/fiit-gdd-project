@@ -224,10 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 1
-  knockbackDamage: 10
-  knockbackPower: {x: 10, y: 10}
-  knockbackTime: 0.3
-  dummy: 0
+  disabled: 0
 --- !u!114 &4161453993962849787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +240,9 @@ MonoBehaviour:
   botDifficulty: 1
   movmentSpeed: 100
   attackCooldown: 5
+  touchDamage: 10
+  touchKnockbackPower: {x: 5, y: 5}
+  touchKnockbackTime: 0.3
   weapon: {fileID: 4797620547892746938}
 --- !u!1001 &7680197236299475013
 PrefabInstance:

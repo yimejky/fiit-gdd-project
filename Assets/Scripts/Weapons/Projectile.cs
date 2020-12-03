@@ -4,6 +4,9 @@
 public class Projectile : MonoBehaviour
 {
     public int damage = 10;
+    public Vector2 knockbackPower = new Vector2(1, 1);
+    public float knockbackTime = 0.1f;
+
     protected float aliveTime = 0f;
     protected readonly float angleOffset = 90;
     protected readonly float despawnTime = 10f;
@@ -34,9 +37,12 @@ public class Projectile : MonoBehaviour
 
     }
 
-    public void Init(GameObject newCreator, Vector3 force)
+    public void Init(GameObject newCreator, Vector3 force, int newDamage, Vector2 newKnockbackPower, float newKnockbackTime)
     {
         creator = newCreator;
+        damage = newDamage;
+        knockbackPower = newKnockbackPower;
+        knockbackTime = newKnockbackTime;
         rb2D.AddForce(force, ForceMode2D.Impulse);
     }
 
@@ -64,6 +70,7 @@ public class Projectile : MonoBehaviour
         {
             // Debug.Log($"{hitGameObject.name}: arrow hit player or enemy");
             hitParentGameObject.GetComponent<HealthController>().DealDamage(damage);
+            hitParentGameObject.GetComponent<KnockbackController>().Knock(gameObject, knockbackPower, knockbackTime);
         }
 
         Destroy(gameObject);
