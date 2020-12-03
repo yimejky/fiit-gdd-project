@@ -57,11 +57,10 @@ public class Projectile : MonoBehaviour
 
         Transform hitParentTrans = collision.transform.parent;
         GameObject hitParentGameObject = hitParentTrans.gameObject;
-        bool isPlayer = hitParentGameObject.CompareTag(Constants.PLAYER_TAG);
-        bool isEnemy = hitParentGameObject.CompareTag(Constants.ENEMY_TAG);
+        bool hasHealthController = hitParentGameObject.GetComponent<HealthController>() != null;
 
         // Debug.Log("freezing arrow trigger enter " + collision.name);
-        if (isPlayer || isEnemy)
+        if (hasHealthController)
         {
             // Debug.Log($"{hitGameObject.name}: arrow hit player or enemy");
             hitParentGameObject.GetComponent<HealthController>().DealDamage(damage);

@@ -5,6 +5,7 @@ public class HealthController : MonoBehaviour
     public Vector3 respawnPosition;
     public int maxHealth = 100;
     public int actualHealth = 100;
+    public bool displayHealthBar = true;
 
     // healtbar settings
     public Color color = Color.green;
@@ -14,7 +15,7 @@ public class HealthController : MonoBehaviour
     private void Start()
     {
         respawnPosition = transform.position;
-        if (!healthBar)
+        if (!healthBar && displayHealthBar)
         {
             SpawnHealthBar();
         }
@@ -31,7 +32,10 @@ public class HealthController : MonoBehaviour
         if (actualHealth > 0)
         {
             actualHealth -= damage;
-            SetHeatlhBar(actualHealth);
+            if (displayHealthBar)
+            {
+                SetHeatlhBar(actualHealth);
+            }
 
             if (actualHealth <= 0)
             {
