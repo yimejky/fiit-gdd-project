@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3336226356967555937}
   m_Layer: 15
   m_Name: Hurtbox
-  m_TagString: Hurtbox
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 3336226358009481205}
   m_Layer: 12
   m_Name: DestroyableBlock
-  m_TagString: Ground
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -253,7 +253,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 1
-  knockbackDamage: 10
-  knockbackPower: {x: 10, y: 10}
-  knockbackTime: 0.3
-  dummy: 1
+  disabled: 0

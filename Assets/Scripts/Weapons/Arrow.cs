@@ -52,7 +52,7 @@ public class Arrow : Projectile
             {
                 Debug.Log($"{hitGameObject.name}: arrow hit player or enemy {knockbackPower}");
                 hitParentGameObject.GetComponent<HealthController>().DealDamage(damage);
-                hitParentGameObject.GetComponent<KnockbackController>().Knock(gameObject, knockbackPower, knockbackTime);
+                hitParentGameObject.GetComponent<KnockbackController>().Knock(gameObject.transform.position, knockbackPower, knockbackTime);
                 transform.parent = hitParentTrans;
             }
             else if (hitGameObject.CompareTag(Constants.GROUND_TAG))

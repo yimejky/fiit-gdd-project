@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
         if (collision.CompareTag(Constants.HURTBOX_TAG) && parent.CompareTag(Constants.PLAYER_TAG))
         {
             parent.GetComponent<HealthController>().DealDamage(touchDamage);
-            parent.GetComponent<KnockbackController>().Knock(gameObject, touchKnockbackPower, touchKnockbackTime);
+            parent.GetComponent<KnockbackController>().Knock(gameObject.transform.position, touchKnockbackPower, touchKnockbackTime);
         }
     }
 }

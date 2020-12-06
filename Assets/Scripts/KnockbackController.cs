@@ -7,7 +7,7 @@ public class KnockbackController : MonoBehaviour
     public bool canMove = true;
     public bool disabled = false;
 
-    public void Knock(GameObject attacker, Vector2 knockbackPower, float knockbackTime=0.3f)
+    public void Knock(Vector2 attackerPosition, Vector2 knockbackPower, float knockbackTime=0.3f)
     {
         if (disabled)
         {
@@ -15,7 +15,7 @@ public class KnockbackController : MonoBehaviour
         }
 
         Rigidbody2D rb2D = gameObject.GetComponent<Rigidbody2D>();
-        int knockbackXDir = gameObject.transform.position.x - attacker.transform.position.x < 0 ? -1 : 1;
+        int knockbackXDir = gameObject.transform.position.x - attackerPosition.x < 0 ? -1 : 1;
         Vector2 knockbackDir = new Vector2(knockbackXDir, 1);
 
         StartCoroutine(KnockbackCoroutine(rb2D, knockbackDir, knockbackPower, knockbackTime));

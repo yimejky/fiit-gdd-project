@@ -70,7 +70,7 @@ public class Projectile : MonoBehaviour
         {
             // Debug.Log($"{hitGameObject.name}: arrow hit player or enemy");
             hitParentGameObject.GetComponent<HealthController>().DealDamage(damage);
-            hitParentGameObject.GetComponent<KnockbackController>().Knock(gameObject, knockbackPower, knockbackTime);
+            hitParentGameObject.GetComponent<KnockbackController>().Knock(gameObject.transform.position, knockbackPower, knockbackTime);
         }
 
         Destroy(gameObject);

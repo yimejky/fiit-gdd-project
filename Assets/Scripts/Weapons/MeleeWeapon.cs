@@ -7,14 +7,14 @@ public class MeleeWeapon : Weapon
     public Transform attackPoint;
     public float attackRange = 1.0f;
 
-    private Animator weaponAnimator;
-	private Vector3 defaultAttackPosition;
-    private Vector3 defaultPosition;
-    private Quaternion defaultRotation;
     private float animationCooldown;
-    private IMeleeWeaponWielder wielder;
+    private Vector2 defaultAttackPosition;
+    private Vector2 defaultPosition;
     private Transform body;
-    
+    private Animator weaponAnimator;
+    private Quaternion defaultRotation;
+    private IMeleeWeaponWielder wielder;
+
     private void Awake()
     {
         body = transform.Find("Body");
@@ -34,7 +34,8 @@ public class MeleeWeapon : Weapon
             body.localPosition = defaultPosition;
             body.localRotation = defaultRotation;
         }
-        attackPoint.localPosition = calculateAttackPoint();
+
+        attackPoint.localPosition = CalculateAttackPoint();
     }
     public override void Attack()
     {
@@ -42,17 +43,38 @@ public class MeleeWeapon : Weapon
             return;
 
         Vector3 attackPosition = attackPoint.position;
+        Debug.Log($"Attack {attackPoint.localPosition}");
         Collider2D[] hurtboxes = Physics2D.OverlapCircleAll(attackPosition, attackRange, hurtboxLayer);
+        // enemies hurtbox
+        foreach (Collider2D hurtbox in hurtboxes)
+        {
+            GameObject hurtboxParent = hurtbox.transform.parent.gameObject;
+            bool isDestroy = hurtboxParent.CompareTag(Constants.DESTROYABLE_TAG);
+            bool ignoreHimself = hurtboxParent == transform.parent.gameObject;
+            if (ignoreHimself || isDestroy)
+                continue;
+
+            Debug.Log($"Hit {hurtboxParent.name}");
+            hurtboxParent.GetComponent<HealthController>().DealDamage(damage);
+            hurtboxParent.GetComponent<KnockbackController>().Knock(gameObject.transform.position, knockbackPower, knockbackTime);
+            if (attackPoint.localPosition.y < 0)
+            {
+                transform.parent.GetComponent<KnockbackController>().Knock(hurtboxParent.transform.position, knockbackPower, knockbackTime);
+            }
+
+            break;
+        }
+
+        // destroyable hurtbox
         foreach (Collider2D hurtbox in hurtboxes)
         {
             GameObject parent = hurtbox.transform.parent.gameObject;
-            if (parent == transform.parent.gameObject)
+            bool isDestroy = parent.CompareTag(Constants.DESTROYABLE_TAG);
+            if (!isDestroy)
                 continue;
 
-            Debug.Log($"Hit {hurtbox.name}");
+            Debug.Log($"Destroyable {parent.name}");
             parent.GetComponent<HealthController>().DealDamage(damage);
-            parent.GetComponent<KnockbackController>().Knock(gameObject, knockbackPower, knockbackTime);
-            break;
         }
 
         WeaponAnimation();
@@ -85,17 +107,15 @@ public class MeleeWeapon : Weapon
         animationCooldown = 0.42f;
     }
 
-    private Vector2 calculateAttackPoint()
+    private Vector2 CalculateAttackPoint()
     {
-        if (wielder != null)
+        Vector2 swordDirection = wielder.GetMeeleAttackDirection();
+        if (Math.Abs(swordDirection.y) > 0)
         {
-            float r = Math.Abs(defaultAttackPosition.x);
-            Vector2 swordDirection = wielder.GetMeeleAttackDirection();
-
-            return new Vector2(r * swordDirection.x, r * swordDirection.y);
+            Vector2 vec = new Vector2(swordDirection.x * defaultAttackPosition.x, swordDirection.y);
+            return vec;
         }
 
-        Debug.Log("Melee Weapon: Wielder missing");
-        return Vector2.zero;
+        return defaultAttackPosition;
     }
 }

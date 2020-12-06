@@ -418,12 +418,12 @@ PrefabInstance:
     - target: {fileID: 6300895122025649636, guid: 067d219443495be4ba64e6bb6935aba1,
         type: 3}
       propertyPath: knockbackPower.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6300895122025649636, guid: 067d219443495be4ba64e6bb6935aba1,
         type: 3}
       propertyPath: knockbackPower.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7155138976539172944, guid: 067d219443495be4ba64e6bb6935aba1,
         type: 3}
