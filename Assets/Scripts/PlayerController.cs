@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
     public Animator animator;
     public float interactRange = 1.0f;
 
+    [HideInInspector]
+    public UIAction closestUI;
     private bool isGrounded = true;
     private float hitboxSize = 0.70f;
     private float xInput = 0f;
@@ -69,12 +71,6 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         if (!isPaused && Input.GetButtonDown("Attack"))
         {
             activeWeapon.Attack();
-        }
-
-        if (!isPaused && Input.GetButtonDown("Interact"))
-        {
-            Debug.Log("Interact");
-            HandleObjectInteraction();
         }
 
         if (!isPaused && Input.GetButtonDown("SwitchWeapon"))
