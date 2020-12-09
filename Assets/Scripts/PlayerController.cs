@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
 
         CheckIfOnGround();
 
-        Debug.Log($"CheckIfOnGround: {isGrounded}");
+        // Debug.Log($"CheckIfOnGround: {isGrounded}");
     }
 
     void FixedUpdate()
