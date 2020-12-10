@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelFinishMenu : MonoBehaviour
+public class LevelFinishMenu : Menu
 {
     public string nextLevelScene;
 
@@ -22,13 +22,13 @@ public class LevelFinishMenu : MonoBehaviour
         }
     }
 
-    public void Hide()
+    public override void Hide()
     {
         Time.timeScale = 1;
         canvas.enabled = false;
     }
 
-    public void Display()
+    public override void Display()
     {
         Time.timeScale = 0;
         canvas.enabled = true;
@@ -45,4 +45,11 @@ public class LevelFinishMenu : MonoBehaviour
         // TODO save stats 
         SceneManager.LoadScene(nextLevelScene);
     }
+}
+
+public abstract class Menu : MonoBehaviour
+{
+    public abstract void Display();
+
+    public abstract void Hide();
 }
