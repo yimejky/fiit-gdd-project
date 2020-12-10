@@ -4,7 +4,7 @@ using UnityEngine;
 
 // inspired by https://github.com/Brackeys/2D-Character-Controller
 [RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController))]
-public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeaponWielder
+public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeaponWielder, StatsObserver
 {
     public LayerMask interactableLayer;
     public bool isPaused;
@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         rb2D = gameObject.GetComponent<Rigidbody2D>();
         knockbackController = gameObject.GetComponent<KnockbackController>();
         animator = GetComponent<Animator>();
+        StatsUpgrades.Instance.Subscribe(this);
     }
 
     void Update()
@@ -186,5 +187,40 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         // Interact range
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, interactRange);
+    }
+    public void Update(string name, int value)
+    {
+        Debug.Log("Controller update call: " + name + "; value: " + value);
+
+        switch (name)
+        {
+            case "health":
+                HealthUpgrade(value);
+                break;
+            case "sword":
+            case "bow":
+                WeaponUpgrade(name, value);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void HealthUpgrade(int value)
+    {
+        int coefficient = 20;
+        HealthController health = GetComponent<HealthController>();
+        health.actualHealth += value * coefficient;
+        health.maxHealth += value * coefficient;
+    }
+
+    private void WeaponUpgrade(string name, int value)
+    {
+        int coefficient = 5;
+        foreach (Weapon weapon in weapons)
+        {
+            if (weapon.gameObject.name.ToLower() == name)
+                weapon.damage += value * coefficient;
+        }
     }
 }
