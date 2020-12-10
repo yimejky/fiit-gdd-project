@@ -45,7 +45,7 @@ public sealed class StatsUpgrades
         stats[name] += addition;
         stats["points"] -= addition;
         foreach (var observer in observers)
-            observer.Update(name, addition);
+            observer.StatsUpdate(name, addition);
         return addition;
     }
 
@@ -56,9 +56,9 @@ public sealed class StatsUpgrades
             observers.Add(observer);
 
             // FIXME if we expand the number of stats, make it loop over keys
-            observer.Update("health", stats["health"]);
-            observer.Update("sword", stats["sword"]);
-            observer.Update("bow", stats["bow"]);
+            observer.StatsUpdate("health", stats["health"]);
+            observer.StatsUpdate("sword", stats["sword"]);
+            observer.StatsUpdate("bow", stats["bow"]);
         }
     }
 
@@ -73,5 +73,5 @@ public sealed class StatsUpgrades
 
 public interface StatsObserver
 {
-    void Update(string name, int value);
+    void StatsUpdate(string name, int value);
 }

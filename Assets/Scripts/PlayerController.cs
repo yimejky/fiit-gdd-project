@@ -82,6 +82,11 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         CheckIfOnGround();
 
         // Debug.Log($"CheckIfOnGround: {isGrounded}");
+
+        if (transform.position.y < -50)
+        {
+            GetComponent<HealthController>().DealDamage(10000);
+        }
     }
 
     void FixedUpdate()
@@ -188,7 +193,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, interactRange);
     }
-    public void Update(string name, int value)
+    public void StatsUpdate(string name, int value)
     {
         Debug.Log("Controller update call: " + name + "; value: " + value);
 
