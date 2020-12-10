@@ -36,13 +36,27 @@ public class LevelFinishMenu : Menu
 
     public void ResetLevel()
     {
-        // TODO load stats
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName == Constants.FIRST_LEVEL_SCENE)
+        {
+            StatsUpgrades.NewInstance();
+        }
+        else
+        {
+            StatsUpgrades.Instance.stats = GameStatePersistence.LoadState().stats;
+        }
+
+        SceneManager.LoadScene(sceneName);
     }
 
     public void NextLevel()
     {
-        // TODO save stats 
+        GameState state = new GameState();
+        state.currentSceneName = nextLevelScene;
+        state.stats = StatsUpgrades.Instance.stats;
+        GameStatePersistence.SaveState(state);
+
         SceneManager.LoadScene(nextLevelScene);
     }
 }

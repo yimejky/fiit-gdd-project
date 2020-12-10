@@ -4,9 +4,9 @@ using System.Collections.Generic;
 public sealed class StatsUpgrades
 {
     private List<StatsObserver> observers;
-    private static readonly StatsUpgrades instance = new StatsUpgrades();
+    private static StatsUpgrades instance = new StatsUpgrades();
 
-    private Dictionary<string, int> stats = new Dictionary<string, int>();
+    public Dictionary<string, int> stats = new Dictionary<string, int>();
 
     // Explicit static constructor to tell C# compiler
     // not to mark type as beforefieldinit
@@ -14,14 +14,20 @@ public sealed class StatsUpgrades
     {
     }
 
-    private StatsUpgrades()
+    private StatsUpgrades(bool newGame = false)
     {
-        // TODO load stats from config/saved game
-
-        stats.Add("health", 0);
-        stats.Add("sword", 0);
-        stats.Add("bow", 0);
-        stats.Add("points", 5);
+        GameState state = GameStatePersistence.LoadState();
+        if (state != null && !newGame)
+        {
+            stats = state.stats;
+        }
+        else
+        {
+            stats.Add("health", 0);
+            stats.Add("sword", 0);
+            stats.Add("bow", 0);
+            stats.Add("points", 5);
+        }
 
         observers = new List<StatsObserver>();
     }
@@ -32,6 +38,12 @@ public sealed class StatsUpgrades
         {
             return instance;
         }
+    }
+
+    public static StatsUpgrades NewInstance()
+    {
+        instance = new StatsUpgrades(true);
+        return instance;
     }
 
     public int GetStat(String name)

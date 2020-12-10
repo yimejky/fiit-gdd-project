@@ -8,4 +8,5 @@ public static class Constants
     public const string GROUND_TAG = "Ground";
     public const string WEAPON_TAG = "Weapon";
     public const string DESTROYABLE_TAG = "Destroyable";
+    public const string FIRST_LEVEL_SCENE = "Sandbox";
 }
