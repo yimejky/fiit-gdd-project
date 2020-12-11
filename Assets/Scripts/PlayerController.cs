@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         if (transform.position.y < -50)
         {
             GetComponent<HealthController>().DealDamage(10000);
+            rb2D.velocity = new Vector2(0, 0);
         }
     }
 
