@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIAction : MonoBehaviour
 {
     public float displayDistance = 3;
+    public Transform prerequisiteDead;
 
     private PlayerController player;
     private Canvas canvas;
@@ -18,6 +19,8 @@ public class UIAction : MonoBehaviour
 
     void Update()
     {
+        if (prerequisiteDead != null) return;
+
         float distance = Vector2.Distance(player.transform.position, transform.position);
         float activeUIdistance = player.closestUI ? Vector2.Distance(player.transform.position, player.closestUI.transform.position) : Mathf.Infinity;
 
