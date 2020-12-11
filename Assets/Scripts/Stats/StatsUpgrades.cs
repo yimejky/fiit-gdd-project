@@ -61,6 +61,15 @@ public sealed class StatsUpgrades
         return addition;
     }
 
+    public int UpgradeStatWithoutPointLoss(String name, int amount)
+    { 
+        stats[name] += amount;
+        
+        foreach (var observer in observers)
+            observer.StatsUpdate(name, amount);
+        return amount;
+    }
+
     public void Subscribe(StatsObserver observer)
     {
         if (!observers.Contains(observer))

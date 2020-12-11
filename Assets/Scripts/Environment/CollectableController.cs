@@ -2,9 +2,36 @@
 
 public class CollectableController : MonoBehaviour, IInteractableObject
 {
+    public Reward reward;
+    public int rewardAmount = 1;
+
+    Animator animator;
+    UIAction uIAction;
+    GameObject canvas;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        uIAction = GetComponent<UIAction>();
+        canvas = transform.Find("Canvas").gameObject;
+        if (reward == Reward.Random)
+        {
+            reward = Utils.RandomEnumValue<Reward>();
+        }
+    }
+
     public void Interact()
     {
-        // TODO Add object to inventory
-        Destroy(gameObject, 0.1f);
+        // FIXME need to do proper logic of handling rewards once more types of rewards will come
+        StatsUpgrades.Instance.UpgradeStatWithoutPointLoss(reward.ToString().ToLower(), rewardAmount);
+
+        animator.SetBool("open", true);
+        Destroy(uIAction);
+        canvas.SetActive(false);
     }
+}
+
+public enum Reward
+{
+    Random, Health, Sword, Bow
 }
