@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 1503514091563632502}
   - component: {fileID: 1503514091563632503}
   - component: {fileID: 4223576445264498194}
+  - component: {fileID: 5819783576092064954}
   - component: {fileID: 6196924619692769227}
   - component: {fileID: 5928262477984596278}
   - component: {fileID: 1503514091563632504}
@@ -287,7 +288,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.07961446}
+  m_Offset: {x: 0.0011908412, y: 0.09509486}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -298,7 +299,33 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.4407711}
+  m_Size: {x: 0.80238163, y: 1.3955202}
+  m_EdgeRadius: 0
+--- !u!61 &5819783576092064954
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503514091563632501}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 7fd7dbf1ecf2d0441921fd77f73146b0, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0071448684, y: 0.07246965}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7523676, y: 1.3979023}
   m_EdgeRadius: 0
 --- !u!70 &6196924619692769227
 CapsuleCollider2D:
@@ -313,8 +340,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00182271, y: -0.5160788}
-  m_Size: {x: 0.8029221, y: 0.90582085}
+  m_Offset: {x: -0.00182271, y: -0.15241134}
+  m_Size: {x: 0.8029221, y: 1.6331558}
   m_Direction: 0
 --- !u!70 &5928262477984596278
 CapsuleCollider2D:
@@ -329,8 +356,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.000223279, y: -0.60214037}
-  m_Size: {x: 0.61219144, y: 0.7754816}
+  m_Offset: {x: 0.000223279, y: -0.23322117}
+  m_Size: {x: 0.61219144, y: 1.51332}
   m_Direction: 0
 --- !u!114 &1503514091563632504
 MonoBehaviour:
