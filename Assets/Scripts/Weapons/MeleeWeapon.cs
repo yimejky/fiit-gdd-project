@@ -14,6 +14,7 @@ public class MeleeWeapon : Weapon
     private Animator weaponAnimator;
     private Quaternion defaultRotation;
     private IMeleeWeaponWielder wielder;
+    private readonly float defaultAnimationCooldown = 0.42f;
 
     private void Awake()
     {
@@ -104,7 +105,7 @@ public class MeleeWeapon : Weapon
 
         body.Rotate(new Vector3(0, 0, angle));
         weaponAnimator.Play("Attack");
-        animationCooldown = 0.42f;
+        animationCooldown = defaultAnimationCooldown;
     }
 
     private Vector2 CalculateAttackPoint()

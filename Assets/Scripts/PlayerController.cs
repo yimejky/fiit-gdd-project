@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
     private Vector3 groundColliderOffset;
     private Rigidbody2D rb2D;
     private KnockbackController knockbackController;
+    private readonly int weaponCoefficient = 5;
+    private readonly int healtCoefficient = 20;
+    private readonly int mapBottomLimit = -50;
 
     void Awake()
     {
@@ -80,10 +83,9 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         }
 
         CheckIfOnGround();
-
         // Debug.Log($"CheckIfOnGround: {isGrounded}");
 
-        if (transform.position.y < -50)
+        if (transform.position.y < mapBottomLimit)
         {
             GetComponent<HealthController>().DealDamage(10000);
             rb2D.velocity = new Vector2(0, 0);
@@ -182,18 +184,6 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    private void OnDrawGizmos()
-    {
-        Vector3 boxSizeVec = Vector3.one * 0.05f;
-        Gizmos.color = Color.blue;
-        // Ground checking visual helpers
-        Gizmos.DrawWireCube(groundCollider.position - groundColliderOffset, boxSizeVec);
-        Gizmos.DrawWireCube(groundCollider.position + groundColliderOffset, boxSizeVec);
-
-        // Interact range
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, interactRange);
-    }
     public void StatsUpdate(string name, int value)
     {
         Debug.Log("Controller update call: " + name + "; value: " + value);
@@ -214,19 +204,30 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
 
     private void HealthUpgrade(int value)
     {
-        int coefficient = 20;
         HealthController health = GetComponent<HealthController>();
-        health.actualHealth += value * coefficient;
-        health.maxHealth += value * coefficient;
+        health.actualHealth += value * healtCoefficient;
+        health.maxHealth += value * healtCoefficient;
     }
 
     private void WeaponUpgrade(string name, int value)
     {
-        int coefficient = 5;
         foreach (Weapon weapon in weapons)
         {
             if (weapon.gameObject.name.ToLower() == name)
-                weapon.damage += value * coefficient;
+                weapon.damage += value * weaponCoefficient;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 boxSizeVec = Vector3.one * 0.05f;
+        Gizmos.color = Color.blue;
+        // Ground checking visual helpers
+        Gizmos.DrawWireCube(groundCollider.position - groundColliderOffset, boxSizeVec);
+        Gizmos.DrawWireCube(groundCollider.position + groundColliderOffset, boxSizeVec);
+
+        // Interact range
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, interactRange);
     }
 }
