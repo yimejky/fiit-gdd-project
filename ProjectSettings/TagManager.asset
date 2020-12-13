@@ -33,7 +33,7 @@ TagManager:
   - Collectable
   - Projectiles
   - Interactable
-  - 
+  - Hittable
   - 
   - 
   - 

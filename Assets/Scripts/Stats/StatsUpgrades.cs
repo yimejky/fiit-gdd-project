@@ -70,6 +70,11 @@ public sealed class StatsUpgrades
         return amount;
     }
 
+    public void AddPoints(int amount)
+    {
+        stats["points"] += amount;
+    }
+
     public void Subscribe(StatsObserver observer)
     {
         if (!observers.Contains(observer))

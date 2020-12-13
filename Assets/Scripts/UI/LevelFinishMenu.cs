@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelFinishMenu : Menu
 {
     public string nextLevelScene;
+    public int newPoints = 3;
 
     private Canvas canvas;
 
@@ -52,9 +53,12 @@ public class LevelFinishMenu : Menu
 
     public void NextLevel()
     {
-        GameState state = new GameState();
-        state.currentSceneName = nextLevelScene;
-        state.stats = StatsUpgrades.Instance.stats;
+        StatsUpgrades.Instance.AddPoints(newPoints);
+        GameState state = new GameState
+        {
+            currentSceneName = nextLevelScene,
+            stats = StatsUpgrades.Instance.stats
+        };
         GameStatePersistence.SaveState(state);
 
         SceneManager.LoadScene(nextLevelScene);
