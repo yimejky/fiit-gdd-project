@@ -138,6 +138,11 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         {
             isGrounded = false;
             Vector2 movement = new Vector2(0, jumpPower);
+
+            // triming y velocity before jump
+            Vector2 vel = rb2D.velocity;
+            vel.y = 0;
+            rb2D.velocity = vel;
             rb2D.AddForce(movement, ForceMode2D.Impulse);
             // Debug.Log($"Jump {movement}");
         }
