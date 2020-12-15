@@ -647,7 +647,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2703532356805646773}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -678,6 +678,16 @@ CompositeCollider2D:
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
+  - m_Collider: {fileID: 1464889287}
+    m_ColliderPaths:
+    - - X: 34999707
+        Y: -5000000
+      - X: 34999707
+        Y: 5000000
+      - X: 25000000
+        Y: 4999707
+      - X: 25000293
+        Y: -5000000
   - m_Collider: {fileID: 590006472}
     m_ColliderPaths:
     - - X: 4999707
@@ -707,16 +717,6 @@ CompositeCollider2D:
       - X: 15000000
         Y: 4999707
       - X: 15000293
-        Y: -5000000
-  - m_Collider: {fileID: 1464889287}
-    m_ColliderPaths:
-    - - X: 34999707
-        Y: -5000000
-      - X: 34999707
-        Y: 5000000
-      - X: 25000000
-        Y: 4999707
-      - X: 25000293
         Y: -5000000
   - m_Collider: {fileID: 2703532356086763023}
     m_ColliderPaths:
@@ -781,11 +781,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e616e382618134cbd3061b567497f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  circularMovement: 0
   activePointIndex: 0
+  speed: 2
   movingPoints: {fileID: 2703532356569647212}
   platform: {fileID: 4415838833839586491}
-  circularMovement: 0
 --- !u!1 &2703532357182519591
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,6 +827,7 @@ GameObject:
   - component: {fileID: 1790787062006210631}
   - component: {fileID: 2013521864205373590}
   - component: {fileID: 4688926155872183530}
+  - component: {fileID: 1724142545}
   m_Layer: 12
   m_Name: Platform
   m_TagString: Ground
@@ -887,3 +888,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48796ac2d931aab4196cec374eef779b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &1724142545
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4415838833839586491}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

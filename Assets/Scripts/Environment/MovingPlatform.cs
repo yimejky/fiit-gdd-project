@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public float speed;
+    public bool circularMovement;
     public int activePointIndex;
+    public float speed;
     public GameObject movingPoints;
     public GameObject platform;
-    public bool circularMovement;
-    private List<Transform> points = new List<Transform>();
+
     private int indexStep = 1;
+    Rigidbody2D rb2d;
+    private List<Transform> points = new List<Transform>();
+
 
     void Start()
     {
+        rb2d = platform.GetComponent<Rigidbody2D>();
+        rb2d.gravityScale = 0;
+        // rb2d.isKinematic = true;
         Transform[] mp = movingPoints.transform.GetComponentsInChildren<Transform>();
         for (int i = 1; i < mp.Length; i++)
         {
@@ -43,10 +49,17 @@ public class MovingPlatform : MonoBehaviour
                 activePointIndex += indexStep;
             }
         }
+
+        //platform.transform.position = Vector3.MoveTowards(platform.transform.position, points[activePointIndex].position, speed * Time.deltaTime);
     }
 
     void FixedUpdate()
     {
-        platform.transform.position = Vector3.MoveTowards(platform.transform.position, points[activePointIndex].position, speed * Time.fixedDeltaTime);
+
+        Vector2 targetPosition = Vector2.MoveTowards(rb2d.position, points[activePointIndex].position, speed * Time.fixedDeltaTime);
+        Vector2 vel = rb2d.velocity;
+        Vector2 newPos = Vector2.SmoothDamp(rb2d.position, targetPosition, ref vel, 0.01f);
+        rb2d.position = newPos;
+        platform.transform.position = newPos;
     }
 }
