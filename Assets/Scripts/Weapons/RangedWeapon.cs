@@ -1,19 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class RangedWeapon : Weapon
 {
-	public float arrowSpeed = 10f;
 	public Transform attackPoint;
 
-	private IRangedWeaponWielder wielder;
+	private GameObject wielderGameObject;
 	public new void Update()
 	{
 		base.Update();
-		wielder = transform.parent.GetComponent<IRangedWeaponWielder>();
+		wielderGameObject = transform.parent.gameObject;
 	}
 
     public override void Attack()
     {
+		IRangedWeaponWielder wielder = wielderGameObject.GetComponent<IRangedWeaponWielder>();
 		if (wielder == null)
         {
 			Debug.Log("RangedWeapon: missing wielder");
@@ -23,14 +24,21 @@ public class RangedWeapon : Weapon
         if (isOnCooldown())
             return;
 
-		bool isArrowDirect = true;
-
 		GameObject arrowGameobject = Instantiate(Resources.Load("Prefabs/Weapons/Arrow"), attackPoint.position, Quaternion.identity) as GameObject;
 		Arrow arrow = arrowGameobject.GetComponent<Arrow>();
-		Vector3 force = arrow.CalculateArrowForceVector(wielder.GetRangedAttackDirection(), arrowSpeed, isArrowDirect);
-		arrow.Init(transform.parent.gameObject, force, damage, knockbackPower, knockbackTime);
-		Debug.Log($"Ranged Weapon {force}, {knockbackPower}");
+		try {
+			// allow fire even if cant reach
+			bool shouldIgnoreCantReach = wielderGameObject.CompareTag(Constants.PLAYER_TAG);
+
+			Vector3 force = arrow.CalculateArrowForceVector(wielder.GetRangedAttackDirection(), wielder.ArrowSpeed, wielder.IsArrowDirect, shouldIgnoreCantReach);
+			arrow.Init(transform.parent.gameObject, force, damage, knockbackPower, knockbackTime);
+			Debug.Log($"Ranged Weapon {force}, {knockbackPower}");
+		} catch (Exception)
+		{
+			Debug.Log($"Ranged Weapon cant reach");
+			Destroy(arrowGameobject);
+		}
 
 		base.Attack();
-    }
+	}
 }

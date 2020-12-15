@@ -17,23 +17,34 @@ public class MeleeEnemy : Enemy, IMeleeWeaponWielder
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        HandleStatesChanging();
 
-        if (knockbackController.canMove && playerDistance <= startAttackDistance)
+        switch (state)
         {
-            if (playerDistance > attackRange)
-            {
-                // Debug.Log($"Debug distance {playerDistance}, {attackRange}");
-                if (patrol) patrol.setPatrolEnabled(false);
-                MoveToTarget(player);
-            } else
-            {
-                weapon.Attack();
-            }
-        }
+            case State.Idle:
+                {
+                    if (knockbackController.canMove && patrol)
+                    {
+                        patrol.setPatrolEnabled(true);
+                    }
 
-        if (playerDistance > startAttackDistance && patrol)
-        {
-            patrol.setPatrolEnabled(true);
+                    break;
+                }
+            case State.Attacking:
+                {
+                    if (targetDistance > attackRange)
+                    {
+                        // Debug.Log($"Debug distance {playerDistance}, {attackRange}");
+                        if (patrol) patrol.setPatrolEnabled(false);
+                        if (knockbackController.canMove) FixedMoveToTarget(target);
+                    }
+                    else
+                    {
+                        weapon.Attack();
+                    }
+
+                    break;
+                }
         }
     }
 

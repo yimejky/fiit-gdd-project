@@ -69,7 +69,7 @@ public class Projectile : MonoBehaviour
         if (hasHealthController)
         {
             // Debug.Log($"{hitGameObject.name}: arrow hit player or enemy");
-            hitParentGameObject.GetComponent<HealthController>().DealDamage(damage);
+            hitParentGameObject.GetComponent<HealthController>().DealDamage(creator, damage);
             hitParentGameObject.GetComponent<KnockbackController>().Knock(gameObject.transform.position, knockbackPower, knockbackTime);
         }
 

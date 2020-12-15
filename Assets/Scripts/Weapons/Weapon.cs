@@ -2,10 +2,10 @@
 
 public abstract class Weapon : MonoBehaviour
 {
-    public float attackCooldown = 0.6f;
     public int damage = 10;
-    public Vector2 knockbackPower = new Vector2(10, 10);
+    public float attackCooldown = 0.6f;
     public float knockbackTime = 0.3f;
+    public Vector2 knockbackPower = new Vector2(10, 10);
 
     private float currentCooldown = 0;
 

@@ -6,26 +6,32 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController))]
 public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeaponWielder, StatsObserver
 {
-    public LayerMask interactableLayer;
-    public bool isPaused;
+    public bool isPaused = false;
     public bool isFlipped = false;
+    public bool isArrowDirect = true;
+    public float arrowSpeed = 10f;
     public float speed = 400f;
     public float maxSpeed = 5f;
     public float jumpPower = 500f;
+    public float interactRange = 1.0f;
     public Transform groundCollider;
     public Animator animator;
-    public float interactRange = 1.0f;
+    public LayerMask interactableLayer;
+
+    public bool IsArrowDirect { get => isArrowDirect; set => isArrowDirect = value; }
+    public float ArrowSpeed { get => arrowSpeed; set => arrowSpeed = value; }
 
     [HideInInspector]
-    public UIAction closestUI;
     private bool isGrounded = true;
     private float hitboxSize = 0.70f;
     private float xInput = 0f;
+    public UIAction closestUI;
     private Weapon activeWeapon;
     private List<Weapon> weapons;
     private Vector3 groundColliderOffset;
     private Rigidbody2D rb2D;
     private KnockbackController knockbackController;
+
     private readonly int weaponCoefficient = 5;
     private readonly int healtCoefficient = 20;
     private readonly int mapBottomLimit = -50;
@@ -87,7 +93,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
 
         if (transform.position.y < mapBottomLimit)
         {
-            GetComponent<HealthController>().DealDamage(10000);
+            GetComponent<HealthController>().DealDamage(null, 10000);
             rb2D.velocity = new Vector2(0, 0);
         }
     }

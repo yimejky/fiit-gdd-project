@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
@@ -51,7 +52,7 @@ public class Arrow : Projectile
             if (hasHealthController)
             {
                 Debug.Log($"{hitGameObject.name}: arrow hit player or enemy {knockbackPower}");
-                hitParentGameObject.GetComponent<HealthController>().DealDamage(damage);
+                hitParentGameObject.GetComponent<HealthController>().DealDamage(creator, damage);
                 hitParentGameObject.GetComponent<KnockbackController>().Knock(gameObject.transform.position, knockbackPower, knockbackTime);
                 transform.parent = hitParentTrans;
             }
@@ -63,7 +64,7 @@ public class Arrow : Projectile
         }
     }
 
-    public Vector3 CalculateArrowForceVector(Vector2 target, float arrowSpeed, bool isArrowDirect)
+    public Vector3 CalculateArrowForceVector(Vector2 target, float arrowSpeed, bool isArrowDirect, bool shouldIgnoreCantReach=false)
     {
         Vector2 source = transform.position;
         // Debug.Log($"Target {target}, Source {source}");
@@ -79,7 +80,13 @@ public class Arrow : Projectile
         float sqrt = v4 - (g * (g * x2 + 2 * y * v2));
         if (sqrt <= 0)
         {
-            sqrt = 0.000001f;
+            if (shouldIgnoreCantReach)
+            {
+                sqrt = 0.000001f;       
+            } else
+            {
+                throw new Exception("arrow cant reach");
+            }
         }
 
         sqrt = Mathf.Sqrt(sqrt);

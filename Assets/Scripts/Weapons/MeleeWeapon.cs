@@ -13,7 +13,7 @@ public class MeleeWeapon : Weapon
     private Transform body;
     private Animator weaponAnimator;
     private Quaternion defaultRotation;
-    private IMeleeWeaponWielder wielder;
+    private GameObject wielderGameObject;
     private readonly float defaultAnimationCooldown = 0.42f;
 
     private void Awake()
@@ -27,7 +27,7 @@ public class MeleeWeapon : Weapon
     private new void Update()
     {
         base.Update();
-        wielder = transform.parent.GetComponent<IMeleeWeaponWielder>();
+        wielderGameObject = transform.parent.gameObject;
 
         animationCooldown -= Time.deltaTime;
         if (animationCooldown < 0)
@@ -44,7 +44,7 @@ public class MeleeWeapon : Weapon
             return;
 
         Vector3 attackPosition = attackPoint.position;
-        Debug.Log($"Attack {attackPoint.localPosition}");
+        // Debug.Log($"Attack {attackPoint.localPosition}");
         Collider2D[] hurtboxes = Physics2D.OverlapCircleAll(attackPosition, attackRange, hurtboxLayer);
         // enemies hurtbox
         foreach (Collider2D hurtbox in hurtboxes)
@@ -55,8 +55,8 @@ public class MeleeWeapon : Weapon
             if (ignoreHimself || isDestroy)
                 continue;
 
-            Debug.Log($"Hit {hurtboxParent.name}");
-            hurtboxParent.GetComponent<HealthController>().DealDamage(damage);
+            // Debug.Log($"Hit {hurtboxParent.name}");
+            hurtboxParent.GetComponent<HealthController>().DealDamage(wielderGameObject, damage);
             hurtboxParent.GetComponent<KnockbackController>().Knock(gameObject.transform.position, knockbackPower, knockbackTime);
             if (attackPoint.localPosition.y < 0)
             {
@@ -74,8 +74,8 @@ public class MeleeWeapon : Weapon
             if (!isDestroy)
                 continue;
 
-            Debug.Log($"Destroyable {parent.name}");
-            parent.GetComponent<HealthController>().DealDamage(damage);
+            // Debug.Log($"Destroyable {parent.name}");
+            parent.GetComponent<HealthController>().DealDamage(wielderGameObject, damage);
         }
 
         WeaponAnimation();
@@ -94,7 +94,7 @@ public class MeleeWeapon : Weapon
         float angle;
         try
         {
-            Vector2 swordDirection = wielder.GetMeeleAttackDirection();
+            Vector2 swordDirection = wielderGameObject.GetComponent<IMeleeWeaponWielder>().GetMeeleAttackDirection();
             body.localPosition = attackPoint.transform.localPosition;
             angle = 90 * swordDirection.y / (swordDirection.x + 1);
         }
@@ -110,7 +110,7 @@ public class MeleeWeapon : Weapon
 
     private Vector2 CalculateAttackPoint()
     {
-        Vector2 swordDirection = wielder.GetMeeleAttackDirection();
+        Vector2 swordDirection = wielderGameObject.GetComponent<IMeleeWeaponWielder>().GetMeeleAttackDirection();
         if (Math.Abs(swordDirection.y) > 0)
         {
             Vector2 vec = new Vector2(swordDirection.x * defaultAttackPosition.x, swordDirection.y);

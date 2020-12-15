@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class DamageDealEvent : UnityEvent<GameObject, int>
+{
+}
 
 public class HealthController : MonoBehaviour
 {
+    public DamageDealEvent HealthUpdateEvent;
     public Vector3 respawnPosition;
     public int maxHealth = 100;
     public int actualHealth = 100;
@@ -14,10 +21,15 @@ public class HealthController : MonoBehaviour
 
     private void Start()
     {
+        if (HealthUpdateEvent == null)
+        {
+            HealthUpdateEvent = new DamageDealEvent();
+        }
+
         respawnPosition = transform.position;
         if (!healthBar && displayHealthBar)
         {
-            SpawnHealthBar();
+            SpawnHealthBarAbove();
         }
     }
 
@@ -26,15 +38,17 @@ public class HealthController : MonoBehaviour
         SetHeatlhBar(actualHealth);
     }
 
-    public void DealDamage(int damage)
+    public void DealDamage(GameObject attacker, int damage)
     {
-        // Debug.Log(gameObject.name + ": deal dmg " + damage + ", heatlh: " + actualHealth);
+        // Debug.Log($"Deal Damage {gameObject.name}: deal dmg {damage}, heatlh: {actualHealth}");
         if (actualHealth > 0)
         {
             actualHealth -= damage;
             if (displayHealthBar)
             {
+                // Debug.Log($"Heath: new health {actualHealth}");
                 SetHeatlhBar(actualHealth);
+                HealthUpdateEvent.Invoke(attacker, actualHealth);
             }
 
             if (actualHealth <= 0)
@@ -46,6 +60,8 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
+        HealthUpdateEvent.RemoveAllListeners();
+
         if (gameObject.CompareTag(Constants.PLAYER_TAG))
         {
             // TODO: game over
@@ -68,11 +84,10 @@ public class HealthController : MonoBehaviour
         actualHealth = maxHealth;
     }
 
-    private void SpawnHealthBar()
+    private void SpawnHealthBarAbove()
     {
         Object healthPrefab = Resources.Load("Prefabs/HealthBarAbove");
         healthBar = Instantiate(healthPrefab, transform.position + healtBarOffset, Quaternion.identity) as GameObject;
-        // GameObject healthBarObject = transform.Find("HealthBar").gameObject;
 
         healthBar.transform.parent = gameObject.transform;
         healthBar.GetComponent<IHealthBarController>().SetColor(color);
