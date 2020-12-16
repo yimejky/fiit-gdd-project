@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     protected float startAttackingStateDistance = 5f;
     protected float endAttackingStateDistance = 15f;
     protected float actualAttackCooldown = 0f;
+    protected readonly int mapBottomLimit = -50;
     protected Rigidbody2D rb2D;
     protected KnockbackController knockbackController;
     protected Patrol patrol;
@@ -46,6 +47,10 @@ public class Enemy : MonoBehaviour
     protected virtual void Update()
     {
         actualAttackCooldown -= Time.deltaTime;
+        if (transform.position.y < mapBottomLimit)
+        {
+            GetComponent<HealthController>().DealDamage(null, 10000);
+        }
     }
 
     protected virtual void FixedUpdate()
