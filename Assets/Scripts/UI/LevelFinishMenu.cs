@@ -37,18 +37,7 @@ public class LevelFinishMenu : Menu
 
     public void ResetLevel()
     {
-        string sceneName = SceneManager.GetActiveScene().name;
-
-        if (sceneName == Constants.FIRST_LEVEL_SCENE)
-        {
-            StatsUpgrades.NewInstance();
-        }
-        else
-        {
-            StatsUpgrades.Instance.stats = GameStatePersistence.LoadState().stats;
-        }
-
-        SceneManager.LoadScene(sceneName);
+        Utils.ResetLevel();
     }
 
     public void NextLevel()

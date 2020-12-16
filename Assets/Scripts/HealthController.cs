@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class DamageDealEvent : UnityEvent<GameObject, int>
@@ -9,7 +10,6 @@ public class DamageDealEvent : UnityEvent<GameObject, int>
 public class HealthController : MonoBehaviour
 {
     public DamageDealEvent HealthUpdateEvent;
-    public Vector3 respawnPosition;
     public int maxHealth = 100;
     public int actualHealth = 100;
     public bool displayHealthBar = true;
@@ -26,7 +26,6 @@ public class HealthController : MonoBehaviour
             HealthUpdateEvent = new DamageDealEvent();
         }
 
-        respawnPosition = transform.position;
         if (!healthBar && displayHealthBar)
         {
             SpawnHealthBarAbove();
@@ -80,8 +79,7 @@ public class HealthController : MonoBehaviour
 
     private void RespawnPlayer()
     {
-        transform.position = respawnPosition;
-        actualHealth = maxHealth;
+        Utils.ResetLevel();
     }
 
     private void SpawnHealthBarAbove()
