@@ -241,4 +241,9 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, interactRange);
     }
+
+    private void OnDestroy()
+    {
+        StatsUpgrades.Instance.Unsubscribe(this);
+    }
 }
