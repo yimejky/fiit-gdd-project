@@ -35,7 +35,7 @@ public class HealthBarAbove : MonoBehaviour, IHealthBarController
     void Update()
     {
         Quaternion rot = Quaternion.Euler(0, transform.parent.rotation.eulerAngles.y, 0);
-        Debug.Log($"new rotate {rot.eulerAngles}");
+        // Debug.Log($"new rotate {rot.eulerAngles}");
         transform.localRotation = rot;
     }
 
