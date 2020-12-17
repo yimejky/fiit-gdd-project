@@ -20,7 +20,13 @@ public static class Utils
         }
         else
         {
-            StatsUpgrades.Instance.stats = GameStatePersistence.LoadState().stats;
+            try
+            {
+                StatsUpgrades.Instance.stats = GameStatePersistence.LoadState().stats;
+            }
+            catch {
+                StatsUpgrades.NewInstance();
+            }
         }
 
         SceneManager.LoadScene(sceneName);

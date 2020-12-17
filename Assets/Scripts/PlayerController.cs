@@ -98,6 +98,8 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
             GetComponent<HealthController>().DealDamage(null, 10000);
             rb2D.velocity = new Vector2(0, 0);
         }
+        
+        gameObject.layer = LayerMask.NameToLayer(rb2D.velocity.y > 0 ? "PlayerBottomUpIgnore" : "Player");
     }
 
     void FixedUpdate()

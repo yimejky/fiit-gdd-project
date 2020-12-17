@@ -34,8 +34,8 @@ TagManager:
   - Projectiles
   - Interactable
   - Hittable
-  - 
-  - 
+  - PlayerBottomUpIgnore
+  - BottomUp
   - 
   - 
   - 
