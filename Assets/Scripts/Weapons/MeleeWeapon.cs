@@ -79,6 +79,7 @@ public class MeleeWeapon : Weapon
         }
 
         WeaponAnimation();
+        wielderGameObject.GetComponent<AudioController>().PlayHit();
         base.Attack();
     }
 

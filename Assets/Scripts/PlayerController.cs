@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // inspired by https://github.com/Brackeys/2D-Character-Controller
-[RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController))]
+[RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController), typeof(AudioController))]
 public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeaponWielder, StatsObserver
 {
     public bool isPaused = false;
@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
     private Vector3 groundColliderOffset;
     private Rigidbody2D rb2D;
     private KnockbackController knockbackController;
+    private AudioController audioController;
 
     private readonly int weaponCoefficient = 5;
     private readonly int healtCoefficient = 20;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
 
         rb2D = gameObject.GetComponent<Rigidbody2D>();
         knockbackController = gameObject.GetComponent<KnockbackController>();
+        audioController = gameObject.GetComponent<AudioController>();
         animator = GetComponent<Animator>();
         StatsUpgrades.Instance.Subscribe(this);
     }
@@ -150,6 +152,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
             vel.y = 0;
             rb2D.velocity = vel;
             rb2D.AddForce(movement, ForceMode2D.Impulse);
+            audioController.PlayJump();
             // Debug.Log($"Jump {movement}");
         }
     }

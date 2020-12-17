@@ -55,7 +55,6 @@ public class MovingPlatform : MonoBehaviour
 
     void FixedUpdate()
     {
-
         Vector2 targetPosition = Vector2.MoveTowards(rb2d.position, points[activePointIndex].position, speed * Time.fixedDeltaTime);
         Vector2 vel = rb2d.velocity;
         Vector2 newPos = Vector2.SmoothDamp(rb2d.position, targetPosition, ref vel, 0.01f);

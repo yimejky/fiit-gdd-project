@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController))]
+[RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController), typeof(AudioController))]
 public class Enemy : MonoBehaviour
 {
     public enum State { Idle, Attacking }
@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     protected readonly int mapBottomLimit = -50;
     protected Rigidbody2D rb2D;
     protected KnockbackController knockbackController;
+    protected AudioController audioController;
     protected Patrol patrol;
 
     private GameObject player;

@@ -29,16 +29,18 @@ public class PauseMenu : MonoBehaviour
     void hide()
     {
         canvas.enabled = false;
+        transform.Find("PauseMenu")?.gameObject.SetActive(false);
     }
 
     void show()
     {
         canvas.enabled = true;
+        transform.Find("PauseMenu")?.gameObject.SetActive(true);
     }
 
     public void Quit()
     {
-        Debug.Log("Menu Quit");
+        Debug.Log("Pause Menu Quit");
         Application.Quit();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController), typeof(AudioController))]
 public class MeleeEnemy : Enemy, IMeleeWeaponWielder
 {
     private float attackRange = 1.5f;
