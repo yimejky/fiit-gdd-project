@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
             rb2D.velocity = new Vector2(0, 0);
         }
         
-        gameObject.layer = LayerMask.NameToLayer(rb2D.velocity.y > 0 ? "PlayerBottomUpIgnore" : "Player");
+        gameObject.layer = LayerMask.NameToLayer(rb2D.velocity.y > 0.1 ? Constants.PLAYER_JUMP_TAG : Constants.PLAYER_TAG);
     }
 
     void FixedUpdate()

@@ -36,17 +36,20 @@ public class MovingPlatform : MonoBehaviour
     {
         if (Vector3.Distance(platform.transform.position, points[activePointIndex].position) < 0.1)
         {
-            if (circularMovement)
+            if (points.Count > 1)
             {
-                activePointIndex = (activePointIndex + 1) % points.Count;
-            }
-            else
-            {
-                if (activePointIndex == points.Count - 1 || activePointIndex == 0)
+                if (circularMovement)
                 {
-                    indexStep *= -1;
+                    activePointIndex = (activePointIndex + 1) % points.Count;
                 }
-                activePointIndex += indexStep;
+                else
+                {
+                    if (activePointIndex == points.Count - 1 || activePointIndex == 0)
+                    {
+                        indexStep *= -1;
+                    }
+                    activePointIndex += indexStep;
+                }
             }
         }
 
