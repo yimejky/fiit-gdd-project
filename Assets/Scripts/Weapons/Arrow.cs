@@ -44,7 +44,7 @@ public class Arrow : Projectile
         GameObject hitParentGameObject = hitParentTrans.gameObject;
         bool hasHealthController = hitParentGameObject.GetComponent<HealthController>() != null;
 
-        Debug.Log("freezing arrow trigger enter " + collision.name);
+        // Debug.Log("freezing arrow trigger enter " + collision.name);
         isFrozen = true;
         rb2D.velocity = Vector3.zero;
         rb2D.bodyType = RigidbodyType2D.Kinematic;
