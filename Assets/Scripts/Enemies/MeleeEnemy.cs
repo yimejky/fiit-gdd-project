@@ -19,26 +19,21 @@ public class MeleeEnemy : Enemy, IMeleeWeaponWielder
     {
         base.FixedUpdate();
         HandleStatesChanging();
+       // Debug.Log($"melee before edge {isBeforeEdge}");
 
         switch (state)
         {
             case State.Idle:
                 {
-                    if (knockbackController.canMove && patrol)
-                    {
-                        patrol.setPatrolEnabled(true);
-                    }
-
                     break;
                 }
             case State.Attacking:
                 {
                     if (targetDistance > attackRange)
                     {
-                        // Debug.Log($"Debug distance {playerDistance}, {attackRange}");
-                        if (patrol) patrol.setPatrolEnabled(false);
-                        if (knockbackController.canMove) FixedMoveToTarget(target);
-                    }
+                        Debug.Log($"Debug attacking mode, {attackRange}");
+                        FixedMoveToTarget(target, movementSpeed);
+                     }
                     else
                     {
                         weapon.Attack();

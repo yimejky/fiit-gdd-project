@@ -16,6 +16,9 @@ public class StatsPanel : MonoBehaviour
 
     void Update()
     {
-        text.text = stats.GetStat(attributeName).ToString();
+        if (stats != null)
+        {
+            text.text = stats.GetStat(attributeName).ToString();
+        }
     }
 }

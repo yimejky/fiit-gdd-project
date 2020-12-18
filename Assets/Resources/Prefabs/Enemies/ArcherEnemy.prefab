@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1439796873097616569}
   - component: {fileID: 1439796873097616550}
   - component: {fileID: 1439796873097616551}
+  - component: {fileID: 3753828969050374832}
   - component: {fileID: 1439796873097616571}
   - component: {fileID: 1593336978383733947}
   - component: {fileID: 206553028}
@@ -125,7 +126,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.24853706}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -136,8 +137,24 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1, y: 1.5029259}
   m_EdgeRadius: 0
+--- !u!70 &3753828969050374832
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439796873097616548}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 7fd7dbf1ecf2d0441921fd77f73146b0, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.5000005}
+  m_Size: {x: 1, y: 1}
+  m_Direction: 0
 --- !u!114 &1439796873097616571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,12 +190,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   target: {fileID: 0}
-  movmentSpeed: 100
+  movementSpeed: 100
   attackCooldown: 5
   touchDamage: 10
   touchKnockbackPower: {x: 5, y: 5}
   touchKnockbackTime: 0.3
   weapon: {fileID: 1432231935635801182}
+  edgeDetectionMaxDistance: 3
+  isBeforeEdge: 0
   isArrowDirect: 1
   arrowSpeed: 10
 --- !u!114 &206553028

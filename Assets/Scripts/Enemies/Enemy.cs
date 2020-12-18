@@ -7,12 +7,14 @@ public class Enemy : MonoBehaviour
     public State state = State.Idle;
     public GameObject target;
 
-    public float movmentSpeed = 100f;
+    public float movementSpeed = 100f;
     public float attackCooldown = 5f;
     public int touchDamage = 10;
     public Vector2 touchKnockbackPower = new Vector2(10, 10);
     public float touchKnockbackTime = 0.3f;
     public Weapon weapon;
+    public float edgeDetectionMaxDistance = 3f;
+    public bool isBeforeEdge = false;
 
     protected float targetDistance = 999f;
     protected float startAttackingStateDistance = 5f;
@@ -56,6 +58,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
+        CheckIfAtEdge();
     }
 
     protected void HandleStatesChanging()
@@ -69,6 +72,7 @@ public class Enemy : MonoBehaviour
                     {
                         Debug.Log($"Enemy going to attacking state {gameObject.name}");
                         SetAttackingState(player);
+                        patrol?.setPatrolEnabled(false);
                     }
                     break;
                 }
@@ -79,6 +83,7 @@ public class Enemy : MonoBehaviour
                     {
                         Debug.Log($"Enemy going to idle state {gameObject.name}");
                         SetIdleState();
+                        patrol?.setPatrolEnabled(true);
                     }
 
                     break;
@@ -86,22 +91,42 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    protected void FixedMoveToTarget(GameObject target)
+    public void FixedMoveToTarget(GameObject target, float speed, bool useVelocity=true)
+    {        
+        FixedMoveToTarget(target.transform.position, speed, useVelocity);
+    }
+
+    public void FixedMoveToTarget(Vector3 position, float speed, bool useVelocity=true)
     {
-        if (patrol && patrol.patrolEnabled)
+        // pause movement if in knockback or at edge
+        if (!knockbackController.canMove)
         {
-            Debug.Log("Moving on patrol cancelled");
+            Debug.Log($"Cant move, knock {knockbackController.canMove}, before edge {isBeforeEdge}");
             return;
         }
 
-        Vector2 relativePos = transform.position - target.transform.position;
-        float x = (relativePos.x > 0 ? -1 : 1) * movmentSpeed * Time.fixedDeltaTime;
-        Vector2 velocity = new Vector2(x, rb2D.velocity.y);
-
-        // Debug.Log("Debug velocity: " + velocity);
-        // Debug.Log($"pos {transform.position}, {player.transform.position}, {transform.position - player.transform.position}");
+        Vector2 relativePos = transform.position - position;
         transform.rotation = Quaternion.Euler(0, relativePos.x < 0.1 ? 0 : 180, 0);
-        rb2D.velocity = velocity;
+
+        if (isBeforeEdge)
+        {
+            Debug.Log($"Cant move before edge {isBeforeEdge}");
+            return;
+        }
+
+        if (useVelocity)
+        {
+            float x = (relativePos.x > 0 ? -1 : 1) * speed * Time.fixedDeltaTime;
+            Vector2 velocity = new Vector2(x, rb2D.velocity.y);
+
+            Debug.Log("Debug velocity: " + velocity);
+            // Debug.Log($"pos {transform.position}, {position}, {transform.position - position}");
+            rb2D.velocity = velocity;
+        } 
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, position, speed * Time.fixedDeltaTime);
+        }
     }
 
     void RecieveDamage(GameObject attacker, int actualHealth)
@@ -136,6 +161,29 @@ public class Enemy : MonoBehaviour
         OnPlayerTouch(collision);
     }
 
+    void CheckIfAtEdge()
+    {
+        Vector2 pos = transform.position;
+        pos.x += (transform.rotation.eulerAngles.y == 0 ? 1 : -1) * 0.5f;
+        RaycastHit2D hit = Physics2D.Raycast(pos, -Vector2.up);
+
+        if (hit.collider == null)
+        {
+            isBeforeEdge = true;
+            return;
+        } else {
+            float distance = Mathf.Abs(hit.point.y - transform.position.y);
+            // Debug.Log($"edge checking: {distance}");
+            if (distance > edgeDetectionMaxDistance)
+            {
+                isBeforeEdge = true;
+                return;
+            }
+        }
+
+        isBeforeEdge = false;
+    }
+
     void OnPlayerTouch(Collider2D collision)
     {
         GameObject parent = collision.transform.parent?.gameObject;
@@ -144,5 +192,13 @@ public class Enemy : MonoBehaviour
             parent.GetComponent<HealthController>().DealDamage(gameObject, touchDamage);
             parent.GetComponent<KnockbackController>().Knock(gameObject.transform.position, touchKnockbackPower, touchKnockbackTime);
         }
+    }
+
+    private void OnDrawGizmos()
+    {   
+        Gizmos.color = Color.green;
+        Vector2 pos = transform.position;
+        pos.x += (transform.rotation.eulerAngles.y == 0 ? 1 : -1) * 0.5f;
+        Gizmos.DrawRay(pos, -Vector2.up);
     }
 }
