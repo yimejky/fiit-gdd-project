@@ -1,27 +1,32 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ArenaManager : MonoBehaviour, IInteractableObject
 {
-    public bool wasActivated = false;
-    public bool isActive = false;
     public int enemiesToFinish = 2;
     public int maxSpawnedEnemiesAtTime = 1;
-    public float elapsedTime = 0;
-    public GameObject gates;
-    public Transform player;
-    public Transform enemiesParent;
-    public List<GameObject> enemies;
     public List<Transform> spawnPoints;
+    public List<GameObject> enemies;
 
+    private bool wasActivated = false;
+    private bool isActive = false;
     private int killedEnemies;
     private int remainingEnemiesSpawn;
+    private GameObject gates;
+    private Transform player;
+    private Transform enemiesParent;
+    private FlashMessage flashMessage;
+    private Text arenaText;
 
     void Start()
     {
         player = GameObject.Find("Hero").transform;
         gates = transform.Find("Gates").gameObject;
         enemiesParent = transform.Find("Enemies");
+        flashMessage = GameObject.Find("CameraCanvas").transform.Find("FlashMessage").GetComponent<FlashMessage>();
+        arenaText = transform.Find("ArenaCameraCanvas").Find("Panel").Find("ArenaText").GetComponent<Text>();
+        arenaText.enabled = false;
 
         foreach (Transform spawnPoint in transform.Find("SpawnPoints"))
         {
@@ -35,8 +40,6 @@ public class ArenaManager : MonoBehaviour, IInteractableObject
     void Update()
     {
         if (isActive) {
-            elapsedTime += Time.deltaTime;
-
             if (enemies.Count < maxSpawnedEnemiesAtTime && remainingEnemiesSpawn > 0)
             {
                 remainingEnemiesSpawn -= 1;
@@ -50,31 +53,50 @@ public class ArenaManager : MonoBehaviour, IInteractableObject
         }
     }
 
-    void CloseArena()
+    private void CloseArena()
     {
         gates.SetActive(true);
     }
 
-    void OpenArena()
+    private void OpenArena()
     {
         gates.SetActive(false);
     }
 
-    void StartArena()
+    private void StartArena()
     {
         if (!wasActivated)
         {
             killedEnemies = 0;
             remainingEnemiesSpawn = enemiesToFinish;
 
-            Debug.Log("Start arena!");
+            Debug.Log("Start Arena");
             wasActivated = true;
             CloseArena();
             isActive = true;
+            arenaText.enabled = true;
+
+            arenaText.text = $"Remaining kills: {enemiesToFinish}";
+            flashMessage.ShowMessage("Arena Started!");
         }
     }
 
-    void SpawnEnemy()
+    private void FinishArena()
+    {
+        Debug.Log($"Finish Arena");
+        OpenArena();
+        isActive = false;
+        arenaText.enabled = false;
+
+        flashMessage.ShowMessage("Arena Finished!");
+    }
+
+    public void Interact()
+    {
+        StartArena();
+    }
+
+    private void SpawnEnemy()
     {
         int index = Random.Range(0, spawnPoints.Count);
         Transform spawnPoint = spawnPoints[index];
@@ -94,25 +116,15 @@ public class ArenaManager : MonoBehaviour, IInteractableObject
         enemies.Add(spawnEnemy);
     }
 
-    void OnEnemiesHealthUpdate(GameObject enemy, GameObject attacker, int actualHealth)
+    private void OnEnemiesHealthUpdate(GameObject enemy, GameObject attacker, int actualHealth)
     {
         if (actualHealth < 0)
         {
             enemies.Remove(enemy);
             enemy.GetComponent<HealthController>().HealthUpdateEvent.RemoveAllListeners();
             killedEnemies += 1;
+
+            arenaText.text = $"Remaining kills: {enemiesToFinish - killedEnemies}";
         }
-    }
-
-    void FinishArena()
-    {
-        Debug.Log($"Finish arena!");
-        OpenArena();
-        isActive = false;
-    }
-
-    public void Interact()
-    {
-        StartArena();
     }
 }

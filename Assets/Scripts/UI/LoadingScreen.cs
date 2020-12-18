@@ -10,7 +10,7 @@ public class LoadingScreen : MonoBehaviour
     AsyncOperation loadingOperation;
     Canvas canvas;
 
-    private void Awake()
+    private void Start()
     {
         progressBar.value = 0;
         canvas = GetComponent<Canvas>();

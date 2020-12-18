@@ -33,34 +33,34 @@ public class Arrow : Projectile
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isFrozen)
+        if (isFrozen || IsHurtboxAndCreator(collision))
+            return;
+
+        GameObject hitGameObject = collision.gameObject;
+        Transform hitParentTrans = collision.transform.parent;
+        if (!hitParentTrans)
+            return;
+
+        GameObject hitParentGameObject = hitParentTrans.gameObject;
+        bool hasHealthController = hitParentGameObject.GetComponent<HealthController>() != null;
+
+        Debug.Log("freezing arrow trigger enter " + collision.name);
+        isFrozen = true;
+        rb2D.velocity = Vector3.zero;
+        rb2D.bodyType = RigidbodyType2D.Kinematic;
+        rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        if (hasHealthController)
         {
-            if (IsHurtboxAndCreator(collision))
-                return;
-
-            GameObject hitGameObject = collision.gameObject;
-            Transform hitParentTrans = collision.transform.parent;
-            GameObject hitParentGameObject = hitParentTrans.gameObject;
-            bool hasHealthController = hitParentGameObject.GetComponent<HealthController>() != null;
-
-            // Debug.Log("freezing arrow trigger enter " + collision.name);
-            isFrozen = true;
-            rb2D.velocity = Vector3.zero;
-            rb2D.bodyType = RigidbodyType2D.Kinematic;
-            rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-            if (hasHealthController)
-            {
-                Debug.Log($"{hitGameObject.name}: arrow hit player or enemy {knockbackPower}");
-                hitParentGameObject.GetComponent<HealthController>().DealDamage(creator, damage);
-                hitParentGameObject.GetComponent<KnockbackController>().Knock(gameObject.transform.position, knockbackPower, knockbackTime);
-                transform.parent = hitParentTrans;
-            }
-            else if (hitGameObject.CompareTag(Constants.GROUND_TAG))
-            {
-                // Debug.Log($"{gameObject.name}: arrow hit ground");
-                transform.parent = hitGameObject.transform;
-            }
+            Debug.Log($"{hitGameObject.name}: arrow hit player or enemy {knockbackPower}");
+            hitParentGameObject.GetComponent<HealthController>().DealDamage(creator, damage);
+            hitParentGameObject.GetComponent<KnockbackController>().Knock(gameObject.transform.position, knockbackPower, knockbackTime);
+            transform.parent = hitParentTrans;
+        }
+        else if (hitGameObject.CompareTag(Constants.GROUND_TAG))
+        {
+            // Debug.Log($"{gameObject.name}: arrow hit ground");
+            transform.parent = hitGameObject.transform;
         }
     }
 

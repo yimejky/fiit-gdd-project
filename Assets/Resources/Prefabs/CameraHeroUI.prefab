@@ -187,6 +187,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7384857263137213299}
     m_Modifications:
+    - target: {fileID: 8470047036145967937, guid: cdf1599bcf16286489c7657b9b6d7027,
+        type: 3}
+      propertyPath: minYCameraPos
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8470047036145967939, guid: cdf1599bcf16286489c7657b9b6d7027,
         type: 3}
       propertyPath: m_Name
