@@ -4,21 +4,22 @@
 public class Enemy : MonoBehaviour
 {
     public enum State { Idle, Attacking }
+
+    public bool isBeforeEdge = false;
+    public int touchDamage = 10;
+    public float movementSpeed = 100f;
+    public float attackCooldown = 5f;
+    public float startAttackingStateDistance = 5f;
+    public float endAttackingStateDistance = 15f;
+    public float edgeDetectionMaxDistance = 3f;
+    public float touchKnockbackTime = 0.3f;
+
+    public Vector2 touchKnockbackPower = new Vector2(10, 10);
+    public Weapon weapon;
     public State state = State.Idle;
     public GameObject target;
 
-    public float movementSpeed = 100f;
-    public float attackCooldown = 5f;
-    public int touchDamage = 10;
-    public Vector2 touchKnockbackPower = new Vector2(10, 10);
-    public float touchKnockbackTime = 0.3f;
-    public Weapon weapon;
-    public float edgeDetectionMaxDistance = 3f;
-    public bool isBeforeEdge = false;
-
     protected float targetDistance = 999f;
-    protected float startAttackingStateDistance = 5f;
-    protected float endAttackingStateDistance = 15f;
     protected float actualAttackCooldown = 0f;
     protected readonly int mapBottomLimit = -50;
     protected Rigidbody2D rb2D;
@@ -70,7 +71,7 @@ public class Enemy : MonoBehaviour
                     float playerDistance = Vector2.Distance(transform.position, player.transform.position);
                     if (playerDistance < startAttackingStateDistance)
                     {
-                        Debug.Log($"Enemy going to attacking state {gameObject.name}");
+                        // Debug.Log($"Enemy going to attacking state {gameObject.name}");
                         SetAttackingState(player);
                         patrol?.setPatrolEnabled(false);
                     }
@@ -81,7 +82,7 @@ public class Enemy : MonoBehaviour
                     targetDistance = Vector2.Distance(transform.position, target.transform.position);
                     if (targetDistance > endAttackingStateDistance)
                     {
-                        Debug.Log($"Enemy going to idle state {gameObject.name}");
+                        // Debug.Log($"Enemy going to idle state {gameObject.name}");
                         SetIdleState();
                         patrol?.setPatrolEnabled(true);
                     }
@@ -101,7 +102,7 @@ public class Enemy : MonoBehaviour
         // pause movement if in knockback or at edge
         if (!knockbackController.canMove)
         {
-            Debug.Log($"Cant move, knock {knockbackController.canMove}, before edge {isBeforeEdge}");
+            // Debug.Log($"Cant move, knock {knockbackController.canMove}, before edge {isBeforeEdge}");
             return;
         }
 
@@ -110,7 +111,7 @@ public class Enemy : MonoBehaviour
 
         if (isBeforeEdge)
         {
-            Debug.Log($"Cant move before edge {isBeforeEdge}");
+            // Debug.Log($"Cant move before edge {isBeforeEdge}");
             return;
         }
 
@@ -119,7 +120,7 @@ public class Enemy : MonoBehaviour
             float x = (relativePos.x > 0 ? -1 : 1) * speed * Time.fixedDeltaTime;
             Vector2 velocity = new Vector2(x, rb2D.velocity.y);
 
-            Debug.Log("Debug velocity: " + velocity);
+            // Debug.Log("Debug velocity: " + velocity);
             // Debug.Log($"pos {transform.position}, {position}, {transform.position - position}");
             rb2D.velocity = velocity;
         } 
@@ -129,7 +130,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void RecieveDamage(GameObject attacker, int actualHealth)
+    void RecieveDamage(GameObject enemy, GameObject attacker, int actualHealth)
     {
         if (target == null && attacker != null && actualHealth > 0)
         {
@@ -137,13 +138,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void SetAttackingState(GameObject attacker)
+    public void SetAttackingState(GameObject attacker)
     {
         state = State.Attacking;
         target = attacker;
     }
 
-    private void SetIdleState()
+    public void SetIdleState()
     {
         state = State.Idle;
         target = null;

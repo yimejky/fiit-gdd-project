@@ -50,10 +50,18 @@ public class Projectile : MonoBehaviour
     {
         GameObject hitGameObject = collision.gameObject;
         Transform hitParentTrans = collision.transform.parent;
-        GameObject hitParentGameObject = hitParentTrans.gameObject;
-        bool isHurtbox = hitGameObject.CompareTag(Constants.HURTBOX_TAG);
+        Debug.Log($"Debug1! {hitGameObject}, {hitGameObject.transform}");
 
-        return isHurtbox && creator == hitParentGameObject;
+        if (hitParentTrans)
+        {
+            Debug.Log($"Debug2! {hitGameObject}, {hitParentTrans}");
+            GameObject hitParentGameObject = hitParentTrans.gameObject;
+            bool isHurtbox = hitGameObject.CompareTag(Constants.HURTBOX_TAG);
+
+            return isHurtbox && creator == hitParentGameObject;
+        }
+
+        return false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

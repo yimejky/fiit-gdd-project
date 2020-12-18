@@ -31,7 +31,6 @@ public class MeleeEnemy : Enemy, IMeleeWeaponWielder
                 {
                     if (targetDistance > attackRange)
                     {
-                        Debug.Log($"Debug attacking mode, {attackRange}");
                         FixedMoveToTarget(target, movementSpeed);
                      }
                     else

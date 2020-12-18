@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
-public class DamageDealEvent : UnityEvent<GameObject, int>
+public class DamageDealEvent : UnityEvent<GameObject, GameObject, int>
 {
 }
 
@@ -47,7 +47,7 @@ public class HealthController : MonoBehaviour
             {
                 // Debug.Log($"Heath: new health {actualHealth}");
                 SetHeatlhBar(actualHealth);
-                HealthUpdateEvent.Invoke(attacker, actualHealth);
+                HealthUpdateEvent.Invoke(gameObject, attacker, actualHealth);
             }
 
             if (actualHealth <= 0)

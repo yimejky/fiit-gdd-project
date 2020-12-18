@@ -159,23 +159,6 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         }
     }
 
-    private void HandleObjectInteraction()
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, interactRange, interactableLayer);
-        Debug.Log($"handle Interact {colliders.Length}");
-        foreach (Collider2D col in colliders)
-        {
-            Debug.Log($"Interact in {col.name}");
-            IInteractableObject interactable = col.transform.parent.GetComponent<IInteractableObject>();
-            if (interactable == null)
-                continue;
-
-            interactable.Interact();
-
-            break;
-        }
-    }
-
     private void HandleWeaponSwitch()
     {
         if (weapons.Count < 2) return;
