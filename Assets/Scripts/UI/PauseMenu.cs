@@ -4,16 +4,19 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     private Canvas canvas;
+    public static bool locked;
+
     public void Awake()
     {
         Time.timeScale = 1;
         canvas = GetComponent<Canvas>();
         hide();
+        locked = false;
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Pause") && !locked)
         {
             Time.timeScale = Time.timeScale == 1 ? 0 : 1;
             if (Time.timeScale == 0)

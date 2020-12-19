@@ -70,7 +70,7 @@ public class HealthController : MonoBehaviour, IUpgradable
         {
             // TODO: game over
             Debug.Log($"{gameObject.name}: Game Over");
-            RespawnPlayer();
+            DisplayHeroDiedMenu();
         } else if (gameObject.CompareTag(Constants.ENEMY_TAG))
         {
             Debug.Log($"{gameObject.name}: Enemy Died");
@@ -82,9 +82,10 @@ public class HealthController : MonoBehaviour, IUpgradable
         }
     }
 
-    private void RespawnPlayer()
+    private void DisplayHeroDiedMenu()
     {
-        Utils.ResetLevel();
+        Object menuPrefab = Resources.Load("UI/HeroDiedMenu");
+        Instantiate(menuPrefab);
     }
 
     private void SpawnHealthBarAbove()
