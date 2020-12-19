@@ -261,8 +261,8 @@ MonoBehaviour:
   weapon: {fileID: 4797620547892746938}
   state: 0
   target: {fileID: 0}
-  startAttackingStateDistance: 0
-  enemyConfig: {fileID: 0}
+  startAttackingStateDistance: -1
+  endAttackingStateDistance: -1
 --- !u!114 &6584321741660165305
 MonoBehaviour:
   m_ObjectHideFlags: 0

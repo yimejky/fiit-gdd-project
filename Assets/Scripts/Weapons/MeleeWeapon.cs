@@ -55,10 +55,13 @@ public class MeleeWeapon : Weapon
             if (ignoreHimself || isDestroy)
                 continue;
 
-            // Debug.Log($"Hit {hurtboxParent.name}");
+            // Debug.Log($"Hit from {transform.parent.name} to {hurtboxParent.name}");
+
             hurtboxParent.GetComponent<HealthController>().DealDamage(wielderGameObject, damage);
             hurtboxParent.GetComponent<KnockbackController>().Knock(gameObject.transform.position, weaponConfig.knockbackPower, weaponConfig.knockbackTime);
-            if (attackPoint.localPosition.y < 0)
+
+            // if player hit from above, knock him some distance
+            if (wielderGameObject.CompareTag(Constants.PLAYER_TAG) && attackPoint.localPosition.y < 0)
             {
                 transform.parent.GetComponent<KnockbackController>().Knock(hurtboxParent.transform.position, weaponConfig.knockbackPower, weaponConfig.knockbackTime);
             }
