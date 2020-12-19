@@ -119,12 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89b7f7f212491843938ec603a38ba8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayHealthBar: 0
+  configName: destroyableBlockHealth
   HealthUpdateEvent:
     m_PersistentCalls:
       m_Calls: []
-  maxHealth: 1
-  actualHealth: 1
-  displayHealthBar: 0
   color: {r: 0, g: 1, b: 0, a: 1}
   healtBarOffset: {x: 0, y: 1.5, z: 0}
   healthBar: {fileID: 0}
