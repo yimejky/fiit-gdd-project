@@ -20,13 +20,15 @@ public class HeroDiedMenu : Menu
     {
         Debug.Log("HeroDiedMenu reset level");
         PauseMenu.locked = false;
+        Time.timeScale = 1;
         Utils.ResetLevel();
     }
 
     public void Quit()
     {
-        PauseMenu.locked = false;
         Debug.Log("HeroDiedMenu return to Main Menu");
+        PauseMenu.locked = false;
+        Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
     }
 
