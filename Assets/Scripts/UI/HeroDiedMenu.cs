@@ -1,8 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HeroDiedMenu : MonoBehaviour
+public class HeroDiedMenu : Menu
 {
+    private Canvas canvas;
+
+    void Start()
+    {
+        canvas = GetComponent<Canvas>();
+    }
+
     public void Awake()
     {
         Time.timeScale = 0;
@@ -21,5 +28,17 @@ public class HeroDiedMenu : MonoBehaviour
         PauseMenu.locked = false;
         Debug.Log("HeroDiedMenu return to Main Menu");
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public override void Display()
+    {
+        Time.timeScale = 0;
+        PauseMenu.locked = false;
+        canvas.enabled = true;
+    }
+
+    public override void Hide()
+    {
+        throw new System.NotImplementedException();
     }
 }
