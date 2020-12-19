@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         state = GameStatePersistence.LoadState();
-        Button button = transform.Find("ContinueButton").GetComponent<Button>();
+        Button button = transform.Find("Panel").Find("ContinueButton").GetComponent<Button>();
         button.interactable = state != null;
     }
 

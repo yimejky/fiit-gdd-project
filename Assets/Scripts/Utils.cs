@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public static class Utils
@@ -30,5 +31,6 @@ public static class Utils
         }
 
         SceneManager.LoadScene(sceneName);
+        Time.timeScale = 1;
     }
 }
