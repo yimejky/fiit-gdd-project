@@ -110,6 +110,7 @@ public class ArenaManager : MonoBehaviour, IInteractableObject
         GameObject spawnEnemy = Instantiate(origin, spawnPointPos, Quaternion.identity, enemiesParent) as GameObject;
         Enemy enemy = spawnEnemy.GetComponent<Enemy>();
         enemy.startAttackingStateDistance = 50f;
+        enemy.endAttackingStateDistance = 100f;
         enemy.SetAttackingState(player.gameObject);
 
         spawnEnemy.GetComponent<HealthController>().HealthUpdateEvent.AddListener(OnEnemiesHealthUpdate);
@@ -118,7 +119,7 @@ public class ArenaManager : MonoBehaviour, IInteractableObject
 
     private void OnEnemiesHealthUpdate(GameObject enemy, GameObject attacker, int actualHealth)
     {
-        if (actualHealth < 0)
+        if (actualHealth <= 0)
         {
             enemies.Remove(enemy);
             enemy.GetComponent<HealthController>().HealthUpdateEvent.RemoveAllListeners();

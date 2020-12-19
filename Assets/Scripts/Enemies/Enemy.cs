@@ -11,7 +11,8 @@ public class Enemy : MonoBehaviour
     public State state = State.Idle;
     public GameObject target;
 
-    public float startAttackingStateDistance;
+    public float startAttackingStateDistance = -1f;
+    public float endAttackingStateDistance = -1f;
 
     protected float targetDistance = 999f;
     protected float actualAttackCooldown = 0f;
@@ -32,8 +33,15 @@ public class Enemy : MonoBehaviour
         rb2D = gameObject.GetComponent<Rigidbody2D>();
         knockbackController = gameObject.GetComponent<KnockbackController>();
         actualAttackCooldown = 0;
-        startAttackingStateDistance = enemyConfig.defaultStartAttackingStateDistance;
-        Debug.Log($"Start attacking distance {startAttackingStateDistance}");
+
+        Debug.Log($"Start attacking distance {startAttackingStateDistance}, {endAttackingStateDistance}");
+        if (startAttackingStateDistance < 0)
+            startAttackingStateDistance = enemyConfig.defaultStartAttackingStateDistance;
+        if (endAttackingStateDistance < 0)
+            endAttackingStateDistance = enemyConfig.defaultEndAttackingStateDistance;
+
+        Debug.Log($"Start attacking distance {startAttackingStateDistance}, {endAttackingStateDistance}");
+
 
         foreach (Transform child in transform)
         {
@@ -79,7 +87,7 @@ public class Enemy : MonoBehaviour
             case State.Attacking:
                 {
                     targetDistance = Vector2.Distance(transform.position, target.transform.position);
-                    if (targetDistance > enemyConfig.endAttackingStateDistance)
+                    if (targetDistance > endAttackingStateDistance)
                     {
                         // Debug.Log($"Enemy going to idle state {gameObject.name}");
                         SetIdleState();

@@ -50,7 +50,7 @@ public class HealthController : MonoBehaviour, IUpgradable
             actualHealth -= damage;
             if (displayHealthBar)
             {
-                // Debug.Log($"Heath: new health {actualHealth}");
+                // Debug.Log($"Heath: new health invoke {actualHealth}");
                 SetHeatlhBar(actualHealth);
                 HealthUpdateEvent.Invoke(gameObject, attacker, actualHealth);
             }
