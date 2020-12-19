@@ -11,7 +11,8 @@ public abstract class Weapon : MonoBehaviour, IUpgradable
     public virtual void Start()
     {
         damage = weaponConfig.defaultDamage;
-        Upgrade(StatsUpgrades.Instance.GetStat(this.GetType().Name == "MeleeWeapon" ? "sword" : "bow") * PlayerController.weaponCoefficient);
+        if (transform.parent.gameObject.name == "Hero")
+            Upgrade(StatsUpgrades.Instance.GetStat(this.GetType().Name == "MeleeWeapon" ? "sword" : "bow") * PlayerController.weaponCoefficient);
     }
 
     public virtual void Attack()
