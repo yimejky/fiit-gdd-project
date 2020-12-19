@@ -26,6 +26,8 @@ public class HealthController : MonoBehaviour, IUpgradable
         maxHealth = healthConfig.maxHealth;
         actualHealth = healthConfig.startHealth;
 
+        Upgrade(StatsUpgrades.Instance.GetStat("health") * PlayerController.healthCoefficient);
+
         if (HealthUpdateEvent == null)
         {
             HealthUpdateEvent = new DamageDealEvent();

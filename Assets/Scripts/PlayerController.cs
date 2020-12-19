@@ -34,8 +34,8 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
     private KnockbackController knockbackController;
     private AudioController audioController;
 
-    private readonly int weaponCoefficient = 5;
-    private readonly int healthCoefficient = 20;
+    public static readonly int weaponCoefficient = 5;
+    public static readonly int healthCoefficient = 20;
     private readonly int mapBottomLimit = -50;
     private readonly float hitboxSize = 0.70f;
 
