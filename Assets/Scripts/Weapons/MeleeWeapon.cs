@@ -15,6 +15,7 @@ public class MeleeWeapon : Weapon
     private Quaternion defaultRotation;
     private GameObject wielderGameObject;
     private readonly float defaultAnimationCooldown = 0.42f;
+    private readonly float swordAnimationOffset = 1.5f;
 
     private void Awake()
     {
@@ -30,8 +31,12 @@ public class MeleeWeapon : Weapon
         wielderGameObject = transform.parent.gameObject;
 
         animationCooldown -= Time.deltaTime;
-        if (animationCooldown < 0)
+        if (animationCooldown >= 0)
         {
+            animationCooldown -= Time.deltaTime;
+        }
+        else
+        { 
             body.localPosition = defaultPosition;
             body.localRotation = defaultRotation;
         }
@@ -55,8 +60,11 @@ public class MeleeWeapon : Weapon
             if (ignoreHimself || isDestroy)
                 continue;
 
-            // Debug.Log($"Hit from {transform.parent.name} to {hurtboxParent.name}");
+            // enemy cant hit another enemy
+            if (wielderGameObject.CompareTag(Constants.ENEMY_TAG) && hurtboxParent.CompareTag(Constants.ENEMY_TAG))
+                continue;
 
+            // Debug.Log($"Hit from {transform.parent.name} to {hurtboxParent.name}");
             hurtboxParent.GetComponent<HealthController>().DealDamage(wielderGameObject, damage);
             hurtboxParent.GetComponent<KnockbackController>().Knock(gameObject.transform.position, weaponConfig.knockbackPower, weaponConfig.knockbackTime);
 
@@ -100,7 +108,7 @@ public class MeleeWeapon : Weapon
         {
             Vector2 swordDirection = wielderGameObject.GetComponent<IMeleeWeaponWielder>().GetMeeleAttackDirection();
             body.localPosition = attackPoint.transform.localPosition;
-            angle = 90 * swordDirection.y / (swordDirection.x + 1);
+            angle = 90 * swordDirection.y / (swordDirection.x + swordAnimationOffset);
         }
         catch
         {

@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c0dd1fdc3d9d9f4dacd9a070df056a8, type: 3}
   m_Name: MeleeEnemyConfig
   m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemyConfig
-  touchDamage: 10
-  movementSpeed: 100
-  attackCooldown: 5
-  defaultStartAttackingStateDistance: 5
-  endAttackingStateDistance: 15
+  touchDamage: 5
+  movementSpeed: 200
+  defaultStartAttackingStateDistance: 10
+  defaultEndAttackingStateDistance: 15
   touchKnockbackTime: 0.3
   touchKnockbackPower: {x: 10, y: 10}
   attackRange: 1.5

@@ -26,6 +26,8 @@ public class Enemy : MonoBehaviour
     protected EnemyConfig enemyConfig;
     private GameObject player;
 
+    private readonly float groundRayDistance = 1f;
+
     protected virtual void Start()
     {
         player = GameObject.Find("Hero");
@@ -34,14 +36,11 @@ public class Enemy : MonoBehaviour
         knockbackController = gameObject.GetComponent<KnockbackController>();
         actualAttackCooldown = 0;
 
-        Debug.Log($"Start attacking distance {startAttackingStateDistance}, {endAttackingStateDistance}");
+        // Debug.Log($"Start attacking distance {startAttackingStateDistance}, {endAttackingStateDistance}");
         if (startAttackingStateDistance < 0)
             startAttackingStateDistance = enemyConfig.defaultStartAttackingStateDistance;
         if (endAttackingStateDistance < 0)
             endAttackingStateDistance = enemyConfig.defaultEndAttackingStateDistance;
-
-        Debug.Log($"Start attacking distance {startAttackingStateDistance}, {endAttackingStateDistance}");
-
 
         foreach (Transform child in transform)
         {
@@ -109,7 +108,7 @@ public class Enemy : MonoBehaviour
         // pause movement if in knockback or at edge
         if (!knockbackController.canMove)
         {
-            // Debug.Log($"Cant move, knock {knockbackController.canMove}, before edge {isBeforeEdge}");
+            Debug.Log($"Cant move, knock {knockbackController.canMove}, before edge {isBeforeEdge}");
             return;
         }
 
@@ -118,7 +117,7 @@ public class Enemy : MonoBehaviour
 
         if (isBeforeEdge)
         {
-            // Debug.Log($"Cant move before edge {isBeforeEdge}");
+            Debug.Log($"Cant move before edge {isBeforeEdge}");
             return;
         }
 
@@ -172,8 +171,10 @@ public class Enemy : MonoBehaviour
     void CheckIfAtEdge()
     {
         Vector2 pos = transform.position;
-        pos.x += (transform.rotation.eulerAngles.y == 0 ? 1 : -1) * 0.5f;
+        pos.x += (transform.rotation.eulerAngles.y == 0 ? 1 : -1) * groundRayDistance;
         RaycastHit2D hit = Physics2D.Raycast(pos, -Vector2.up);
+
+        Debug.Log($"edge checking: hit {hit}");
 
         if (hit.collider == null)
         {
@@ -181,7 +182,7 @@ public class Enemy : MonoBehaviour
             return;
         } else {
             float distance = Mathf.Abs(hit.point.y - transform.position.y);
-            // Debug.Log($"edge checking: {distance}");
+            Debug.Log($"edge checking: {distance}, {edgeDetectionMaxDistance}");
             if (distance > edgeDetectionMaxDistance)
             {
                 isBeforeEdge = true;
@@ -206,7 +207,7 @@ public class Enemy : MonoBehaviour
     {   
         Gizmos.color = Color.green;
         Vector2 pos = transform.position;
-        pos.x += (transform.rotation.eulerAngles.y == 0 ? 1 : -1) * 0.5f;
+        pos.x += (transform.rotation.eulerAngles.y == 0 ? 1 : -1) * groundRayDistance;
         Gizmos.DrawRay(pos, -Vector2.up);
     }
 }

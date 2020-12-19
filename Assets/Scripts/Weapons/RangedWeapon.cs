@@ -6,6 +6,7 @@ public class RangedWeapon : Weapon
 	public Transform attackPoint;
 
 	private GameObject wielderGameObject;
+
 	public new void Update()
 	{
 		base.Update();
@@ -17,7 +18,7 @@ public class RangedWeapon : Weapon
 		IRangedWeaponWielder wielder = wielderGameObject.GetComponent<IRangedWeaponWielder>();
 		if (wielder == null)
         {
-			Debug.Log("RangedWeapon: missing wielder");
+			// Debug.Log("RangedWeapon: missing wielder");
 			return;
 		}
 
@@ -32,10 +33,10 @@ public class RangedWeapon : Weapon
 
 			Vector3 force = arrow.CalculateArrowForceVector(wielder.GetRangedAttackDirection(), wielder.ArrowSpeed, wielder.IsArrowDirect, shouldIgnoreCantReach);
 			arrow.Init(transform.parent.gameObject, force, damage, weaponConfig.knockbackPower, weaponConfig.knockbackTime);
-			Debug.Log($"Ranged Weapon {force}, {weaponConfig.knockbackPower}");
+			// Debug.Log($"Ranged Weapon {force}, {weaponConfig.knockbackPower}");
 		} catch (Exception)
 		{
-			Debug.Log($"Ranged Weapon cant reach");
+			// Debug.Log($"Ranged Weapon cant reach");
 			Destroy(arrowGameobject);
 		}
 

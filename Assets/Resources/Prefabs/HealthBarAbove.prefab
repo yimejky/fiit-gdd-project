@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 8679179459081859971}
   - component: {fileID: 5627243415653839765}
   m_Layer: 0
-  m_Name: HealthBar
+  m_Name: HealthBarAbove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,3 +320,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407f8d6b8774c6543a810ea4a0f22425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 0}

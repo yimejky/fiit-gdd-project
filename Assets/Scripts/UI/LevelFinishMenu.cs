@@ -31,6 +31,7 @@ public class LevelFinishMenu : Menu
 
     public override void Display()
     {
+        Debug.Log("FInish menu pause time");
         Time.timeScale = 0;
         canvas.enabled = true;
     }

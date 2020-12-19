@@ -727,6 +727,16 @@ PrefabInstance:
       propertyPath: configName
       value: playerMeleeWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 4943507438706518034, guid: a70e753f73e72484b9fc6dff2c0b7256,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4943507438706518034, guid: a70e753f73e72484b9fc6dff2c0b7256,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalPosition.x

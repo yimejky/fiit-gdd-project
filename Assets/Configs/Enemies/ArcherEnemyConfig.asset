@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f24f9e7d827dc64f8bd78d7b2fb75eb, type: 3}
   m_Name: ArcherEnemyConfig
   m_EditorClassIdentifier: Assembly-CSharp::ArcherEnemyConfig
-  touchDamage: 10
+  touchDamage: 5
   movementSpeed: 100
-  attackCooldown: 5
-  defaultStartAttackingStateDistance: 5
-  endAttackingStateDistance: 15
+  defaultStartAttackingStateDistance: 8
+  defaultEndAttackingStateDistance: 15
   touchKnockbackTime: 0.3
   touchKnockbackPower: {x: 2, y: 2}
   isArrowDirect: 1

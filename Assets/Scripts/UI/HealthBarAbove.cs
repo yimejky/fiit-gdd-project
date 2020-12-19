@@ -48,4 +48,9 @@ public class HealthBarAbove : MonoBehaviour, IHealthBarController
     {
         barSpriteTrans.GetComponent<SpriteRenderer>().color = color;
     }
+
+    public void SetText(string newText)
+    {
+        return;
+    }
 }

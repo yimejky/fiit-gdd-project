@@ -24,10 +24,10 @@ public class FlashMessage : MonoBehaviour
 
     public IEnumerator ShowMessageCoroutine(string text, float showTime=4f)
     {
-        Debug.Log($"Message log {text}");
+        // Debug.Log($"Message log {text}");
         textUI.text = text;
 
-        animator.Play("Base Layer.FadeIn");
+        animator.Play("FadeIn");
         yield return new WaitForSeconds(showTime);
         animator.Play("FadeOut");
     }

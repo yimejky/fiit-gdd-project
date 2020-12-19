@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa098afd92bb7f4b969d1048b33b283, type: 3}
   m_Name: ArcherEnemyWeapon
   m_EditorClassIdentifier: Assembly-CSharp::WeaponConfig
-  defaultDamage: 10
-  attackCooldown: 0.6
+  defaultDamage: 25
+  attackCooldown: 1
   knockbackTime: 0.3
   knockbackPower: {x: 2, y: 2}

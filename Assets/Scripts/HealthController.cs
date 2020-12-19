@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class DamageDealEvent : UnityEvent<GameObject, GameObject, int>
@@ -26,7 +27,7 @@ public class HealthController : MonoBehaviour, IUpgradable
         maxHealth = healthConfig.maxHealth;
         actualHealth = healthConfig.startHealth;
 
-        Upgrade(StatsUpgrades.Instance.GetStat("health") * PlayerController.healthCoefficient);
+        Upgrade(StatsUpgrades.Instance.GetStat("health") * PlayerController.playerControllerConfig.healthCoefficient);
 
         if (HealthUpdateEvent == null)
         {
@@ -37,16 +38,18 @@ public class HealthController : MonoBehaviour, IUpgradable
         {
             SpawnHealthBarAbove();
         }
+
+        SetHeatlhBar(actualHealth);
     }
 
     private void FixedUpdate()
     {
-        SetHeatlhBar(actualHealth);
+        // SetHeatlhBar(actualHealth);
     }
 
     public void DealDamage(GameObject attacker, int damage)
     {
-        // Debug.Log($"Deal Damage {gameObject.name}: deal dmg {damage}, heatlh: {actualHealth}");
+        Debug.Log($"Deal Damage {gameObject.name}: deal dmg {damage}, heatlh: {actualHealth}");
         if (actualHealth > 0)
         {
             actualHealth -= damage;
@@ -55,6 +58,7 @@ public class HealthController : MonoBehaviour, IUpgradable
                 // Debug.Log($"Heath: new health invoke {actualHealth}");
                 SetHeatlhBar(actualHealth);
                 HealthUpdateEvent.Invoke(gameObject, attacker, actualHealth);
+                SpawnDamageTextAbove(damage);
             }
 
             if (actualHealth <= 0)
@@ -105,12 +109,28 @@ public class HealthController : MonoBehaviour, IUpgradable
         {
             float barSize = Mathf.Max((float)newActualHealth / maxHealth, 0f);
             healthBar.GetComponent<IHealthBarController>().SetSize(barSize);
+            // Debug.Log($"SetHeatlhBar: healthbar");
+            healthBar.GetComponent<IHealthBarController>().SetText($"{newActualHealth}/{maxHealth}");
         }
+    }
+
+    private void SpawnDamageTextAbove(int damage)
+    {
+        Object damagePopup = Resources.Load("UI/DamagePopup");
+        GameObject popup = Instantiate(damagePopup, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(0.8f, 1.5f), 0), Quaternion.identity) as GameObject;
+
+        popup.GetComponent<Text>().text = $"{damage}";
+        popup.transform.SetParent(GameObject.Find("WorldCanvas").transform);
     }
 
     public void Upgrade(int value)
     {
+        if (!gameObject.CompareTag(Constants.PLAYER_TAG))
+            return;
+
         actualHealth += value;
         maxHealth += value;
-    }
+        // Debug.Log($"Upgrade: healthbar");
+        SetHeatlhBar(actualHealth);
+    } 
 }

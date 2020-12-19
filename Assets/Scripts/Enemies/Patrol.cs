@@ -20,7 +20,7 @@ public class Patrol : MonoBehaviour
     {
         enemyTrans = transform.parent;
         enemy = enemyTrans.gameObject;
-        Debug.Log($"patrol start {enemyTrans}, {enemy}");
+        // Debug.Log($"patrol start {enemyTrans}, {enemy}");
 
         pointsDistance = returnDistance;
         Transform[] mp = transform.GetComponentsInChildren<Transform>();
@@ -81,10 +81,10 @@ public class Patrol : MonoBehaviour
     {
         if (pointsDistance > returnDistance)
         {
-            Debug.Log("Not setting patrolEnabled, min distance: " + pointsDistance);
+            // Debug.Log("Not setting patrolEnabled, min distance: " + pointsDistance);
             return;
         }
-        Debug.Log($"Setting patrol mode {value}");
+        // Debug.Log($"Setting patrol mode {value}");
         patrolEnabled = value;
     }
 }

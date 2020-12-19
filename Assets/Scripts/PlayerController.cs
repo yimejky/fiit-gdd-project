@@ -8,11 +8,11 @@ public interface IUpgradable
     void Upgrade(int value);
 }
 
-// inspired by https://github.com/Brackeys/2D-Character-Controller
+// movement inspired by https://github.com/Brackeys/2D-Character-Controller
 [RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController), typeof(AudioController))]
 public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeaponWielder, StatsObserver
 {
-    public PlayerControllerConfig playerControllerConfig => GameConfigManager.Get().gameConfig.playerConfig;
+    public static PlayerControllerConfig playerControllerConfig => GameConfigManager.Get().gameConfig.playerConfig;
 
     public bool isPaused = false;
     public bool isFlipped = false;
@@ -34,8 +34,6 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
     private KnockbackController knockbackController;
     private AudioController audioController;
 
-    public static readonly int weaponCoefficient = 5;
-    public static readonly int healthCoefficient = 20;
     private readonly int mapBottomLimit = -50;
     private readonly float hitboxSize = 0.70f;
 
@@ -187,26 +185,22 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
 
     public void StatsUpdate(string name, int value)
     {
-        Debug.Log("Controller update call: " + name + "; value: " + value);
-
+        // Debug.Log("Controller update call: " + name + "; value: " + value);
         switch (name)
         {
             case "health":
-                HealthUpgrade(value);
+                HealthController health = GetComponent<HealthController>();
+                health.Upgrade(value * playerControllerConfig.healthCoefficient);
                 break;
             case "sword":
+                WeaponUpgrade(name, value * playerControllerConfig.meleeWeaponCoefficient);
+                break;
             case "bow":
-                WeaponUpgrade(name, value);
+                WeaponUpgrade(name, value * playerControllerConfig.rangedWeaponCoefficient);
                 break;
             default:
                 break;
         }
-    }
-
-    private void HealthUpgrade(int value)
-    {
-        HealthController health = GetComponent<HealthController>();
-        health.Upgrade(value * healthCoefficient);
     }
 
     private void WeaponUpgrade(string name, int value)
@@ -215,7 +209,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         {
             if (weapon.gameObject.name.ToLower() == name)
             {
-                weapon.Upgrade(value * weaponCoefficient);
+                weapon.Upgrade(value);
             }
         }
     }

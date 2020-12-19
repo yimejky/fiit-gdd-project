@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class UIHealthBar : MonoBehaviour, IHealthBarController
 {
     public Color color;
+    private Text text;
     private Image fillImage;
     private Slider slider;
 
@@ -11,16 +12,27 @@ public class UIHealthBar : MonoBehaviour, IHealthBarController
     {
         slider = GetComponent<Slider>();
         fillImage = transform.Find("Fill").GetComponent<Image>();
+        text = transform.Find("Text").GetComponent<Text>();
+
         SetColor(color);
+        SetText("100/100");
     }
 
     public void SetSize(float sizeNormalized)
     {
-        slider.value = sizeNormalized;
+        if (slider != null)
+            slider.value = sizeNormalized;
     }
 
     public void SetColor(Color color)
     {
-        fillImage.color = color;
+        if (fillImage != null) 
+            fillImage.color = color;
+    }
+
+    public void SetText(string newText)
+    {
+        if (text != null)
+            text.text = newText;
     }
 }

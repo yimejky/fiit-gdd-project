@@ -966,6 +966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayDistance: 2
   prerequisiteDead: {fileID: 0}
+  prerequisiteText: 
 --- !u!114 &6204686944544699492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1249,3 +1250,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevelScene: SampleScene
+  newPoints: 3

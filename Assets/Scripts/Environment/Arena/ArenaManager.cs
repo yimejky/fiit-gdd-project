@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class ArenaManager : MonoBehaviour, IInteractableObject
 {
-    public int enemiesToFinish = 2;
-    public int maxSpawnedEnemiesAtTime = 1;
+    public int enemiesToFinish = 10;
+    public int maxSpawnedEnemiesAtTime = 3;
     public List<Transform> spawnPoints;
     public List<GameObject> enemies;
 
