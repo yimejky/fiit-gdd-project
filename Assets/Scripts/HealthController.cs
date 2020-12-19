@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class DamageDealEvent : UnityEvent<GameObject, GameObject, int>
 {
 }
 
-public class HealthController : MonoBehaviour
+public class HealthController : MonoBehaviour, IUpgradable
 {
-    public DamageDealEvent HealthUpdateEvent;
-    public int maxHealth = 100;
-    public int actualHealth = 100;
     public bool displayHealthBar = true;
+    public string configName;
+    public DamageDealEvent HealthUpdateEvent;
+
+    private int maxHealth;
+    private int actualHealth;
+    private HealthControllerConfig healthConfig => GameConfigManager.Get().GetConfig<HealthControllerConfig>(configName);
 
     // healtbar settings
     public Color color = Color.green;
@@ -21,6 +23,9 @@ public class HealthController : MonoBehaviour
 
     private void Start()
     {
+        maxHealth = healthConfig.maxHealth;
+        actualHealth = healthConfig.startHealth;
+
         if (HealthUpdateEvent == null)
         {
             HealthUpdateEvent = new DamageDealEvent();
@@ -98,5 +103,11 @@ public class HealthController : MonoBehaviour
             float barSize = Mathf.Max((float)newActualHealth / maxHealth, 0f);
             healthBar.GetComponent<IHealthBarController>().SetSize(barSize);
         }
+    }
+
+    public void Upgrade(int value)
+    {
+        actualHealth += value;
+        maxHealth += value;
     }
 }

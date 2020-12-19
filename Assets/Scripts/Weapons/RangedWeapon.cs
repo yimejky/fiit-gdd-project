@@ -31,8 +31,8 @@ public class RangedWeapon : Weapon
 			bool shouldIgnoreCantReach = wielderGameObject.CompareTag(Constants.PLAYER_TAG);
 
 			Vector3 force = arrow.CalculateArrowForceVector(wielder.GetRangedAttackDirection(), wielder.ArrowSpeed, wielder.IsArrowDirect, shouldIgnoreCantReach);
-			arrow.Init(transform.parent.gameObject, force, damage, knockbackPower, knockbackTime);
-			Debug.Log($"Ranged Weapon {force}, {knockbackPower}");
+			arrow.Init(transform.parent.gameObject, force, damage, weaponConfig.knockbackPower, weaponConfig.knockbackTime);
+			Debug.Log($"Ranged Weapon {force}, {weaponConfig.knockbackPower}");
 		} catch (Exception)
 		{
 			Debug.Log($"Ranged Weapon cant reach");

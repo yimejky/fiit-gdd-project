@@ -6,7 +6,7 @@ using UnityEngine;
 public class Arrow : Projectile
 {
     protected bool isFrozen = false;
-    private float defaultGravityScale = 1f;
+    private readonly float defaultGravityScale = 1f;
 
     protected override void Awake()
     {

@@ -2,28 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public interface IUpgradable
+{
+    void Upgrade(int value);
+}
+
 // inspired by https://github.com/Brackeys/2D-Character-Controller
 [RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController), typeof(AudioController))]
 public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeaponWielder, StatsObserver
 {
+    public PlayerControllerConfig playerControllerConfig => GameConfigManager.Get().gameConfig.playerConfig;
+
     public bool isPaused = false;
     public bool isFlipped = false;
-    public bool isArrowDirect = true;
-    public float arrowSpeed = 10f;
-    public float speed = 400f;
-    public float maxSpeed = 5f;
-    public float jumpPower = 500f;
-    public float interactRange = 1.0f;
     public Transform groundCollider;
     public Animator animator;
     public LayerMask interactableLayer;
 
-    public bool IsArrowDirect { get => isArrowDirect; set => isArrowDirect = value; }
-    public float ArrowSpeed { get => arrowSpeed; set => arrowSpeed = value; }
+    public bool IsArrowDirect => playerControllerConfig.isArrowDirect;
+    public float ArrowSpeed => playerControllerConfig.arrowSpeed;
 
     [HideInInspector]
     private bool isGrounded = true;
-    private float hitboxSize = 0.70f;
     private float xInput = 0f;
     public UIAction closestUI;
     private Weapon activeWeapon;
@@ -34,8 +35,9 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
     private AudioController audioController;
 
     private readonly int weaponCoefficient = 5;
-    private readonly int healtCoefficient = 20;
+    private readonly int healthCoefficient = 20;
     private readonly int mapBottomLimit = -50;
+    private readonly float hitboxSize = 0.70f;
 
     void Awake()
     {
@@ -132,9 +134,9 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         animator.SetFloat("Speed", xInputAbs);
         if (!isPaused && knockbackController.canMove && xInputAbs > 0)
         {
-            float horizontalSpeed = xInput * Time.fixedDeltaTime * speed;
+            float horizontalSpeed = xInput * Time.fixedDeltaTime * playerControllerConfig.speed;
             Vector2 movement = new Vector3(horizontalSpeed, rb2D.velocity.y, 0);
-            movement.x = Mathf.Clamp(movement.x, -maxSpeed, maxSpeed);
+            movement.x = Mathf.Clamp(movement.x, -playerControllerConfig.maxSpeed, playerControllerConfig.maxSpeed);
 
             rb2D.velocity = movement;
             isFlipped = rb2D.velocity.x < 0;
@@ -147,7 +149,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         if (!isPaused && isGrounded)
         {
             isGrounded = false;
-            Vector2 movement = new Vector2(0, jumpPower);
+            Vector2 movement = new Vector2(0, playerControllerConfig.jumpPower);
 
             // triming y velocity before jump
             Vector2 vel = rb2D.velocity;
@@ -204,8 +206,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
     private void HealthUpgrade(int value)
     {
         HealthController health = GetComponent<HealthController>();
-        health.actualHealth += value * healtCoefficient;
-        health.maxHealth += value * healtCoefficient;
+        health.Upgrade(value * healthCoefficient);
     }
 
     private void WeaponUpgrade(string name, int value)
@@ -213,7 +214,9 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
         foreach (Weapon weapon in weapons)
         {
             if (weapon.gameObject.name.ToLower() == name)
-                weapon.damage += value * weaponCoefficient;
+            {
+                weapon.Upgrade(value * weaponCoefficient);
+            }
         }
     }
 
@@ -227,7 +230,7 @@ public class PlayerController : MonoBehaviour, IMeleeWeaponWielder, IRangedWeapo
 
         // Interact range
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, interactRange);
+        Gizmos.DrawWireSphere(transform.position, playerControllerConfig.interactRange);
     }
 
     private void OnDestroy()

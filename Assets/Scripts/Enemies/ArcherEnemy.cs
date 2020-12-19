@@ -2,11 +2,16 @@
 
 public class ArcherEnemy : Enemy, IRangedWeaponWielder
 {
-    public bool isArrowDirect = true;
-    public float arrowSpeed = 10f;
+    new ArcherEnemyConfig enemyConfig => GameConfigManager.Get().gameConfig.archerEnemyConfig; 
 
-    public bool IsArrowDirect { get => isArrowDirect; set => isArrowDirect = value; }
-    public float ArrowSpeed { get => arrowSpeed; set => arrowSpeed = value; }
+    public bool IsArrowDirect => enemyConfig.isArrowDirect;
+    public float ArrowSpeed => enemyConfig.arrowSpeed;
+
+    protected override void Start()
+    {
+        base.enemyConfig = enemyConfig;
+        base.Start();
+    }
 
     protected override void FixedUpdate()
     {

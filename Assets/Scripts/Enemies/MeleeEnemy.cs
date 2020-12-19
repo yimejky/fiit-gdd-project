@@ -3,10 +3,11 @@
 [RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController), typeof(AudioController))]
 public class MeleeEnemy : Enemy, IMeleeWeaponWielder
 {
-    private float attackRange = 1.5f;
+    new MeleeEnemyConfig enemyConfig => GameConfigManager.Get().gameConfig.meleeEnemyConfig;
 
     protected override void Start()
     {
+        base.enemyConfig = enemyConfig;
         base.Start();
     }
 
@@ -29,10 +30,10 @@ public class MeleeEnemy : Enemy, IMeleeWeaponWielder
                 }
             case State.Attacking:
                 {
-                    if (targetDistance > attackRange)
+                    if (targetDistance > enemyConfig.attackRange)
                     {
-                        FixedMoveToTarget(target, movementSpeed);
-                     }
+                        FixedMoveToTarget(target, enemyConfig.movementSpeed);
+                    }
                     else
                     {
                         weapon.Attack();

@@ -167,12 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89b7f7f212491843938ec603a38ba8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayHealthBar: 1
+  configName: archerEnemyHealth
   HealthUpdateEvent:
     m_PersistentCalls:
       m_Calls: []
-  maxHealth: 100
-  actualHealth: 100
-  displayHealthBar: 1
   color: {r: 1, g: 0, b: 0, a: 1}
   healtBarOffset: {x: 0, y: 1.5, z: 0}
   healthBar: {fileID: 0}
@@ -188,18 +187,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd27a1067d1b8f4b8b761e241068995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBeforeEdge: 0
+  weapon: {fileID: 1432231935635801182}
   state: 0
   target: {fileID: 0}
-  movementSpeed: 100
-  attackCooldown: 5
-  touchDamage: 10
-  touchKnockbackPower: {x: 5, y: 5}
-  touchKnockbackTime: 0.3
-  weapon: {fileID: 1432231935635801182}
-  edgeDetectionMaxDistance: 3
-  isBeforeEdge: 0
-  isArrowDirect: 1
-  arrowSpeed: 10
+  startAttackingStateDistance: 0
+  enemyConfig: {fileID: 0}
 --- !u!114 &206553028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,6 +551,11 @@ PrefabInstance:
         type: 3}
       propertyPath: knockbackPower.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300895122025649636, guid: 067d219443495be4ba64e6bb6935aba1,
+        type: 3}
+      propertyPath: configName
+      value: archerEnemyWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 7155138976539172944, guid: 067d219443495be4ba64e6bb6935aba1,
         type: 3}

@@ -376,12 +376,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPaused: 0
   isFlipped: 0
-  isArrowDirect: 1
-  arrowSpeed: 10
-  speed: 1000
-  maxSpeed: 7
-  jumpPower: 18
-  interactRange: 1
   groundCollider: {fileID: 654144884}
   animator: {fileID: -1816402212586383437}
   interactableLayer:
@@ -400,12 +394,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89b7f7f212491843938ec603a38ba8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayHealthBar: 1
+  configName: playerHealth
   HealthUpdateEvent:
     m_PersistentCalls:
       m_Calls: []
-  maxHealth: 100
-  actualHealth: 100
-  displayHealthBar: 1
   color: {r: 0, g: 1, b: 0, a: 1}
   healtBarOffset: {x: 0, y: 1.5, z: 0}
   healthBar: {fileID: 0}
@@ -699,6 +692,11 @@ PrefabInstance:
       propertyPath: knockbackPower.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6300895122025649636, guid: 067d219443495be4ba64e6bb6935aba1,
+        type: 3}
+      propertyPath: configName
+      value: playerRangedWeapon
+      objectReference: {fileID: 0}
     - target: {fileID: 7155138976539172944, guid: 067d219443495be4ba64e6bb6935aba1,
         type: 3}
       propertyPath: m_Name
@@ -724,6 +722,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1503514091563632505}
     m_Modifications:
+    - target: {fileID: 2882612491396985599, guid: a70e753f73e72484b9fc6dff2c0b7256,
+        type: 3}
+      propertyPath: configName
+      value: playerMeleeWeapon
+      objectReference: {fileID: 0}
     - target: {fileID: 6747068590136899752, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -5,7 +5,7 @@ public class MeleeWeapon : Weapon
 {
     public LayerMask hurtboxLayer;
     public Transform attackPoint;
-    public float attackRange = 1.0f;
+    public float attackRange = 0.8f;
 
     private float animationCooldown;
     private Vector2 defaultAttackPosition;
@@ -57,10 +57,10 @@ public class MeleeWeapon : Weapon
 
             // Debug.Log($"Hit {hurtboxParent.name}");
             hurtboxParent.GetComponent<HealthController>().DealDamage(wielderGameObject, damage);
-            hurtboxParent.GetComponent<KnockbackController>().Knock(gameObject.transform.position, knockbackPower, knockbackTime);
+            hurtboxParent.GetComponent<KnockbackController>().Knock(gameObject.transform.position, weaponConfig.knockbackPower, weaponConfig.knockbackTime);
             if (attackPoint.localPosition.y < 0)
             {
-                transform.parent.GetComponent<KnockbackController>().Knock(hurtboxParent.transform.position, knockbackPower, knockbackTime);
+                transform.parent.GetComponent<KnockbackController>().Knock(hurtboxParent.transform.position, weaponConfig.knockbackPower, weaponConfig.knockbackTime);
             }
 
             break;

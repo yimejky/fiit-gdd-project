@@ -7,8 +7,8 @@ public interface IMeleeWeaponWielder
 
 public interface IRangedWeaponWielder
 {
-    bool IsArrowDirect { get; set; }
-    float ArrowSpeed { get; set; }
+    bool IsArrowDirect { get; }
+    float ArrowSpeed { get; }
 
     Vector2 GetRangedAttackDirection();
 }

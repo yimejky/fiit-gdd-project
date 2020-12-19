@@ -223,12 +223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89b7f7f212491843938ec603a38ba8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayHealthBar: 1
+  configName: meleeEnemyHealth
   HealthUpdateEvent:
     m_PersistentCalls:
       m_Calls: []
-  maxHealth: 100
-  actualHealth: 100
-  displayHealthBar: 1
   color: {r: 1, g: 0, b: 0, a: 1}
   healtBarOffset: {x: 0, y: 1.5, z: 0}
   healthBar: {fileID: 0}
@@ -258,16 +257,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5feb0d62cac3bcb46a6a710bf8994edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBeforeEdge: 0
+  weapon: {fileID: 4797620547892746938}
   state: 0
   target: {fileID: 0}
-  movementSpeed: 100
-  attackCooldown: 5
-  touchDamage: 10
-  touchKnockbackPower: {x: 5, y: 5}
-  touchKnockbackTime: 0.3
-  weapon: {fileID: 4797620547892746938}
-  edgeDetectionMaxDistance: 3
-  isBeforeEdge: 0
+  startAttackingStateDistance: 0
+  enemyConfig: {fileID: 0}
 --- !u!114 &6584321741660165305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,6 +380,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2565707610158881399}
     m_Modifications:
+    - target: {fileID: 2882612491396985599, guid: a70e753f73e72484b9fc6dff2c0b7256,
+        type: 3}
+      propertyPath: configName
+      value: meleeEnemyWeapon
+      objectReference: {fileID: 0}
     - target: {fileID: 4943507438706518034, guid: a70e753f73e72484b9fc6dff2c0b7256,
         type: 3}
       propertyPath: m_LocalPosition.y

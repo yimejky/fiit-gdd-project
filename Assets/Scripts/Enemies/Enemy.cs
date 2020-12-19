@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(KnockbackController), typeof(AudioController))]
 public class Enemy : MonoBehaviour
@@ -6,27 +7,22 @@ public class Enemy : MonoBehaviour
     public enum State { Idle, Attacking }
 
     public bool isBeforeEdge = false;
-    public int touchDamage = 10;
-    public float movementSpeed = 100f;
-    public float attackCooldown = 5f;
-    public float startAttackingStateDistance = 5f;
-    public float endAttackingStateDistance = 15f;
-    public float edgeDetectionMaxDistance = 3f;
-    public float touchKnockbackTime = 0.3f;
-
-    public Vector2 touchKnockbackPower = new Vector2(10, 10);
     public Weapon weapon;
     public State state = State.Idle;
     public GameObject target;
 
+    public float startAttackingStateDistance;
+
     protected float targetDistance = 999f;
     protected float actualAttackCooldown = 0f;
     protected readonly int mapBottomLimit = -50;
+    protected readonly float edgeDetectionMaxDistance = 3f;
     protected Rigidbody2D rb2D;
     protected KnockbackController knockbackController;
     protected AudioController audioController;
     protected Patrol patrol;
 
+    protected EnemyConfig enemyConfig;
     private GameObject player;
 
     protected virtual void Start()
@@ -36,6 +32,9 @@ public class Enemy : MonoBehaviour
         rb2D = gameObject.GetComponent<Rigidbody2D>();
         knockbackController = gameObject.GetComponent<KnockbackController>();
         actualAttackCooldown = 0;
+        startAttackingStateDistance = enemyConfig.defaultStartAttackingStateDistance;
+        Debug.Log($"Start attacking distance {startAttackingStateDistance}");
+
         foreach (Transform child in transform)
         {
             if (child.GetComponent<Patrol>() != null)
@@ -80,7 +79,7 @@ public class Enemy : MonoBehaviour
             case State.Attacking:
                 {
                     targetDistance = Vector2.Distance(transform.position, target.transform.position);
-                    if (targetDistance > endAttackingStateDistance)
+                    if (targetDistance > enemyConfig.endAttackingStateDistance)
                     {
                         // Debug.Log($"Enemy going to idle state {gameObject.name}");
                         SetIdleState();
@@ -190,8 +189,8 @@ public class Enemy : MonoBehaviour
         GameObject parent = collision.transform.parent?.gameObject;
         if (collision.CompareTag(Constants.HURTBOX_TAG) && parent.CompareTag(Constants.PLAYER_TAG))
         {
-            parent.GetComponent<HealthController>().DealDamage(gameObject, touchDamage);
-            parent.GetComponent<KnockbackController>().Knock(gameObject.transform.position, touchKnockbackPower, touchKnockbackTime);
+            parent.GetComponent<HealthController>().DealDamage(gameObject, enemyConfig.touchDamage);
+            parent.GetComponent<KnockbackController>().Knock(gameObject.transform.position, enemyConfig.touchKnockbackPower, enemyConfig.touchKnockbackTime);
         }
     }
 

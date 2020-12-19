@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour, IUpgradable
 {
-    public int damage = 10;
-    public float attackCooldown = 0.6f;
-    public float knockbackTime = 0.3f;
-    public Vector2 knockbackPower = new Vector2(10, 10);
+    public string configName;
 
+    protected int damage;
+    protected WeaponConfig weaponConfig => GameConfigManager.Get().GetConfig<WeaponConfig>(configName);
     private float currentCooldown = 0;
+
+    public virtual void Start()
+    {
+        damage = weaponConfig.defaultDamage;
+    }
 
     public virtual void Attack()
     {
-        currentCooldown = attackCooldown;
+        currentCooldown = weaponConfig.attackCooldown;
     }
 
     protected bool isOnCooldown()
@@ -22,5 +26,10 @@ public abstract class Weapon : MonoBehaviour
     protected void Update()
     {
         currentCooldown -= Time.deltaTime;
+    }
+
+    public void Upgrade(int value)
+    {
+        damage += value;
     }
 }

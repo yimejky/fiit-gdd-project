@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42324d60ab190394aac17f1ea02c3f5e, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  meleeEnemyHealth: {fileID: 11400000, guid: d7c9a9077fd00c64088fc22a3d8e9bae, type: 2}
+  meleeEnemyConfig: {fileID: 11400000, guid: b88027fa34ca1ca45ac91c393880265c, type: 2}
+  meleeEnemyWeapon: {fileID: 11400000, guid: 617a7d8c2201e3e4b92314be316c5417, type: 2}
+  archerEnemyHealth: {fileID: 11400000, guid: 86285224e98b9314d847fd1f9f8ec4dc, type: 2}
+  archerEnemyConfig: {fileID: 11400000, guid: 26b9c818524a3e84985b0cfa999a8d07, type: 2}
+  archerEnemyWeapon: {fileID: 11400000, guid: f21f21cea974f95479612cfdde0f94ca, type: 2}
+  playerHealth: {fileID: 11400000, guid: d85188d5269ddcd48872c4ba7dceb54e, type: 2}
+  playerConfig: {fileID: 11400000, guid: e41cf3ec55640334e9f3bd58978406e4, type: 2}
+  playerMeleeWeapon: {fileID: 11400000, guid: 965ac1cd1660ee64abaca9a500d4dff6, type: 2}
+  playerRangedWeapon: {fileID: 11400000, guid: 8bb918a241e66bb41a8fc2f76b6b1adb, type: 2}
+  destroyableBlockHealth: {fileID: 11400000, guid: 629036d5305a7574c91e0998c0fc999a,
+    type: 2}
