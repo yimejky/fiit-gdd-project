@@ -64,8 +64,11 @@ public class MeleeWeapon : Weapon
             if (wielderGameObject.CompareTag(Constants.ENEMY_TAG) && hurtboxParent.CompareTag(Constants.ENEMY_TAG))
                 continue;
 
+            int range = (int)(damage * weaponConfig.damageRandomRange);
+            int finalDamage = UnityEngine.Random.Range(damage - range, damage + range);
             // Debug.Log($"Hit from {transform.parent.name} to {hurtboxParent.name}");
-            hurtboxParent.GetComponent<HealthController>().DealDamage(wielderGameObject, damage);
+
+            hurtboxParent.GetComponent<HealthController>().DealDamage(wielderGameObject, finalDamage);
             hurtboxParent.GetComponent<KnockbackController>().Knock(gameObject.transform.position, weaponConfig.knockbackPower, weaponConfig.knockbackTime);
 
             // if player hit from above, knock him some distance

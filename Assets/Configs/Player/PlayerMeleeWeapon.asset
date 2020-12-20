@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa098afd92bb7f4b969d1048b33b283, type: 3}
   m_Name: PlayerMeleeWeapon
   m_EditorClassIdentifier: 
-  defaultDamage: 50
+  defaultDamage: 35
   attackCooldown: 0.6
   knockbackTime: 0.3
+  damageRandomRange: 0.15
   knockbackPower: {x: 10, y: 10}
