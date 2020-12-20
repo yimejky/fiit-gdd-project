@@ -16,8 +16,8 @@ MonoBehaviour:
   maxSpeed: 7
   jumpPower: 18
   interactRange: 1
-  meleeWeaponCoefficient: 7
-  rangedWeaponCoefficient: 4
+  meleeWeaponCoefficient: 4
+  rangedWeaponCoefficient: 3
   healthCoefficient: 15
   isArrowDirect: 1
   arrowSpeed: 10
