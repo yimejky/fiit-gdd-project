@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public Canvas loadingScreen;
+    private LoadingScreen loadingScreen;
     private GameState state;
 
     void Start()
     {
+        loadingScreen = GameObject.Find("LoadingScreenCanvas").GetComponent<LoadingScreen>();
         state = GameStatePersistence.LoadState();
         Button button = transform.Find("Panel").Find("ContinueButton").GetComponent<Button>();
         button.interactable = state != null;
@@ -17,14 +18,14 @@ public class MainMenu : MonoBehaviour
     public void Continue()
     {
         Debug.Log("Continue game");
-        loadingScreen.GetComponent<LoadingScreen>().LoadScene(state.currentSceneName);
+        loadingScreen.LoadScene(state.currentSceneName);
     }
 
     public void NewGame()
     {
         Debug.Log("New game");
         StatsUpgrades.NewInstance();
-        loadingScreen.GetComponent<LoadingScreen>().LoadScene(Constants.FIRST_LEVEL_SCENE);
+        loadingScreen.LoadScene(Constants.FIRST_LEVEL_SCENE);
     }
 
     public void Quit()

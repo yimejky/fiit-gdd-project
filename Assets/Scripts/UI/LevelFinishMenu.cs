@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class LevelFinishMenu : Menu
 {
     public string nextLevelScene;
     public int newPoints = 3;
 
+    private LoadingScreen loadingScreen;
     private Canvas canvas;
 
     void Start()
     {
+        loadingScreen = GameObject.Find("LoadingScreenCanvas").GetComponent<LoadingScreen>();
         canvas = GetComponent<Canvas>();
     }
     
@@ -51,7 +50,8 @@ public class LevelFinishMenu : Menu
         };
         GameStatePersistence.SaveState(state);
 
-        SceneManager.LoadScene(nextLevelScene);
+        loadingScreen.GetComponent<LoadingScreen>().LoadScene(nextLevelScene);
+        // SceneManager.LoadScene(nextLevelScene);
     }
 }
 
